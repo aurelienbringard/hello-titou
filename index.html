@@ -1237,7 +1237,8 @@ const THEME_LIST = [{"id": "pets", "cat": "animaux", "emoji": "🐶", "fr": "Com
     if (m.indexOf("email not confirmed") >= 0) return "Ouvre le lien dans l'e-mail de confirmation, puis reviens te connecter.";
     if (m.indexOf("already registered") >= 0 || m.indexOf("already been registered") >= 0 || m.indexOf("user already") >= 0) return "Ce compte existe déjà. Essaie « Se connecter ».";
     if (m.indexOf("password") >= 0 && (m.indexOf("least") >= 0 || m.indexOf("6") >= 0 || m.indexOf("short") >= 0)) return "Le mot de passe doit faire au moins 6 caractères.";
-    if (m.indexOf("invalid email") >= 0 || m.indexOf("unable to validate email") >= 0) return "Vérifie l'adresse e-mail.";
+    if (m.indexOf("invalid email") >= 0 || m.indexOf("unable to validate email") >= 0 || m.indexOf("email_address_invalid") >= 0 || (m.indexOf("email") >= 0 && m.indexOf("invalid") >= 0)) return "Vérifie l'adresse e-mail.";
+    if (m.indexOf("rate limit") >= 0 || m.indexOf("too many") >= 0) return "Trop de tentatives pour le moment. Attends un peu, puis réessaie.";
     if (m.indexOf("failed to fetch") >= 0 || m.indexOf("network") >= 0 || m.indexOf("load failed") >= 0 || m.indexOf("err_internet") >= 0 || m.indexOf("err_name_not_resolved") >= 0) return "Pas de connexion internet pour le moment. Vérifie le réseau et réessaie.";
     return "Une erreur est arrivée. Réessaie dans un instant.";
   }
