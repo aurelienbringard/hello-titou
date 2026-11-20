@@ -952,6 +952,254 @@ mark.legal-todo {
 .admin-msg-card .subj { font-weight: 700; margin: 0 0 4px; font-size: 14px; }
 .admin-msg-card .body { font-size: 13px; font-weight: 500; white-space: pre-wrap; margin: 0; color: var(--text); line-height: 1.45; }
 
+/* --- Blog (Valeo-inspired article & listing, Hello Titou theme) --- */
+html[data-chrome="site"] #app:has(.blog-page),
+html[data-chrome="site"] #app:has(.article-shell) { max-width: 1120px; }
+.blog-page { width: 100%; padding: 8px 0 36px; text-align: left; }
+.blog-hero { position: relative; text-align: center; padding: 28px 8px 22px; overflow: hidden; }
+.blog-hero .glow {
+  pointer-events: none; position: absolute; top: -48px; right: 8%;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: var(--accent); opacity: 0.2; filter: blur(60px);
+}
+.blog-hero h1 {
+  position: relative; font-size: clamp(28px, 5.5vw, 42px);
+  letter-spacing: -0.035em; margin: 0; font-weight: 700; line-height: 1.15;
+}
+.blog-hero h1 .em { color: var(--accent); }
+.blog-hero p {
+  position: relative; color: var(--text2); font-weight: 550; font-size: 17px;
+  line-height: 1.6; max-width: 36em; margin: 14px auto 0;
+}
+.blog-grid-v {
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+}
+@media (min-width: 720px) { .blog-grid-v { grid-template-columns: 1fr 1fr; } }
+.post-card {
+  display: flex; flex-direction: column; text-align: left;
+  background: var(--surface); border: 0.5px solid var(--line);
+  border-radius: 22px; overflow: hidden; box-shadow: var(--shadow-sm);
+  padding: 0; color: inherit; min-height: 44px; width: 100%;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.post-card .thumb {
+  position: relative; height: 180px; overflow: hidden; background: var(--surface2); flex-shrink: 0;
+}
+.post-card .thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.7s var(--ease);
+}
+.post-card .thumb .fade {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(0deg, rgba(8,10,18,0.55), transparent 55%);
+}
+[data-theme="light"] .post-card .thumb .fade {
+  background: linear-gradient(0deg, rgba(255,255,255,0.55), transparent 55%);
+}
+.post-card .tags {
+  position: absolute; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; z-index: 1;
+}
+.post-card .tag, .article-cover .tag {
+  display: inline-flex; align-items: center;
+  padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 650;
+  background: rgba(8,10,18,0.6); color: #f8f6f2; backdrop-filter: blur(8px);
+}
+.post-card .nouveau, .article-cover .nouveau {
+  position: absolute; top: 12px; right: 12px; z-index: 1;
+  padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 700;
+  background: var(--gold); color: #3a2a08;
+}
+.post-card .body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+.post-card h2 { font-size: 18px; margin: 0 0 8px; letter-spacing: -0.02em; line-height: 1.3; }
+.post-card .excerpt { font-size: 14px; color: var(--text2); margin: 0; font-weight: 500; line-height: 1.5; flex: 1; }
+.post-card .foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 8px; margin-top: 14px;
+}
+.post-card .lire {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent); font-size: 14px; font-weight: 700;
+}
+.post-card .lire svg { width: 16px; height: 16px; transition: transform 0.2s var(--ease); }
+.post-card .when { font-size: 11px; font-weight: 650; color: var(--text2); }
+
+.blog-crumb {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 14px; color: var(--text2); font-weight: 600; margin: 8px 0 18px;
+}
+.blog-crumb button {
+  color: var(--text2); font-weight: 600; min-height: 36px; padding: 0;
+  border-radius: 0; background: none;
+}
+.blog-crumb button:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.blog-crumb .here { color: var(--text); font-weight: 700; max-width: 42ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.article-shell { width: 100%; padding: 4px 0 28px; text-align: left; }
+.article-layout { display: flex; flex-direction: column; gap: 22px; }
+@media (min-width: 960px) {
+  .article-layout { flex-direction: row; align-items: flex-start; gap: 28px; }
+  .article-aside { width: 260px; flex: 0 0 260px; position: sticky; top: 84px; }
+  .article-toc-mobile { display: none !important; }
+}
+.article-main { flex: 1 1 auto; min-width: 0; }
+.article-aside { display: flex; flex-direction: column; gap: 14px; }
+.article-cover {
+  position: relative; aspect-ratio: 16 / 9; border-radius: 20px 20px 0 0; overflow: hidden;
+  background: var(--surface2);
+}
+.article-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.article-cover .shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 45%, transparent 70%);
+}
+.article-cover .cover-bar {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center; padding: 16px 16px 0;
+}
+.cover-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(8,10,18,0.35); color: #fff;
+  backdrop-filter: blur(8px);
+  display: grid; place-items: center;
+}
+.cover-icon:hover { background: rgba(8,10,18,0.5); }
+.article-cover .cover-title {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 20px 20px;
+}
+.article-cover .cover-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.article-cover h1 {
+  margin: 0; color: #fff; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2;
+  font-size: clamp(22px, 3.4vw, 32px); text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+}
+.article-panel {
+  background: var(--surface); border: 0.5px solid var(--line); border-top: 3px solid var(--gold);
+  border-radius: 0 0 22px 22px; padding: 22px 18px 26px; box-shadow: var(--shadow-sm);
+}
+@media (min-width: 720px) { .article-panel { padding: 28px 32px 32px; } }
+.article-chapo {
+  font-size: 17px; line-height: 1.65; color: var(--text2); font-weight: 550; margin: 0 0 20px;
+}
+.article-byline {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface2); border: 0.5px solid var(--line);
+  border-radius: 16px; padding: 14px; margin: 0 0 22px;
+}
+.article-byline .av {
+  width: 56px; height: 56px; border-radius: 50%; background: var(--surface);
+  display: grid; place-items: center; overflow: hidden; flex-shrink: 0;
+  border: 0.5px solid var(--line);
+}
+.article-byline .av .titou { width: 44px; height: 44px; margin: 0; animation: none; }
+.article-byline .who { font-size: 14px; margin: 0 0 2px; }
+.article-byline .who b { font-weight: 700; }
+.article-byline .who span { color: var(--text2); font-weight: 550; }
+.article-byline .meta { font-size: 12px; font-weight: 650; color: var(--text2); margin: 0 0 8px; }
+.article-byline blockquote {
+  margin: 0; padding: 0 0 0 28px; position: relative;
+  font-style: italic; color: var(--text2); font-size: 14px; line-height: 1.5; font-weight: 500;
+}
+.article-byline blockquote::before {
+  content: "«"; position: absolute; left: 0; top: -8px;
+  font-size: 36px; line-height: 1; color: var(--accent); opacity: 0.45; font-style: normal; font-weight: 700;
+}
+.article-toc, .article-toc-mobile {
+  background: var(--surface); border: 0.5px solid var(--line);
+  border-radius: 18px; padding: 16px 16px 12px; box-shadow: var(--shadow-sm);
+}
+.article-toc .eyebrow, .article-cta .eyebrow, .related-wrap .eyebrow, .article-toc-mobile .eyebrow {
+  display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 8px;
+}
+.article-toc ol, .article-toc-mobile ol {
+  margin: 0; padding: 0; list-style: none;
+}
+.article-toc li, .article-toc-mobile li { margin: 0; }
+.article-toc button, .article-toc-mobile button {
+  display: block; width: 100%; text-align: left;
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  padding: 8px 6px; border-radius: 10px; line-height: 1.35; min-height: 0;
+}
+.article-toc button:hover, .article-toc-mobile button:hover { color: var(--text); background: var(--surface2); }
+.article-cta {
+  background: var(--surface); border: 0.5px solid var(--line);
+  border-radius: 18px; padding: 20px 18px; text-align: center;
+  box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+}
+.article-cta .glow {
+  pointer-events: none; position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+  width: 160px; height: 160px; border-radius: 50%; background: var(--accent); opacity: 0.2; filter: blur(40px);
+}
+.article-cta h2 { position: relative; font-size: 20px; margin: 4px 0 8px; letter-spacing: -0.03em; }
+.article-cta p { position: relative; font-size: 13px; color: var(--text2); font-weight: 550; margin: 0 0 14px; line-height: 1.5; }
+.article-cta .pill { width: 100%; }
+.article-prose { font-size: 16px; line-height: 1.75; color: var(--text); font-weight: 500; }
+.article-prose h2 {
+  font-size: clamp(20px, 2.6vw, 24px); letter-spacing: -0.03em; margin: 32px 0 10px; font-weight: 700;
+  scroll-margin-top: 84px;
+}
+.article-prose p { margin: 0 0 14px; }
+.article-prose a { color: var(--accent); font-weight: 650; text-decoration: none; }
+.article-prose a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.article-prose ul { margin: 0 0 16px; padding-left: 20px; }
+.article-prose li { margin: 0 0 6px; }
+.article-prose strong { font-weight: 750; color: var(--text); }
+.article-prose hr { border: 0; border-top: 0.5px solid var(--line); margin: 28px 0; }
+.article-figure { margin: 22px 0 26px; }
+.article-figure img {
+  width: 100%; height: auto; display: block; border-radius: 16px;
+  border: 0.5px solid var(--line);
+}
+.article-figure figcaption {
+  font-size: 13px; color: var(--text2); font-weight: 550; margin: 8px 2px 0; line-height: 1.45;
+}
+.article-prose blockquote, .article-pull {
+  margin: 22px 0; padding: 8px 4px 8px 18px;
+  border-left: 3px solid var(--accent);
+  font-size: 18px; font-style: italic; line-height: 1.5; color: var(--text); font-weight: 550;
+}
+.article-takeaways {
+  margin: 28px 0 8px; padding: 18px 18px 14px;
+  background: var(--surface2); border: 0.5px solid var(--line);
+  border-radius: 16px; border-left: 3px solid var(--accent);
+}
+.article-takeaways h2 { font-size: 18px; margin: 0 0 10px; letter-spacing: -0.02em; }
+.article-takeaways ul { margin: 0; padding-left: 18px; }
+.article-takeaways li { margin: 0 0 8px; font-size: 15px; line-height: 1.5; font-weight: 550; }
+.article-end-cta {
+  margin: 28px 0 0; padding: 22px 20px; text-align: center;
+  background: var(--surface2); border: 0.5px solid var(--line); border-radius: 18px;
+}
+.article-end-cta h2 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.03em; }
+.article-end-cta p { color: var(--text2); font-weight: 550; margin: 0 0 16px; }
+.related-wrap { margin: 36px 0 8px; }
+.related-wrap h2 { font-size: clamp(22px, 3vw, 28px); margin: 4px 0 16px; letter-spacing: -0.03em; }
+.article-share-pop {
+  background: var(--surface); border: 0.5px solid var(--line); border-radius: 16px;
+  box-shadow: var(--shadow); padding: 8px; margin: 0 0 18px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.article-share-pop button, .article-share-pop a {
+  font-size: 13px; font-weight: 650; color: var(--text);
+  padding: 10px 12px; border-radius: 12px; min-height: 40px;
+  display: inline-flex; align-items: center; background: var(--surface2); text-decoration: none;
+}
+.article-share-pop button:hover, .article-share-pop a:hover { background: var(--accent-soft); }
+.blog-toast {
+  position: fixed; left: 50%; bottom: calc(20px + var(--safe-b));
+  transform: translateX(-50%);
+  background: var(--surface); color: var(--text); border: 0.5px solid var(--line);
+  box-shadow: var(--shadow); border-radius: 99px; padding: 10px 16px;
+  font-size: 14px; font-weight: 650; z-index: 60;
+}
+@media (hover: hover) and (pointer: fine) {
+  .post-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .post-card:hover .thumb img { transform: scale(1.03); }
+  .post-card:hover .lire svg { transform: translateX(3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .post-card:hover, .post-card:hover .thumb img { transform: none; }
+}
+
 /* --- content x10: multi-emoji pictures, big numbers, discover phrase, light theme grid --- */
 .em.em-2 { font-size: 0.72em !important; letter-spacing: -0.04em; white-space: nowrap; }
 .em.em-3 { font-size: 0.55em !important; letter-spacing: -0.05em; white-space: nowrap; }
@@ -977,6 +1225,7 @@ mark.legal-todo {
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js"></script>
   <script src="content.js?v=202611201754"></script>
   <script src="games.js?v=202611210000"></script>
+  <script src="blog-posts.js?v=202611210015"></script>
   <script>
 const CATS = (window.HT_CONTENT && window.HT_CONTENT.cats) || [];
 const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
@@ -2173,12 +2422,11 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   let siteNavOpen = false;
   let legalId = "mentions";
   let blogSlug = null;
+  let blogShareOpen = false;
+  let blogToast = "";
+  let blogToastTimer = 0;
 
-  const BLOG_POSTS = [
-    { slug: "apprendre-anglais-des-4-ans", title: "Pourquoi apprendre l'anglais dès 4 ans ?", status: "soon", illustration: "wave" },
-    { slug: "bilinguisme-bienfaits-cerveau", title: "Bilinguisme : les bienfaits pour le cerveau de l'enfant", status: "soon", illustration: "happy" },
-    { slug: "5-astuces-anglais-a-la-maison", title: "5 astuces pour faire entendre l'anglais à la maison", status: "soon", illustration: "idle" }
-  ];
+  const BLOG_POSTS = [];
 
   function legalTodo(label) {
     return '<mark class="legal-todo">[À COMPLÉTER : ' + escapeHtml(label) + "]</mark>";
@@ -2363,6 +2611,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     accountMenu = false;
     barMore = false;
     siteNavOpen = false;
+    blogShareOpen = false;
     screen = name;
     if (name === "legal") legalId = opts.id || "mentions";
     if (name === "blog") blogSlug = opts.slug || null;
@@ -2663,55 +2912,167 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (id === "contact") return siteShell(renderContactPage(), "legal");
     return siteShell('<article class="legal-doc">' + legalBody(id) + "</article>", "legal");
   }
+
+  function blogPosts() {
+    if (window.HT_BLOG && Array.isArray(window.HT_BLOG.posts) && window.HT_BLOG.posts.length) return window.HT_BLOG.posts;
+    return BLOG_POSTS;
+  }
+  function findBlogPost(slug) {
+    return blogPosts().find(function (p) { return p.slug === slug; });
+  }
+  function formatBlogDate(iso) {
+    if (!iso) return "";
+    try {
+      const d = iso.length === 10 ? iso + "T12:00:00" : iso;
+      return new Date(d).toLocaleDateString("fr-FR", { timeZone: "Europe/Paris", day: "numeric", month: "long", year: "numeric" });
+    } catch (e) { return iso; }
+  }
+  function blogReadingLabel(post) {
+    if (post.readingMinutes) return post.readingMinutes + " min de lecture";
+    if (post.readingTime) return post.readingTime;
+    return "";
+  }
+  function blogPostUrl(post) {
+    const path = (location.pathname || "/").replace(/index\.html$/, "");
+    return location.origin + path + "#/blog/" + encodeURIComponent(post.slug);
+  }
+  function blogIcon(name) {
+    const c = 'width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
+    if (name === "arrow") return '<svg ' + c + '><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>';
+    if (name === "back") return '<svg ' + c + '><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>';
+    if (name === "share") return '<svg ' + c + '><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg>';
+    return "";
+  }
   function blogCardHTML(post) {
     const soon = post.status === "soon" || !post.body;
-    return '<button type="button" class="blog-card' + (soon ? " soon" : "") + '" data-act="nav-blog-post" data-id="' + escapeHtml(post.slug) + '">' +
-      '<div class="illu" aria-hidden="true">' + titouSVG(post.illustration || "idle") + "</div>" +
+    const dateLabel = formatBlogDate(post.date);
+    const tags = (post.tags || (post.category ? [post.category] : [])).slice(0, 3);
+    let thumb;
+    if (post.cover && !soon) {
+      thumb = '<div class="thumb"><img src="' + escapeHtml(post.cover) + '" alt="' + escapeHtml(post.coverAlt || post.title) + '" width="1280" height="720" loading="lazy" decoding="async" />' +
+        '<div class="fade" aria-hidden="true"></div>' +
+        (tags.length ? '<div class="tags">' + tags.map(function (t) { return '<span class="tag">' + escapeHtml(t) + "</span>"; }).join("") + "</div>" : "") +
+        '<span class="nouveau">Nouveau</span></div>';
+    } else {
+      thumb = '<div class="thumb" aria-hidden="true">' + titouSVG(post.illustration || "idle") + (soon ? '<span class="nouveau">Bientôt</span>' : "") + "</div>";
+    }
+    return '<button type="button" class="post-card' + (soon ? " soon" : "") + '" data-act="nav-blog-post" data-id="' + escapeHtml(post.slug) + '">' +
+      thumb +
       '<div class="body"><h2>' + escapeHtml(post.title) + "</h2>" +
       (post.excerpt ? '<p class="excerpt">' + escapeHtml(post.excerpt) + "</p>" : "") +
-      '<div class="meta">' +
-        (soon ? '<span class="blog-badge">Bientôt</span>' : "") +
-        (post.date && !soon ? "<span>" + escapeHtml(post.date) + "</span>" : "") +
-        (post.readingTime && !soon ? "<span>" + escapeHtml(post.readingTime) + "</span>" : "") +
+      '<div class="foot"><span class="lire">Lire l\'article ' + blogIcon("arrow") + "</span>" +
+      (dateLabel && !soon ? '<time class="when" datetime="' + escapeHtml(post.date) + '">' + escapeHtml(dateLabel) + "</time>" : "") +
       "</div></div></button>";
+  }
+  function blogTocHTML(post, extraClass) {
+    const items = post.toc || [];
+    if (!items.length) return "";
+    let html = '<nav class="' + (extraClass || "article-toc") + '" aria-label="Dans cet article"><span class="eyebrow">Dans cet article</span><ol>';
+    items.forEach(function (it) {
+      html += '<li><button type="button" data-act="blog-toc" data-id="' + escapeHtml(it.id) + '">' + escapeHtml(it.label) + "</button></li>";
+    });
+    html += "</ol></nav>";
+    return html;
+  }
+  function blogCtaCardHTML(post) {
+    const cta = post.cta || {};
+    return '<div class="article-cta"><div class="glow" aria-hidden="true"></div>' +
+      (cta.eyebrow ? '<span class="eyebrow">' + escapeHtml(cta.eyebrow) + "</span>" : "") +
+      "<h2>" + escapeHtml(cta.title || "Essayer Hello Titou") + "</h2>" +
+      "<p>" + escapeHtml(cta.text || "Des mini-jeux d'anglais pour les enfants de 4 à 8 ans.") + "</p>" +
+      '<button type="button" class="pill ok" data-act="play">' + escapeHtml(cta.button || "Jouer avec Titou") + "</button></div>";
+  }
+  function blogSharePopHTML(post) {
+    if (!blogShareOpen) return "";
+    const url = blogPostUrl(post);
+    const mail = "mailto:?subject=" + encodeURIComponent(post.title + " — Hello Titou") + "&body=" + encodeURIComponent(post.title + "\n\n" + url);
+    const tw = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(post.title) + "&url=" + encodeURIComponent(url);
+    const fb = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+    const wa = "https://wa.me/?text=" + encodeURIComponent(post.title + " " + url);
+    return '<div class="article-share-pop" role="menu">' +
+      '<button type="button" data-act="blog-share-copy">Copier le lien</button>' +
+      '<a href="' + mail + '">E-mail</a>' +
+      '<a href="' + tw + '" target="_blank" rel="noopener">X / Twitter</a>' +
+      '<a href="' + fb + '" target="_blank" rel="noopener">Facebook</a>' +
+      '<a href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a></div>';
+  }
+  function renderBlogArticle(post) {
+    const soon = post.status === "soon" || !post.body;
+    const dateLabel = formatBlogDate(post.date);
+    const reading = blogReadingLabel(post);
+    const tags = (post.tags || (post.category ? [post.category] : [])).slice(0, 3);
+    const crumb = '<nav class="blog-crumb" aria-label="Fil d\'Ariane">' +
+      '<button type="button" data-act="nav-home">Accueil</button><span aria-hidden="true">›</span>' +
+      '<button type="button" data-act="nav-blog">Blog</button><span aria-hidden="true">›</span>' +
+      '<span class="here">' + escapeHtml(post.title) + "</span></nav>";
+    if (soon) {
+      return '<div class="article-shell">' + crumb +
+        '<div class="article-panel" style="border-radius:22px">' + titouSVG(post.illustration || "wave") +
+        '<span class="blog-badge">Bientôt</span><h1>' + escapeHtml(post.title) + "</h1>" +
+        "<p>Cet article arrive bientôt. En attendant, vous pouvez jouer avec Titou ou parcourir les autres sujets.</p></div></div>";
+    }
+    let cover = '<header class="article-cover">';
+    if (post.cover) cover += '<img src="' + escapeHtml(post.cover) + '" alt="' + escapeHtml(post.coverAlt || post.title) + '" width="1280" height="720" decoding="async" />';
+    cover += '<div class="shade" aria-hidden="true"></div>' +
+      '<div class="cover-bar">' +
+        '<button type="button" class="cover-icon" data-act="nav-blog" aria-label="Retour au blog">' + blogIcon("back") + "</button>" +
+        '<button type="button" class="cover-icon" data-act="blog-share" aria-label="Partager" aria-expanded="' + (blogShareOpen ? "true" : "false") + '">' + blogIcon("share") + "</button>" +
+      "</div>" +
+      '<div class="cover-title">' +
+        (tags.length ? '<div class="cover-tags">' + tags.map(function (t) { return '<span class="tag">' + escapeHtml(t) + "</span>"; }).join("") + "</div>" : "") +
+        "<h1>" + escapeHtml(post.title) + "</h1></div></header>";
+    const metaBits = [dateLabel, reading].filter(Boolean).join(" · ");
+    let panel = '<div class="article-panel">';
+    panel += blogSharePopHTML(post);
+    if (post.excerpt) panel += '<p class="article-chapo">' + escapeHtml(post.excerpt) + "</p>";
+    panel += '<div class="article-byline"><div class="av" aria-hidden="true">' + titouSVG("logo") + "</div><div>" +
+      '<p class="who"><b>' + escapeHtml(post.author || "L'équipe Hello Titou") + "</b>" +
+      (post.authorRole ? '<span> · ' + escapeHtml(post.authorRole) + "</span>" : "") + "</p>" +
+      (metaBits ? '<p class="meta">' + escapeHtml(metaBits) + "</p>" : "") +
+      (post.quote ? "<blockquote>" + escapeHtml(post.quote) + "</blockquote>" : "") +
+      "</div></div>";
+    panel += blogTocHTML(post, "article-toc-mobile");
+    panel += '<div class="article-prose">' + post.body + "</div>";
+    if (post.takeaways && post.takeaways.length) {
+      panel += '<div class="article-takeaways"><h2>À retenir</h2><ul>';
+      post.takeaways.forEach(function (t) { panel += "<li>" + escapeHtml(t) + "</li>"; });
+      panel += "</ul></div>";
+    }
+    if (post.cta) {
+      panel += '<div class="article-end-cta"><h2>' + escapeHtml(post.cta.title || "Et maintenant, à vous de jouer") + "</h2>" +
+        "<p>" + escapeHtml(post.cta.text || "") + "</p>" +
+        '<button type="button" class="pill ok" data-act="play">' + escapeHtml(post.cta.button || "Essayer Hello Titou") + "</button></div>";
+    }
+    panel += "</div>";
+    const related = blogPosts().filter(function (p) { return p.slug !== post.slug && p.body; }).slice(0, 2);
+    let relatedHtml = "";
+    if (related.length) {
+      relatedHtml = '<section class="related-wrap"><span class="eyebrow">À lire aussi</span><h2>Continuer la lecture.</h2><div class="blog-grid-v">';
+      related.forEach(function (p) { relatedHtml += blogCardHTML(p); });
+      relatedHtml += "</div></section>";
+    }
+    const aside = '<aside class="article-aside">' + blogTocHTML(post, "article-toc") + blogCtaCardHTML(post) + "</aside>";
+    return '<div class="article-shell">' + crumb +
+      '<div class="article-layout"><div class="article-main">' + cover + panel + relatedHtml + "</div>" + aside + "</div></div>";
   }
   function renderBlogPage() {
     if (blogSlug) {
-      const post = BLOG_POSTS.find(function (p) { return p.slug === blogSlug; });
+      const post = findBlogPost(blogSlug);
       if (!post) {
         return siteShell(
-          '<div class="blog-wrap"><button type="button" class="back-link" data-act="nav-blog">← Blog</button>' +
+          '<div class="article-shell"><button type="button" class="back-link" data-act="nav-blog">← Blog</button>' +
           titouSVG("try", "titou-empty") + "<h1>Article introuvable</h1>" +
           "<p>Ce texte n'est pas encore publié, ou le lien n'est plus à jour.</p></div>",
           "blog"
         );
       }
-      const soon = post.status === "soon" || !post.body;
-      let inner = '<div class="blog-wrap article-page"><button type="button" class="back-link" data-act="nav-blog">← Blog</button>' +
-        '<div class="illu" aria-hidden="true">' + titouSVG(post.illustration || "wave") + "</div>" +
-        (soon ? '<span class="blog-badge">Bientôt</span>' : "") +
-        "<h1>" + escapeHtml(post.title) + "</h1>";
-      if (!soon && (post.date || post.readingTime)) {
-        inner += '<p class="meta" style="color:var(--text2);font-weight:650;font-size:13px;margin:0 0 16px">' +
-          escapeHtml([post.date, post.readingTime].filter(Boolean).join(" · ")) + "</p>";
-      }
-      if (soon) {
-        inner += "<p>Cet article arrive bientôt. En attendant, vous pouvez jouer avec Titou ou parcourir les autres sujets à venir.</p>";
-      } else if (Array.isArray(post.body)) {
-        inner += '<div class="article-body">';
-        post.body.forEach(function (para) { inner += "<p>" + para + "</p>"; });
-        inner += "</div>";
-      } else if (post.body) {
-        inner += '<div class="article-body">' + post.body + "</div>";
-      }
-      inner += "</div>";
-      return siteShell(inner, "blog");
+      return siteShell(renderBlogArticle(post), "blog");
     }
-    let list = '<div class="blog-wrap"><div class="blog-intro">' + titouSVG("wave", "titou-empty") +
-      "<h1>Blog</h1>" +
-      "<p>Bientôt nos premiers articles sur l'apprentissage des langues chez l'enfant.</p></div>" +
-      '<div class="blog-grid">';
-    BLOG_POSTS.forEach(function (p) { list += blogCardHTML(p); });
+    let list = '<div class="blog-page"><div class="blog-hero"><div class="glow" aria-hidden="true"></div>' +
+      "<h1>Grandir avec <span class=\"em\">l'anglais.</span></h1>" +
+      "<p>Des articles pour les parents qui veulent accompagner leur enfant, de 4 à 8 ans, sans pression et avec le jeu.</p></div>" +
+      '<div class="blog-grid-v">';
+    blogPosts().forEach(function (p) { list += blogCardHTML(p); });
     list += "</div></div>";
     return siteShell(list, "blog");
   }
@@ -3049,7 +3410,14 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     else if (window.HT_GAMES && HT_GAMES.handles(screen)) html = HT_GAMES.render(screen);
     else html = renderStart();
     html += renderOverlay();
+    if (blogToast) html += '<div class="blog-toast" role="status">' + escapeHtml(blogToast) + "</div>";
     document.documentElement.setAttribute("data-chrome", isSiteScreen() ? "site" : "game");
+    if (screen === "blog") {
+      const bp = blogSlug && findBlogPost(blogSlug);
+      document.title = bp ? (bp.title + " · Hello Titou") : "Blog · Hello Titou";
+    } else if (document.title !== "Hello Titou") {
+      document.title = "Hello Titou";
+    }
     $app.innerHTML = html;
     if (window.HT_GAMES) { try { HT_GAMES.afterRender(screen); } catch (e) { /* ignore */ } }
     if (screen === "create") {
@@ -3156,6 +3524,33 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (act === "nav-home") { goSite("start", { hash: "" }); return; }
     if (act === "nav-blog") { goSite("blog", { slug: null, hash: "blog" }); return; }
     if (act === "nav-blog-post") { goSite("blog", { slug: id, hash: "blog/" + id }); return; }
+    if (act === "blog-share") {
+      const post = findBlogPost(blogSlug);
+      if (post && typeof navigator.share === "function") {
+        navigator.share({ title: post.title, text: post.excerpt || post.title, url: blogPostUrl(post) }).catch(function () { blogShareOpen = true; render(); });
+        return;
+      }
+      blogShareOpen = !blogShareOpen; render(); return;
+    }
+    if (act === "blog-share-copy") {
+      const post = findBlogPost(blogSlug);
+      const url = post ? blogPostUrl(post) : location.href;
+      const done = function () {
+        blogToast = "Lien copié"; render();
+        clearTimeout(blogToastTimer);
+        blogToastTimer = setTimeout(function () { blogToast = ""; render(); }, 2200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done).catch(done);
+      else done();
+      return;
+    }
+    if (act === "blog-toc") {
+      const el = document.getElementById(id);
+      if (el) {
+        try { el.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) { el.scrollIntoView(true); }
+      }
+      return;
+    }
     if (act === "nav-aide") { goSite("aide", { hash: "aide" }); return; }
     if (act === "nav-legal") { goSite("legal", { id: id || "mentions", hash: id || "mentions" }); return; }
     if (act === "contact-reset") {
