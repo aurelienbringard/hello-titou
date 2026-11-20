@@ -858,6 +858,7 @@ mark.legal-todo {
   <div class="sr" id="live" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js"></script>
   <script src="content.js?v=202611201754"></script>
+  <script src="games.js?v=202611201850"></script>
   <script>
 const CATS = (window.HT_CONTENT && window.HT_CONTENT.cats) || [];
 const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
@@ -1250,7 +1251,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       if (r.profile_id !== row.id) return;
       words[r.word_id] = { correct: r.correct_count || 0, seen: r.seen_count || 0 };
     });
-    return {
+    const prof = {
       id: row.id, cloudId: row.id, cloudParentId: row.parent_id,
       name: row.name || "", avatar: row.avatar || "🦊",
       level: row.level || 1, age: row.age || null,
@@ -1259,6 +1260,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       levelUpReady: !!row.level_up_ready,
       updatedAt: row.updated_at, dirty: false
     };
+    if (window.HT_GAMES) HT_GAMES.settingsIn(prof, row.settings);
+    return prof;
   }
   function authErrorFr(err) {
     if (!err) return "Une erreur est arrivée.";
@@ -1277,7 +1280,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const userId = session.user.id;
     const row = {
       parent_id: userId, name: p.name || "", avatar: p.avatar || "🦊",
-      level: levelOf(p), age: p.age || null, settings: {},
+      level: levelOf(p), age: p.age || null, settings: window.HT_GAMES ? HT_GAMES.settingsOut(p) : {},
       stars: ensureStars(p.stars),
       stars_at_current_level: p.starsAtCurrentLevel || 0,
       level_up_ready: !!p.levelUpReady
@@ -1365,6 +1368,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
           updatedAt: locTime > remTime ? loc.updatedAt : row.updated_at,
           dirty: true
         };
+        if (window.HT_GAMES) HT_GAMES.mergeInto(p, loc, remoteAsLocal, locTime > remTime);
         if (profileId === loc.id) profileId = p.id;
         if (store.lastProfileId === loc.id) store.lastProfileId = p.id;
         merged.push(p);
@@ -1386,7 +1390,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       store.profiles.forEach(function (p) { p.dirty = false; });
       saveStore({ sync: false });
       syncState = "synced";
-      if (/^(parent|profiles|home|progress|themes|settings)$/.test(screen) || accountMenu || (overlay && (overlay.type === "auth" || overlay.type === "admin" || overlay.type === "plans"))) render();
+      if (/^(parent|profiles|home|progress|themes|settings|games)$/.test(screen) || accountMenu || (overlay && (overlay.type === "auth" || overlay.type === "admin" || overlay.type === "plans"))) render();
     } catch (e) {
       syncState = (typeof navigator !== "undefined" && navigator.onLine === false) ? "offline" : "error";
       if (screen === "parent" || overlay && overlay.type === "auth") render();
@@ -1642,6 +1646,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
 
   function announceScreen(name) {
     if (overlay) return;
+    if (window.HT_GAMES && HT_GAMES.announce(name)) return;
     if (name === "quiz" || name === "discover") return;
     const fr = store.frenchPrompts;
     if (name === "profiles") {
@@ -1747,6 +1752,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       p.words[id].correct += 1;
       p.words[id].seen = (p.words[id].seen || 0) + 1;
     });
+    if (window.HT_GAMES) HT_GAMES.onCorrect(wordIds);
     touchProfile(p); saveStore();
   }
   function markSeen(wordId) {
@@ -2170,7 +2176,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   }
 
   function isKidScreen(name) {
-    return /^(profiles|create|home|themes|modes|discover|quiz|memory|progress)$/.test(name || screen);
+    return /^(profiles|create|home|themes|modes|discover|quiz|memory|progress|games|game)$/.test(name || screen);
   }
   function isSiteScreen(name) {
     return /^(start|parent|legal|blog|aide|plans)$/.test(name || screen);
@@ -2426,7 +2432,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (maybeOfferLevelUp()) {
       html += '<button class="pill gold" data-act="levelup-ask" style="margin:0 auto 12px;animation:wiggle 1s ease-in-out infinite">🏅 Un défi un peu plus difficile ?</button>';
     }
-    html += '<p class="hint">Choisis une catégorie</p><div class="scroll"><div class="grid cats">';
+    html += '<div class="scroll">' + (window.HT_GAMES ? HT_GAMES.homeBanner() : "") + '<p class="hint">Choisis une catégorie</p><div class="grid cats">';
     visibleCats().forEach(function (c) {
       const n = visibleThemes(c.id).length;
       html += '<button class="tile cat-tile" data-act="category" data-id="' + c.id + '">' +
@@ -2491,11 +2497,11 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const q = quiz.q;
     const n = q.choices.length;
     const cls = n <= 2 ? "choices-2" : n <= 3 ? "choices-3" : n <= 4 ? "choices-4" : "choices-6";
-    let html = '<div class="screen" data-screen="quiz">' + topbar({ back: "modes" }) +
+    let html = '<div class="screen" data-screen="quiz">' + topbar({ back: hubReturn || "modes" }) +
       '<div class="quiz-head">' +
       '<button type="button" class="listen-again" data-act="replay" aria-label="Écouter encore">' +
       '<span class="speaker-hero" aria-hidden="true">🔊</span><span class="listen-lbl">Écoute</span></button>' +
-      '<div class="round-chip">⭐ ' + quiz.got + " · " + (quiz.index + 1) + " / " + quiz.total + "</div></div>" +
+      '<div class="round-chip">⭐ ' + quiz.got + " · " + Math.min(quiz.index + 1, quiz.total) + " / " + quiz.total + "</div></div>" +
       '<div class="grid ' + cls + '">';
     q.choices.forEach(function (c) {
       const mark = c._state === "correct" ? " correct" : c._state === "wrong" ? " wrong" : "";
@@ -2508,7 +2514,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (!memory || !memory.cards) return renderModes();
     const n = memory.cards.length;
     const cls = n <= 8 ? "p8" : n <= 12 ? "p12" : "p16";
-    let html = '<div class="screen" data-screen="memory">' + topbar({ back: "modes" }) +
+    let html = '<div class="screen" data-screen="memory">' + topbar({ back: hubReturn || "modes" }) +
       '<div class="mem-head">' +
       '<button type="button" class="listen-again" data-act="memory-listen" aria-label="Écouter encore">' +
       '<span class="listen-btn" aria-hidden="true">🔊</span><span class="listen-lbl">Écoute</span></button>' +
@@ -2645,6 +2651,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   }
   function renderOverlay() {
     if (!overlay) return "";
+    if (window.HT_GAMES && String(overlay.type || "").indexOf("g-") === 0) return HT_GAMES.overlayHTML(overlay);
     if (overlay.type === "auth") return renderAuthSheet();
     if (overlay.type === "settings") return renderSettingsSheet();
     if (overlay.type === "plans") return renderPlansSheet();
@@ -2665,7 +2672,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
         '<button class="pill ' + (overlay.warn ? "warn" : "ok") + '" data-act="confirm-ok">Confirmer</button></div></div></div>';
     }
     if (overlay.type === "celebrate") {
-      const mascot = titouSVG(overlay.titou || "happy", "titou-celebrate");
+      const mascot = window.HT_GAMES ? HT_GAMES.titou(overlay.titou || "happy", "titou-celebrate") : titouSVG(overlay.titou || "happy", "titou-celebrate");
       return '<div class="overlay center"><div class="modal">' + mascot + "<h2>" + overlay.title + "</h2><p>" + overlay.text + "</p>" +
         '<div class="row-btns">' + (overlay.actions || "") + "</div></div></div>";
     }
@@ -2694,10 +2701,12 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     else if (screen === "blog") html = renderBlogPage();
     else if (screen === "aide") html = renderAidePage();
     else if (screen === "plans") html = renderPlansPage();
+    else if (window.HT_GAMES && HT_GAMES.handles(screen)) html = HT_GAMES.render(screen);
     else html = renderStart();
     html += renderOverlay();
     document.documentElement.setAttribute("data-chrome", isSiteScreen() ? "site" : "game");
     $app.innerHTML = html;
+    if (window.HT_GAMES) { try { HT_GAMES.afterRender(screen); } catch (e) { /* ignore */ } }
     if (screen === "create") {
       const inp = document.getElementById("child-name");
       if (inp) {
@@ -2743,6 +2752,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       .then(function () { if (line && screen === "discover" && poolFor(currentTheme())[discoverIndex] === it) return speak(line, "en-US"); });
   }
   function celebrateRound() {
+    if (window.HT_GAMES) { HT_GAMES.finishCore("listen", HT_GAMES.starsFor(quiz.first || 0, quiz.total), "quiz", hubReturn || "modes"); render(); return; }
     burst(100); sfx("fanfare"); speak("You did it!", "en-US");
     overlay = {
       type: "celebrate", titou: "happy", title: "Bravo !", text: "⭐ " + quiz.got + " / " + quiz.total,
@@ -2771,6 +2781,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (act !== "close-overlay") sfx("tap");
     unlockAudio();
     if (act !== "bar-more" && barMore) barMore = false;
+    if (window.HT_GAMES && act && (act === "games" || act.indexOf("g:") === 0)) { HT_GAMES.act(act, id, el); return; }
 
     if (act === "play") {
       skipAnnounce = true;
@@ -2893,6 +2904,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (act === "category") { categoryId = id; go("themes"); return; }
     if (act === "theme") {
       themeId = id;
+      hubReturn = null;
       skipAnnounce = true;
       preloadThemeAudio(currentTheme());
       speak(currentTheme().en + "!", "en-US");
@@ -2926,6 +2938,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
         const c = q.choices.find(function (x) { return x.id === id; });
         if (c) c._state = "correct";
         quiz.got += 1;
+        if (!q.choices.some(function (x) { return x._state === "wrong"; })) quiz.first = (quiz.first || 0) + 1;
         addStars(themeId, 1);
         markCorrect(q.wordIds);
         burst(70); sfx("ok"); render();
@@ -2961,6 +2974,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
           speak(a.item.en, "en-US").then(function () {
             render();
             if (memory.matched >= memory.pairs) {
+              if (window.HT_GAMES) { const mi = memory.misses || 0; HT_GAMES.finishCore("memory", mi <= memory.pairs ? 3 : (mi <= memory.pairs * 2 ? 2 : 1), "memory", hubReturn || "modes"); return; }
               burst(100); sfx("fanfare"); speak("You did it!", "en-US");
               overlay = {
                 type: "celebrate", titou: "happy", title: "Bravo !", text: "⭐ " + memory.pairs,
@@ -2971,7 +2985,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
           });
         } else {
           sfx("no");
-          memoryMiss = true; render();
+          memoryMiss = true; memory.misses = (memory.misses || 0) + 1; render();
           setTimeout(function () {
             memoryMiss = false;
             a.flipped = b.flipped = false; memory.open = []; memory.locked = false; render();
@@ -3021,6 +3035,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
           text: "Les étoiles et les mots appris de ce profil seront remis à zéro.",
           onok: function () {
             p.stars = {}; p.words = {}; p.starsAtCurrentLevel = 0; p.levelUpReady = false;
+            if (window.HT_GAMES) HT_GAMES.reset(p);
             touchProfile(p); saveStore(); go("parent");
           }
         };
@@ -3105,6 +3120,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     showMemory: function (level, age) { seedDemo(level || 1, age || 6); startMemory(); },
     audioUrl: audioUrl,
     audioSlug: audioSlug,
+    games: function () { return window.HT_GAMES ? HT_GAMES.debug : null; },
+    openGames: function (age, level) { seedDemo(level || 1, age || 6); go("games"); },
     speak: speak,
     showAccountMenu: function (opts) {
       const prev = session;
@@ -3131,6 +3148,20 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   };
   window.__helloTitou = window.__englishStars;
 
+  var hubReturn = null;
+  if (window.HT_GAMES) {
+    window.HT_GAMES.init({
+      profile: profile, save: function () { saveStore(); }, touch: touchProfile, go: go, render: render,
+      speak: speak, stop: stopSound, sfx: sfx, burst: burst, titouSVG: titouSVG, esc: escapeHtml, shuffle: shuffle,
+      band: function () { return effectiveBand(profile()); }, THEMES: THEMES, THEME_ORDER: THEME_ORDER,
+      poolFor: function (t) { return poolFor(t); }, visibleThemes: visibleThemes, visual: visualHTML,
+      markCorrect: markCorrect, askParent: askParent,
+      setOverlay: function (o) { overlay = o; render(); }, screen: function () { return screen; },
+      setTheme: function (id) { themeId = id; categoryId = THEMES[id].cat; }, startQuiz: startQuiz, startMemory: startMemory,
+      setReturn: function (x) { hubReturn = x; }, topbar: topbar, accountMenu: accountMenuHTML,
+      frenchOn: function () { return store.frenchPrompts !== false; }
+    });
+  }
   function boot() {
     const raw = (location.hash || "").replace("#", "");
     try {

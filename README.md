@@ -8,6 +8,16 @@ L’enfant choisit un avatar, un âge, puis une **catégorie** et un **thème** 
 - **Trouve** — on écoute un mot ou une petite phrase, puis on touche la bonne image
 - **Memory** — on retrouve les paires
 
+### Les jeux de Titou
+
+Bouton **🎮 Jeux** : 13 petits jeux, pensés comme une séance avec une maîtresse d’anglais (manches très courtes, voix immédiate, encouragements, consigne en français + petite main qui montre).
+
+- **4–5 ans** (aucune lecture) : Écoute et touche · Le ballon de Titou · Coloriage magique · Nourris Titou
+- **6 ans** : Mémoire sonore · Habille Titou · Jacques a dit (on bouge pour de vrai !) · Compte avec Titou
+- **7–8 ans** : Construis la phrase · Où est Titou ? · Écoute l’histoire (18 histoires) · Le magasin de Titou · À toi de parler (micro, jamais bloquant)
+
+Chaque jeu se débloque avec **2 étoiles sur 3** au jeu d’avant (les jeux des âges plus petits restent ouverts). Un parent peut tout débloquer (petite question). Une **Révision surprise** repropose les mots appris après 1, 3 puis 7 jours, et Titou gagne des **accessoires** (casquette, lunettes, cape, couronne…) à porter dans sa garde-robe.
+
 ### Progression par âge
 
 - **4–5 ans** : des mots simples avec une image, peu de choix.
@@ -22,7 +32,7 @@ La voix est en **anglais américain**. Une consigne en français peut précéder
 
 Version en ligne : [https://hellotitou.fr](https://hellotitou.fr)
 
-Ou ouvrir le fichier `index.html` dans un navigateur (Chrome, Safari, Edge…), avec `content.js` à côté. Les sons se chargent en ligne.
+Ou ouvrir le fichier `index.html` dans un navigateur (Chrome, Safari, Edge…), avec `content.js` et `games.js` à côté. Les sons se chargent en ligne.
 
 ## Parents
 
@@ -32,7 +42,7 @@ Des offres d’abonnement (19 € / mois ou 399 € à vie) sont présentées da
 
 ## Technique
 
-Application statique : `index.html` (jeu) et `content.js` (catégories, thèmes, mots et phrases). L’audio est hébergé sur un bucket public Supabase. Sans compte, tout reste en local (`localStorage`).
+Application statique : `index.html` (jeu), `content.js` (catégories, thèmes, mots et phrases) et `games.js` (les 13 jeux, la révision et les accessoires). L’audio est hébergé sur un bucket public Supabase. Sans compte, tout reste en local (`localStorage`).
 
 ## Nom de domaine
 
