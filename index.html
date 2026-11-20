@@ -834,6 +834,124 @@ mark.legal-todo {
 }
 
   
+
+/* --- Contact page (parent-facing, Valeo-inspired layout) --- */
+.contact-page { width: 100%; padding: 4px 0 28px; text-align: left; }
+.contact-hero { position: relative; text-align: center; padding: 28px 8px 18px; overflow: hidden; }
+.contact-hero .glow {
+  pointer-events: none; position: absolute; top: -48px; right: 6%;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: var(--accent); opacity: 0.2; filter: blur(60px);
+}
+.contact-hero h1 {
+  position: relative; font-size: clamp(28px, 5.5vw, 42px);
+  letter-spacing: -0.035em; margin: 0; font-weight: 700; line-height: 1.15;
+}
+.contact-hero h1 .em { color: var(--accent); }
+.contact-hero p {
+  position: relative; color: var(--text2); font-weight: 550; font-size: 17px;
+  line-height: 1.6; max-width: 36em; margin: 14px auto 0;
+}
+.contact-crumb {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 14px; color: var(--text2); font-weight: 600; margin: 6px 0 22px;
+}
+.contact-crumb button {
+  color: var(--text2); font-weight: 600; min-height: 36px; padding: 0;
+  border-radius: 0; background: none;
+}
+.contact-crumb button:hover { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+.contact-crumb .here { color: var(--text); font-weight: 700; }
+.contact-layout { display: flex; flex-direction: column; gap: 22px; }
+@media (min-width: 880px) {
+  .contact-layout { flex-direction: row; align-items: flex-start; gap: 28px; }
+  .contact-aside { width: 280px; flex: 0 0 280px; position: sticky; top: 84px; }
+}
+.contact-aside { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 560px) and (max-width: 879px) {
+  .contact-aside { grid-template-columns: 1fr 1fr; }
+}
+.contact-info {
+  background: var(--surface); border: 0.5px solid var(--line);
+  border-radius: 18px; padding: 16px 16px 14px; box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.contact-info .ic {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.contact-info .hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.contact-info h2 { font-size: 16px; margin: 0; font-weight: 700; letter-spacing: -0.02em; }
+.contact-info p { margin: 0; font-size: 14px; color: var(--text2); font-weight: 550; line-height: 1.5; white-space: pre-line; }
+.contact-form-card {
+  flex: 1 1 auto; min-width: 0;
+  background: var(--surface); border: 0.5px solid var(--line);
+  border-radius: 22px; padding: 22px 20px 20px; box-shadow: var(--shadow-sm);
+}
+@media (min-width: 720px) { .contact-form-card { padding: 28px 28px 24px; } }
+.contact-form-card > h2 {
+  font-size: clamp(22px, 3vw, 28px); margin: 0 0 4px; letter-spacing: -0.03em; font-weight: 700;
+}
+.contact-form-hint { font-size: 13px; color: var(--text2); font-weight: 550; margin: 0 0 20px; }
+.contact-form-hint .req { color: var(--accent); font-weight: 700; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.contact-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 600px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+.contact-field-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 650; color: var(--text2); margin: 0 0 6px;
+}
+.contact-field-label svg { opacity: 0.75; flex-shrink: 0; }
+.contact-field-label .req { color: var(--accent); }
+.contact-form .field, .contact-form textarea.field {
+  width: 100%; font-size: 16px; padding: 12px 14px; border-radius: 14px;
+  border: 1px solid var(--line); outline: none; background: var(--surface2);
+  color: var(--text); text-align: left; margin: 0;
+  font-family: inherit; box-sizing: border-box;
+}
+.contact-form textarea.field { resize: none; min-height: 140px; line-height: 1.5; }
+.contact-form .field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.contact-msg-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.contact-count { font-size: 12px; font-weight: 650; color: var(--text2); }
+.contact-hp {
+  position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;
+  overflow: hidden;
+}
+.contact-submit {
+  width: 100%; min-height: 52px; border-radius: 14px;
+  background: var(--accent); color: var(--on-accent);
+  font-size: 16px; font-weight: 700; display: inline-flex;
+  align-items: center; justify-content: center; gap: 8px;
+  transition: transform 0.15s var(--ease), opacity 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+.contact-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.contact-legal { font-size: 12px; color: var(--text2); font-weight: 550; line-height: 1.55; margin: 18px 0 0; }
+.contact-legal button {
+  color: var(--accent); font-weight: 700; background: none; padding: 0;
+  min-height: 0; border-radius: 0;
+}
+.contact-legal button:hover { text-decoration: underline; text-underline-offset: 2px; }
+.contact-thanks { text-align: center; padding: 36px 12px 16px; }
+.contact-thanks .titou { width: 96px; margin: 0 auto 8px; }
+.contact-thanks h2 { margin: 8px 0; font-size: 24px; letter-spacing: -0.03em; }
+.contact-thanks p { color: var(--text2); font-weight: 550; margin: 0 0 18px; }
+@media (hover: hover) and (pointer: fine) {
+  .contact-info:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .contact-submit:not(:disabled):hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-info:hover, .contact-submit:hover { transform: none; }
+}
+.admin-messages { margin: 22px 0 8px; text-align: left; }
+.admin-messages h3 { margin: 0 0 10px; font-size: 16px; }
+.admin-msg-card {
+  background: var(--surface2); border-radius: 14px; padding: 12px 14px; margin-bottom: 8px; text-align: left;
+}
+.admin-msg-card .meta { font-size: 12px; color: var(--text2); font-weight: 650; margin: 0 0 4px; }
+.admin-msg-card .subj { font-weight: 700; margin: 0 0 4px; font-size: 14px; }
+.admin-msg-card .body { font-size: 13px; font-weight: 500; white-space: pre-wrap; margin: 0; color: var(--text); line-height: 1.45; }
+
 /* --- content x10: multi-emoji pictures, big numbers, discover phrase, light theme grid --- */
 .em.em-2 { font-size: 0.72em !important; letter-spacing: -0.04em; white-space: nowrap; }
 .em.em-3 { font-size: 0.55em !important; letter-spacing: -0.05em; white-space: nowrap; }
@@ -938,7 +1056,14 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   let adminMsgKind = "";
   let adminSearch = "";
   let adminGiftEmail = "";
+  let adminMessages = [];
   let plansMsg = "";
+  const CONTACT_MSG_MAX = 1000;
+  let contactDraft = { firstName: "", lastName: "", email: "", phone: "", subject: "", message: "", company: "" };
+  let contactBusy = false;
+  let contactMsg = "";
+  let contactMsgKind = "";
+  let contactSent = false;
   let memoryMiss = false;
 
   try {
@@ -1107,6 +1232,16 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       adminMsgKind = "err";
     }
     adminBusy = false;
+  }
+  async function loadAdminMessages() {
+    if (!sb || !isLoggedIn() || !isAdmin()) { adminMessages = []; return; }
+    try {
+      const res = await sb.from("contact_messages").select("id,created_at,name,email,subject,message,user_id").order("created_at", { ascending: false }).limit(100);
+      if (res.error) throw res.error;
+      adminMessages = res.data || [];
+    } catch (e) {
+      adminMessages = adminMessages || [];
+    }
   }
   async function setAdminPlan(email, plan) {
     if (!sb || adminBusy) return;
@@ -2017,6 +2152,23 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     cards += "</div>";
     return table + cards;
   }
+  function adminMessagesHTML() {
+    let html = '<div class="admin-messages"><h3>Messages</h3>';
+    if (!adminMessages.length) {
+      html += '<p class="tiny">Aucun message pour le moment.</p></div>';
+      return html;
+    }
+    adminMessages.forEach(function (m) {
+      html += '<div class="admin-msg-card">' +
+        '<p class="meta">' + escapeHtml(formatActivityFr(m.created_at)) +
+        " · " + escapeHtml(m.name || "") +
+        " · " + escapeHtml(m.email || "") + "</p>" +
+        '<p class="subj">' + escapeHtml(m.subject || "") + "</p>" +
+        '<p class="body">' + escapeHtml(m.message || "") + "</p></div>";
+    });
+    html += "</div>";
+    return html;
+  }
 
   let siteNavOpen = false;
   let legalId = "mentions";
@@ -2230,7 +2382,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     }
     if (h === "abonnements") { goSite("plans", { hash: false }); return true; }
     if (h === "aide" || h === "parents") { goSite("aide", { hash: false }); return true; }
-    const legalAliases = { "mentions-legales": "mentions", "privacy": "confidentialite", "mentions": "mentions", "cgv": "cgv", "cgu": "cgu", "confidentialite": "confidentialite", "cookies": "cookies", "contact": "contact" };
+    const legalAliases = { "mentions-legales": "mentions", "privacy": "confidentialite", "mentions": "mentions", "cgv": "cgv", "cgu": "cgu", "confidentialite": "confidentialite", "cookies": "cookies", "contact": "contact", "contactez-nous": "contact" };
     if (legalAliases[h]) { goSite("legal", { id: legalAliases[h], hash: false }); return true; }
     return false;
   }
@@ -2241,11 +2393,12 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       { act: "nav-home", id: "", label: "Accueil", on: screen === "start" },
       { act: "nav-blog", id: "blog", label: "Blog", on: screen === "blog" },
       { act: "nav-plans", id: "abonnements", label: "Abonnements", on: screen === "plans" },
-      { act: "nav-aide", id: "aide", label: "Parents/Aide", on: screen === "aide" }
+      { act: "nav-aide", id: "aide", label: "Parents/Aide", on: screen === "aide" },
+      { act: "nav-legal", id: "contact", label: "Contactez-nous", on: screen === "legal" && legalId === "contact" }
     ];
     let links = "";
     nav.forEach(function (n) {
-      links += '<button type="button" data-act="' + n.act + '" class="' + (n.on ? "on" : "") + '">' + n.label + "</button>";
+      links += '<button type="button" data-act="' + n.act + '"' + (n.id ? ' data-id="' + escapeHtml(n.id) + '"' : "") + ' class="' + (n.on ? "on" : "") + '">' + n.label + "</button>";
     });
     return '<header class="site-header">' +
       '<button type="button" class="site-brand" data-act="nav-home" aria-label="Hello Titou, accueil">' +
@@ -2264,7 +2417,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       ["nav-legal", "cgu", "CGU"],
       ["nav-legal", "confidentialite", "Politique de confidentialité"],
       ["nav-legal", "cookies", "Cookies"],
-      ["nav-legal", "contact", "Contact"],
+      ["nav-legal", "contact", "Contactez-nous"],
       ["nav-blog", "blog", "Blog"]
     ];
     let nav = "<nav aria-label=\"Pied de page\">";
@@ -2314,9 +2467,200 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       "aide"
     );
   }
+
+  function contactIcon(name, size) {
+    const s = size || 17;
+    const common = 'width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
+    if (name === "mail") return "<svg " + common + '><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>';
+    if (name === "phone") return "<svg " + common + '><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>';
+    if (name === "pin") return "<svg " + common + '><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>';
+    if (name === "clock") return "<svg " + common + '><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+    if (name === "user") return "<svg " + common + '><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+    if (name === "msg") return "<svg " + common + '><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+    if (name === "send") return "<svg " + common + '><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>';
+    return "";
+  }
+  function contactEmailOk(s) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((s || "").trim());
+  }
+  function contactValues() {
+    const d = contactDraft;
+    return {
+      firstName: (d.firstName || "").trim(),
+      lastName: (d.lastName || "").trim(),
+      email: (d.email || "").trim(),
+      phone: (d.phone || "").trim(),
+      subject: (d.subject || "").trim(),
+      message: (d.message || "").trim(),
+      company: (d.company || "").trim()
+    };
+  }
+  function contactReady() {
+    const v = contactValues();
+    const storedLen = v.message.length + (v.phone ? ("Téléphone : " + v.phone + "\n\n").length : 0);
+    return v.firstName.length >= 1 && v.lastName.length >= 1 &&
+      (v.firstName + " " + v.lastName).trim().length <= 120 &&
+      contactEmailOk(v.email) && v.email.length <= 254 &&
+      v.subject.length >= 2 && v.subject.length <= 200 &&
+      v.message.length >= 10 && storedLen <= CONTACT_MSG_MAX &&
+      v.phone.length <= 40;
+  }
+  function syncContactButton() {
+    const btn = document.getElementById("contact-submit");
+    const count = document.getElementById("contact-count");
+    if (count) count.textContent = (contactDraft.message || "").length + "/" + CONTACT_MSG_MAX;
+    if (btn) {
+      const on = contactReady() && !contactBusy && !contactSent;
+      btn.disabled = !on;
+    }
+  }
+  function bindContactForm() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+    if (!contactDraft.email && session && session.user && session.user.email) {
+      contactDraft.email = session.user.email;
+      const em = document.getElementById("contact-email");
+      if (em && !em.value) em.value = contactDraft.email;
+    }
+    const map = {
+      "contact-first": "firstName",
+      "contact-last": "lastName",
+      "contact-email": "email",
+      "contact-phone": "phone",
+      "contact-subject": "subject",
+      "contact-message": "message",
+      "contact-company": "company"
+    };
+    Object.keys(map).forEach(function (id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("input", function () {
+        contactDraft[map[id]] = el.value;
+        syncContactButton();
+      });
+    });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      submitContact();
+    });
+    syncContactButton();
+  }
+  async function submitContact() {
+    if (contactBusy || contactSent) return;
+    const v = contactValues();
+    if (v.company) {
+      contactSent = true;
+      contactMsg = "Merci, votre message a bien été envoyé. Nous vous répondrons dès que possible.";
+      contactMsgKind = "ok";
+      render();
+      return;
+    }
+    if (!contactReady()) {
+      contactMsg = "Merci de renseigner tous les champs obligatoires, avec un message d'au moins 10 caractères.";
+      contactMsgKind = "err";
+      render();
+      return;
+    }
+    if (!sb) {
+      contactMsg = "L'envoi n'est pas disponible pour le moment. Réessayez dans un instant.";
+      contactMsgKind = "err";
+      render();
+      return;
+    }
+    let message = v.message;
+    if (v.phone) message = "Téléphone : " + v.phone + "\n\n" + message;
+    const row = {
+      name: (v.firstName + " " + v.lastName).trim(),
+      email: v.email,
+      subject: v.subject,
+      message: message
+    };
+    if (isLoggedIn() && session && session.user) row.user_id = session.user.id;
+    contactBusy = true;
+    contactMsg = "";
+    render();
+    try {
+      const res = await sb.from("contact_messages").insert(row);
+      if (res.error) throw res.error;
+      contactSent = true;
+      contactMsg = "Merci, votre message a bien été envoyé. Nous vous répondrons dès que possible.";
+      contactMsgKind = "ok";
+    } catch (e) {
+      contactMsg = "Le message n'a pas pu être envoyé. Vérifiez votre connexion et réessayez.";
+      contactMsgKind = "err";
+    }
+    contactBusy = false;
+    render();
+  }
+  function contactField(id, label, icon, type, placeholder, required, value) {
+    return "<div><label class=\"contact-field-label\" for=\"" + id + "\">" + contactIcon(icon, 14) + " " + label +
+      (required ? ' <span class="req">*</span>' : "") + "</label>" +
+      '<input class="field" id="' + id + '" name="' + id + '" type="' + type + '"' +
+      (required ? " required" : "") + ' placeholder="' + placeholder + '" value="' + escapeHtml(value || "") + '" autocomplete="' +
+      ({ "contact-first": "given-name", "contact-last": "family-name", "contact-email": "email", "contact-phone": "tel", "contact-subject": "off" }[id] || "on") +
+      '" /></div>';
+  }
+  function renderContactPage() {
+    if (contactSent) {
+      return '<div class="contact-page">' +
+        '<section class="contact-hero"><div class="glow" aria-hidden="true"></div>' +
+        "<h1>Parlons de Hello <span class=\"em\">Titou.</span></h1></section>" +
+        '<div class="contact-form-card contact-thanks">' + titouSVG("happy") +
+        "<h2>Message envoyé</h2>" +
+        '<p class="auth-msg ok">' + escapeHtml(contactMsg || "Merci, votre message a bien été envoyé. Nous vous répondrons dès que possible.") + "</p>" +
+        '<button type="button" class="pill no" data-act="contact-reset">Envoyer un autre message</button>' +
+        "</div></div>";
+    }
+    const d = contactDraft;
+    const msgLen = (d.message || "").length;
+    const info = [
+      ["mail", "E-mail", legalTodo("e-mail de contact")],
+      ["phone", "Téléphone", legalTodo("numéro de téléphone")],
+      ["pin", "Adresse", legalTodo("adresse postale")],
+      ["clock", "Réponse", "Sous 24 à 48 h ouvrées"]
+    ];
+    let aside = '<aside class="contact-aside">';
+    info.forEach(function (it) {
+      aside += '<div class="contact-info"><div class="hd"><span class="ic">' + contactIcon(it[0], 17) + "</span><h2>" + it[1] + "</h2></div><p>" + it[2] + "</p></div>";
+    });
+    aside += "</aside>";
+    let form = '<div class="contact-form-card"><h2>Écrivez-nous</h2>' +
+      '<p class="contact-form-hint">Les champs marqués d\'un <span class="req">*</span> sont obligatoires.</p>';
+    if (contactMsg) form += '<p class="auth-msg ' + contactMsgKind + '">' + escapeHtml(contactMsg) + "</p>";
+    form += '<form id="contact-form" class="contact-form" novalidate>' +
+      '<div class="contact-grid">' +
+        contactField("contact-first", "Prénom", "user", "text", "Votre prénom", true, d.firstName) +
+        contactField("contact-last", "Nom", "user", "text", "Votre nom", true, d.lastName) +
+      "</div>" +
+      contactField("contact-email", "Adresse e-mail", "mail", "email", "votre@email.com", true, d.email) +
+      contactField("contact-phone", "Téléphone", "phone", "tel", "06 12 34 56 78", false, d.phone) +
+      contactField("contact-subject", "Sujet", "msg", "text", "Objet de votre message", true, d.subject) +
+      '<div><div class="contact-msg-head"><label class="contact-field-label" for="contact-message">' +
+        contactIcon("msg", 14) + ' Message <span class="req">*</span></label>' +
+        '<span class="contact-count" id="contact-count">' + msgLen + "/" + CONTACT_MSG_MAX + "</span></div>" +
+        '<textarea class="field" id="contact-message" name="contact-message" required rows="6" maxlength="' + CONTACT_MSG_MAX + '" placeholder="Décrivez votre demande ou votre question…">' +
+        escapeHtml(d.message || "") + "</textarea></div>" +
+      '<input class="contact-hp" id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" value="' + escapeHtml(d.company || "") + '" />' +
+      '<button type="submit" class="contact-submit" id="contact-submit" disabled>' + contactIcon("send", 18) + " " +
+        (contactBusy ? "Envoi en cours…" : "Envoyer le message") + "</button>" +
+      "</form>" +
+      '<p class="contact-legal">Vos données personnelles sont traitées conformément à notre ' +
+      '<button type="button" data-act="nav-legal" data-id="confidentialite">politique de confidentialité</button>.</p>' +
+      "</div>";
+    return '<div class="contact-page">' +
+      '<section class="contact-hero"><div class="glow" aria-hidden="true"></div>' +
+      "<h1>Parlons de Hello <span class=\"em\">Titou.</span></h1>" +
+      "<p>Une question sur le jeu, un compte parent, les exercices ou un abonnement&nbsp;? Nous sommes là pour vous accompagner.</p>" +
+      "</section>" +
+      '<nav class="contact-crumb" aria-label="Fil d\'Ariane">' +
+        '<button type="button" data-act="nav-home">Accueil</button><span aria-hidden="true">›</span>' +
+        '<span class="here">Contact</span></nav>' +
+      '<div class="contact-layout">' + form + aside + "</div></div>";
+  }
   function renderLegalPage() {
     const id = LEGAL_PAGES[legalId] ? legalId : "mentions";
     legalId = id;
+    if (id === "contact") return siteShell(renderContactPage(), "legal");
     return siteShell('<article class="legal-doc">' + legalBody(id) + "</article>", "legal");
   }
   function blogCardHTML(post) {
@@ -2647,6 +2991,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       (adminMsg ? '<p class="auth-msg ' + adminMsgKind + '">' + escapeHtml(adminMsg) + "</p>" : "") +
       (adminBusy && !adminCustomers.length ? '<p class="tiny">Chargement…</p>' : "") +
       '<div id="admin-list">' + adminListHTML() + "</div>" +
+      adminMessagesHTML() +
       '<div style="margin-top:12px;text-align:center"><button class="pill no" data-act="close-overlay">Fermer</button></div></div></div>';
   }
   function renderOverlay() {
@@ -2732,6 +3077,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const giftEl = document.getElementById("admin-gift-email");
     if (giftEl) giftEl.addEventListener("input", function () { adminGiftEmail = giftEl.value; });
     bindAdminSelects();
+    bindContactForm();
   }
   function bindAdminSelects() {
     document.querySelectorAll("select[data-act='admin-set-plan']").forEach(function (sel) {
@@ -2812,6 +3158,13 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (act === "nav-blog-post") { goSite("blog", { slug: id, hash: "blog/" + id }); return; }
     if (act === "nav-aide") { goSite("aide", { hash: "aide" }); return; }
     if (act === "nav-legal") { goSite("legal", { id: id || "mentions", hash: id || "mentions" }); return; }
+    if (act === "contact-reset") {
+      contactSent = false;
+      contactMsg = "";
+      contactDraft = { firstName: "", lastName: "", email: (session && session.user && session.user.email) || "", phone: "", subject: "", message: "", company: "" };
+      render();
+      return;
+    }
     if (act === "site-nav-toggle") { siteNavOpen = !siteNavOpen; accountMenu = false; render(); return; }
     if (act === "parent-back-game") {
       siteNavOpen = false;
@@ -2829,7 +3182,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       adminMsg = "";
       overlay = { type: "admin" };
       render();
-      loadAdminCustomers().then(function () { if (overlay && overlay.type === "admin") render(); });
+      loadAdminCustomers().then(function () { return loadAdminMessages(); }).then(function () { if (overlay && overlay.type === "admin") render(); });
       return;
     }
     if (act === "admin-gift") {
