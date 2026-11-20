@@ -1,0 +1,29 @@
+{
+  "name": "Hello Titou",
+  "short_name": "Hello Titou",
+  "description": "Hello Titou est un jeu web d'anglais pour les enfants de 4 à 8 ans : on écoute, on touche une image, on répète. Rien à lire. Aujourd'hui entièrement gratuit.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "lang": "fr-FR",
+  "background_color": "#080a12",
+  "theme_color": "#080a12",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "https://hyfvwxfgsmuyekfxucot.supabase.co/storage/v1/object/public/blog/seo/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://hyfvwxfgsmuyekfxucot.supabase.co/storage/v1/object/public/blog/seo/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
