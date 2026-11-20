@@ -1,4 +1,4 @@
-/* Hello Titou — games pack (13 jeux, déblocage, révision, récompenses). Loaded before the main script. */
+/* Hello Titou — games pack (21 jeux, déblocage, révision, récompenses). Loaded before the main script. */
 (function () {
 "use strict";
 const G = {};
@@ -10,15 +10,23 @@ const GAMES = [
   { id: "balloon", n: 2,  band: 4, emoji: "🎈", fr: "Le ballon de Titou",   en: "Pop the balloon",  intro: "Écoute bien, et éclate le bon ballon !" },
   { id: "paint",   n: 3,  band: 4, emoji: "🎨", fr: "Coloriage magique",    en: "Magic colors",     intro: "Écoute la couleur, et touche le bon pot de peinture !" },
   { id: "feed",    n: 4,  band: 4, emoji: "🍎", fr: "Nourris Titou",        en: "Feed Titou",       intro: "Titou a faim ! Donne-lui ce qu'il demande." },
-  { id: "memory",  n: 5,  band: 6, emoji: "🃏", fr: "Mémoire sonore",       en: "Sound memory",     intro: "Trouve les paires ! Écoute bien chaque mot." },
-  { id: "dress",   n: 6,  band: 6, emoji: "👕", fr: "Habille Titou",        en: "Dress Titou",      intro: "Habille Titou ! Écoute bien la couleur et le vêtement." },
-  { id: "simon",   n: 7,  band: 6, emoji: "🙌", fr: "Jacques a dit",        en: "Simon says",       intro: "Jacques a dit ! Touche la bonne image, puis fais-le pour de vrai !" },
-  { id: "count",   n: 8,  band: 6, emoji: "🔢", fr: "Compte avec Titou",    en: "Count with Titou", intro: "Compte avec Titou ! Touche le groupe qui a le bon nombre." },
-  { id: "build",   n: 9,  band: 7, emoji: "🧩", fr: "Construis la phrase",  en: "Build the phrase", intro: "Écoute, puis touche les images dans le bon ordre !" },
-  { id: "where",   n: 10, band: 7, emoji: "📍", fr: "Où est Titou ?",       en: "Where is Titou?",  intro: "Où est Titou ? Écoute, et touche la bonne image." },
-  { id: "story",   n: 11, band: 7, emoji: "📖", fr: "Écoute l'histoire",    en: "Story time",       intro: "Écoute bien l'histoire, puis réponds aux questions !" },
-  { id: "shop",    n: 12, band: 7, emoji: "🛒", fr: "Le magasin de Titou",  en: "Titou's shop",     intro: "Bienvenue au magasin ! Mets dans le panier ce qu'on te demande, puis touche le bouton vert." },
-  { id: "speak",   n: 13, band: 7, emoji: "🎤", fr: "À toi de parler",      en: "Your turn to speak", intro: "À toi de parler ! Écoute Titou, puis répète." }
+  { id: "plural",  n: 5,  band: 4, emoji: "🍒", fr: "Un ou plusieurs ?",    en: "One or many?",     intro: "Écoute bien : un seul, ou plusieurs ? Touche la bonne image !", kind: "grammar" },
+  { id: "sizes",   n: 6,  band: 4, emoji: "🐘", fr: "Grand, petit, sur, sous", en: "Big, small, on, under", intro: "Écoute bien les petits mots : grand ou petit, sur ou sous ? Touche la bonne image !", kind: "grammar" },
+  { id: "repeat",  n: 7,  band: 4, emoji: "🦜", fr: "Répète avec Titou",    en: "Say it with Titou", intro: "Écoute Titou, puis répète comme un perroquet !", kind: "speak" },
+  { id: "memory",  n: 8,  band: 6, emoji: "🃏", fr: "Mémoire sonore",       en: "Sound memory",     intro: "Trouve les paires ! Écoute bien chaque mot." },
+  { id: "dress",   n: 9,  band: 6, emoji: "👕", fr: "Habille Titou",        en: "Dress Titou",      intro: "Habille Titou ! Écoute bien la couleur et le vêtement." },
+  { id: "simon",   n: 10, band: 6, emoji: "🙌", fr: "Jacques a dit",        en: "Simon says",       intro: "Jacques a dit ! Touche la bonne image, puis fais-le pour de vrai !" },
+  { id: "count",   n: 11, band: 6, emoji: "🔢", fr: "Compte avec Titou",    en: "Count with Titou", intro: "Compte avec Titou ! Touche le groupe qui a le bon nombre." },
+  { id: "phrases", n: 12, band: 6, emoji: "👍", fr: "Les petites phrases",  en: "Little sentences", intro: "Écoute bien la petite phrase de Titou, et touche la bonne image !", kind: "grammar" },
+  { id: "who",     n: 13, band: 6, emoji: "👧", fr: "Qui fait quoi ?",      en: "Who is doing what?", intro: "Écoute bien : c'est une fille ou un garçon ? Et qu'est-ce qu'il fait ? Touche la bonne image !", kind: "grammar" },
+  { id: "answer",  n: 14, band: 6, emoji: "💬", fr: "Réponds à Titou",      en: "Answer Titou",     intro: "Titou te pose une question. Touche ta réponse, puis dis-la en anglais !", kind: "speak" },
+  { id: "build",   n: 15, band: 7, emoji: "🧩", fr: "Construis la phrase",  en: "Build the phrase", intro: "Écoute, puis touche les images dans le bon ordre !" },
+  { id: "where",   n: 16, band: 7, emoji: "📍", fr: "Où est Titou ?",       en: "Where is Titou?",  intro: "Où est Titou ? Écoute, et touche la bonne image." },
+  { id: "story",   n: 17, band: 7, emoji: "📖", fr: "Écoute l'histoire",    en: "Story time",       intro: "Écoute bien l'histoire, puis réponds aux questions !" },
+  { id: "shop",    n: 18, band: 7, emoji: "🛒", fr: "Le magasin de Titou",  en: "Titou's shop",     intro: "Bienvenue au magasin ! Mets dans le panier ce qu'on te demande, puis touche le bouton vert." },
+  { id: "speak",   n: 19, band: 7, emoji: "🎤", fr: "À toi de parler",      en: "Your turn to speak", intro: "À toi de parler ! Écoute Titou, puis répète." },
+  { id: "gap",     n: 20, band: 7, emoji: "✏️", fr: "Le bon petit mot",     en: "The right word",   intro: "Écoute la phrase. Il manque un petit mot : touche le bon !", kind: "grammar" },
+  { id: "talk",    n: 21, band: 7, emoji: "🎭", fr: "Joue avec Titou",      en: "Talk with Titou",  intro: "On joue une petite scène ! Écoute Titou, choisis ta réponse, puis dis-la.", kind: "speak" }
 ];
 const GAME = {}; GAMES.forEach(function (g) { GAME[g.id] = g; });
 const BAND_LABEL = { 4: "4–5 ans", 6: "6 ans", 7: "7–8 ans" };
@@ -39,7 +47,10 @@ const FR = {
   order: "D'abord : grand ou petit ?",
   story: "Maintenant, les questions !",
   drag: "Fais glisser, ou touche !",
-  lockedAcc: "Gagne des étoiles pour avoir ce cadeau !"
+  lockedAcc: "Gagne des étoiles pour avoir ce cadeau !",
+  choose: "Tu peux choisir ce que tu veux !",
+  sayIt: "À toi ! Dis-le en anglais.",
+  sayName: "À toi ! Dis : My name is… et ton prénom !"
 };
 const EN = {
   yes: ["Well done!", "Great job!", "Yes!", "Awesome!", "You did it!"],
@@ -1188,6 +1199,304 @@ IMPL.speak = {
   }
 };
 
+/* =====================================================================
+   Grammaire implicite + expression orale (14–21)
+   Grammar is taught by sound, patterns and pictures only: the child hears a
+   chunk and picks the matching picture. Expression games: choose an answer,
+   hear the model, then say it (Web Speech when available, else "Je l'ai dit !").
+   ===================================================================== */
+
+/* ---------- small helpers ---------- */
+function emCard(inner, cls) { return '<div class="g-pic ' + (cls || "") + '">' + inner + "</div>"; }
+function many(em, n) { let h = ""; for (let i = 0; i < n; i++) h += "<span>" + em + "</span>"; return h; }
+function article(w) { return /^[aeiou]/i.test(w) ? "an" : "a"; }
+function pickGame(cfg) {
+  // cfg.next(s) must set s.say (English prompt), s.model (said after success), s.opts [{html, ok, label}]
+  return {
+    start: function (s) { s.total = 5; s.used = []; if (cfg.start) cfg.start(s); },
+    next: function (s) { cfg.next(s); s.used.push(s.key || s.say); },
+    ask: cfg.ask,
+    prompt: function (s) { return s.say; },
+    html: function (s) {
+      let h = s.top ? '<div class="g-qtop">' + s.top + "</div>" : "";
+      h += '<div class="grid ' + gridCls(s.opts.length) + ' g-grid g-gram' + (s.opts.length === 2 ? " g-two" : "") + '">';
+      s.opts.forEach(function (o, i) { h += '<button class="choice g-opt" data-act="g:opt" data-id="' + i + '"' + okAttr(o.ok) + ' aria-label="' + esc(o.label || "") + '">' + o.html + "</button>"; });
+      return h + "</div>";
+    },
+    tap: function (s, a, id, el) {
+      if (a !== "opt" || s.locked) return;
+      const o = s.opts[Number(id)]; if (!o) return;
+      if (o.ok) good(el, function (tok) { return sayEn(s.model || s.say).then(function () { if (live(tok)) return sayEn(praise()); }); });
+      else bad(el);
+    }
+  };
+}
+function fresh(list, s, keyOf) {
+  const f = list.filter(function (x) { return s.used.indexOf(keyOf(x)) < 0; });
+  return pick(f.length ? f : list);
+}
+
+/* ===== 14. Un ou plusieurs ? (singulier / pluriel, 4–5 ans) ===== */
+const PLURAL = [["cat", "cats", "🐱"], ["dog", "dogs", "🐶"], ["apple", "apples", "🍎"], ["ball", "balls", "⚽"], ["car", "cars", "🚗"],
+  ["duck", "ducks", "🦆"], ["star", "stars", "⭐"], ["banana", "bananas", "🍌"], ["bird", "birds", "🐦"], ["frog", "frogs", "🐸"], ["flower", "flowers", "🌼"], ["egg", "eggs", "🥚"]];
+const PL_N = [[2, "two"], [3, "three"]];
+function plSing(w) { return article(w[0]) + " " + w[0]; }
+function plMany(w, n) { return n[1] + " " + w[1]; }
+IMPL.plural = pickGame({
+  next: function (s) {
+    const w = fresh(PLURAL, s, function (x) { return x[0]; }); s.key = w[0];
+    const n = pick(PL_N); const one = Math.random() < 0.5;
+    s.say = one ? plSing(w) : plMany(w, n); s.model = s.say;
+    s.opts = shuffle([
+      { ok: one, label: plSing(w), html: emCard(many(w[2], 1), "g-pic-1") },
+      { ok: !one, label: plMany(w, n), html: emCard(many(w[2], n[0]), "g-pic-n") }
+    ]);
+  }
+});
+
+/* ===== 15. Grand, petit, sur, sous (4–5 ans) ===== */
+const SIZE_W = [["dog", "🐶"], ["cat", "🐱"], ["ball", "⚽"], ["apple", "🍎"], ["car", "🚗"], ["star", "⭐"], ["fish", "🐟"], ["house", "🏠"], ["teddy bear", "🧸"]];
+const PREP_SETS = [["table", "on", "under"], ["box", "in", "on"], ["table", "under", "on"]];
+IMPL.sizes = pickGame({
+  next: function (s) {
+    if (s.q % 2 === 0) {
+      const w = fresh(SIZE_W, s, function (x) { return x[0]; }); s.key = w[0];
+      const big = Math.random() < 0.5;
+      s.say = (big ? "a big " : "a small ") + w[0]; s.model = s.say;
+      s.opts = shuffle([
+        { ok: big, label: "big", html: emCard('<span class="g-big">' + w[1] + "</span>") },
+        { ok: !big, label: "small", html: emCard('<span class="g-small">' + w[1] + "</span>") }
+      ]);
+    } else {
+      const set = pick(PREP_SETS); const obj = set[0]; const t = set[1 + rnd(2)];
+      s.key = obj + t; s.say = wherePhrase(t, WHERE[obj].label); s.model = s.say;
+      s.opts = shuffle([set[1], set[2]]).map(function (p) { return { ok: p === t, label: p, html: sceneSvg(obj, p) }; });
+    }
+  }
+});
+
+/* ===== 16 / 18 / 21. Expression engine ===== */
+// round: { q: question (EN audio, may be null), top: html shown above, opts: [{em, txt, model, ok}], free: bool, judge: text to recognise }
+function speakGame(cfg) {
+  return {
+    start: function (s) { s.total = 5; s.rounds = cfg.rounds(s); s.freeTold = false; },
+    next: function (s) {
+      s.r = s.rounds[s.q % s.rounds.length]; s.phase = s.r.opts ? 1 : 2; s.tries = 0; s.listening = false; s.msg = "";
+      s.item = s.phase === 2 ? [s.r.model, s.r.em] : null;
+    },
+    ask: function (s, tok, isRepeat) {
+      if (s.phase === 2) {
+        const first = s.r.q && !isRepeat && !s.r.opts ? sayEn(s.r.q) : Promise.resolve();
+        return first.then(function () { if (live(tok)) return sayEn(s.item[0]); })
+          .then(function () { if (live(tok)) return s.r.sayFr && !isRepeat ? sayFr(s.r.sayFr) : sayEn(EN.yourTurn); })
+          .then(function () { if (live(tok) && s.q === 0 && !isRepeat && !s.r.sayFr) return sayFr(SR ? FR.mic : FR.selfCheck); });
+      }
+      return sayEn(s.r.q).then(function () {
+        if (live(tok) && s.r.free && !s.freeTold && !isRepeat) { s.freeTold = true; return sayFr(FR.choose); }
+      });
+    },
+    prompt: function (s) { return s.phase === 2 ? s.item[0] : s.r.q; },
+    html: function (s) {
+      const showTxt = band() >= 7;
+      if (s.phase === 1) {
+        let h = s.r.top ? '<div class="g-qtop">' + s.r.top + "</div>" : "";
+        h += '<div class="grid ' + gridCls(s.r.opts.length) + ' g-grid g-gram' + (s.r.opts.length === 2 ? " g-two" : "") + '">';
+        s.r.opts.forEach(function (o, i) {
+          h += '<button class="choice g-opt' + (o.txt && showTxt ? " g-opt-txt" : "") + '" data-act="g:ans" data-id="' + i + '"' + okAttr(s.r.free || o.ok) + ' aria-label="' + esc(o.model) + '">' +
+            '<div class="em">' + o.em + "</div>" + (o.txt && showTxt ? '<div class="g-otxt">' + esc(o.txt) + "</div>" : "") + "</button>";
+        });
+        return h + "</div>";
+      }
+      let h = '<div class="g-say-card">' + (s.r.top && !s.r.opts ? '<div class="g-qtop small">' + s.r.top + "</div>" : "") +
+        '<div class="g-say-em">' + s.item[1] + "</div>" + (showTxt || s.r.showTxt ? '<div class="g-say-txt">' + esc(s.item[0]) + "</div>" : "") + "</div>";
+      h += '<div class="g-say-btns">';
+      if (SR) h += '<button class="g-mic" data-act="g:mic" aria-label="Parler">🎤</button>';
+      h += '<button class="g-thumb" data-act="g:said" data-ok="1" aria-label="Je l\'ai dit">👍<span>J\'ai dit !</span></button></div>';
+      h += '<p class="g-say-msg">' + esc(s.msg || (SR ? "Touche le micro 🎤 et parle. Ou touche le pouce 👍" : "Dis-le à voix haute, puis touche le pouce 👍")) + "</p>";
+      return h;
+    },
+    tap: function (s, a, id, el) {
+      if (s.locked) return;
+      if (s.phase === 1 && a === "ans") {
+        const o = s.r.opts[Number(id)]; if (!o) return;
+        if (!(s.r.free || o.ok)) { bad(el); return; }
+        s.locked = true; clearHint(); C.sfx("ok"); el.classList.add("g-correct");
+        const tok = s.tok;
+        sayEn(o.model).then(function () {
+          if (!live(tok)) return;
+          s.phase = 2; s.item = [o.model, o.em || s.r.pic || "💬"]; s.locked = false; C.render();
+          return sayEn(EN.yourTurn).then(function () { if (live(tok) && s.q === 0) return sayFr(SR ? FR.mic : FR.selfCheck); });
+        }).then(function () { if (live(tok)) armHint(); });
+        return;
+      }
+      if (s.phase === 2) {
+        if (a === "said") { good(el); return; }
+        if (a === "mic") listen(s);
+      }
+    }
+  };
+}
+
+/* ===== 16. Répète avec Titou (4–5 ans) : chunks utiles ===== */
+const REPEAT_CHUNKS = [["Hello!", "👋"], ["Thank you!", "🎁"], ["Good morning!", "🌅"], ["Good night!", "🌙"], ["I'm happy!", "😀"],
+  ["Yummy!", "😋"], ["I love you!", "❤️"], ["Yes, please!", "👍"], ["No, thank you!", "🙅"], ["Let's play!", "🧸"]];
+IMPL.repeat = speakGame({
+  rounds: function () { return shuffle(REPEAT_CHUNKS).slice(0, 5).map(function (c) { return { model: c[0], em: c[1] }; }); }
+});
+
+/* ===== 17. Les petites phrases (6 ans) : I like / I don't like · this / these ===== */
+const LIKE_FOOD = [["bananas", "🍌"], ["apples", "🍎"], ["carrots", "🥕"], ["cookies", "🍪"], ["grapes", "🍇"], ["strawberries", "🍓"], ["tomatoes", "🍅"], ["broccoli", "🥦"], ["pizza", "🍕"], ["ice cream", "🍦"]];
+const THIS_W = [["apple", "apples", "🍎"], ["banana", "bananas", "🍌"], ["ball", "balls", "⚽"], ["star", "stars", "⭐"], ["car", "cars", "🚗"], ["duck", "ducks", "🦆"], ["egg", "eggs", "🥚"]];
+function thisPhrase(w) { return "This is " + article(w[0]) + " " + w[0] + "."; }
+function thesePhrase(w) { return "These are " + w[1] + "."; }
+IMPL.phrases = pickGame({
+  next: function (s) {
+    if (s.q % 2 === 0) {
+      const f = fresh(LIKE_FOOD, s, function (x) { return x[0]; }); s.key = f[0];
+      const like = Math.random() < 0.5;
+      s.say = (like ? "I like " : "I don't like ") + f[0] + "."; s.model = s.say;
+      s.top = C.titouSVG("idle", "g-qtitou");
+      s.opts = shuffle([
+        { ok: like, label: "I like", html: emCard('<span class="g-food-em">' + f[1] + '</span><span class="g-thumb-em">👍</span>') },
+        { ok: !like, label: "I don't like", html: emCard('<span class="g-food-em">' + f[1] + '</span><span class="g-thumb-em">👎</span>') }
+      ]);
+    } else {
+      const w = fresh(THIS_W, s, function (x) { return x[1]; }); s.key = w[1];
+      const one = Math.random() < 0.5; s.top = "";
+      s.say = one ? thisPhrase(w) : thesePhrase(w); s.model = s.say;
+      s.opts = shuffle([
+        { ok: one, label: "this", html: emCard('<span class="g-point">👉</span>' + many(w[2], 1), "g-pic-1") },
+        { ok: !one, label: "these", html: emCard('<span class="g-point">👉</span>' + many(w[2], 3), "g-pic-n") }
+      ]);
+    }
+  }
+});
+
+/* ===== 18. Qui fait quoi ? (6 ans) : he / she + is …ing ===== */
+const ACTIONS = [["reading", "📖"], ["singing", "🎤"], ["painting", "🎨"], ["playing football", "⚽"], ["sleeping", "💤"], ["drinking milk", "🥛"], ["cooking", "🍳"], ["playing the guitar", "🎸"]];
+function whoPhrase(g, a) { return (g === "girl" ? "She" : "He") + " is " + a[0] + "."; }
+function whoHtml(g, a) { return emCard('<span class="g-kid">' + (g === "girl" ? "👧" : "👦") + '</span><span class="g-act">' + a[1] + "</span>"); }
+IMPL.who = pickGame({
+  start: function (s) { s.n = band() <= 6 ? 3 : 4; },
+  next: function (s) {
+    const a = fresh(ACTIONS, s, function (x) { return x[0]; }); s.key = a[0];
+    const g = pick(["girl", "boy"]); const og = g === "girl" ? "boy" : "girl";
+    const other = shuffle(ACTIONS.filter(function (x) { return x !== a; }));
+    const set = [[g, a], [og, a], [g, other[0]]];
+    if (s.n > 3) set.push([og, other[1]]);
+    s.say = whoPhrase(g, a); s.model = s.say;
+    s.opts = shuffle(set).map(function (x) { return { ok: x[0] === g && x[1] === a, label: whoPhrase(x[0], x[1]), html: whoHtml(x[0], x[1]) }; });
+  }
+});
+
+/* ===== 19. Réponds à Titou (6 ans) : questions du quotidien ===== */
+const COLOR_OBJ = [["🍎", "red"], ["🍌", "yellow"], ["🐸", "green"], ["🍊", "orange"], ["🍇", "purple"], ["🐳", "blue"]];
+const WANT = [["apple", "🍎"], ["banana", "🍌"], ["cookie", "🍪"], ["orange", "🍊"], ["ice cream", "🍦"], ["strawberry", "🍓"]];
+const HAVE = [["ball", "⚽"], ["teddy bear", "🧸"], ["kite", "🪁"], ["balloon", "🎈"], ["drum", "🥁"], ["robot", "🤖"]];
+const FEEL = [["I'm happy!", "😀"], ["I'm sad.", "😢"], ["I'm tired.", "😴"], ["I'm hungry!", "🍽️"]];
+const AGE_W = { 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight" };
+function swatch(c) { return '<span class="g-swatch big" style="background:' + PAINT[c] + '"></span>'; }
+function answerRounds() {
+  const p = prof() || {}; const age = Math.min(8, Math.max(4, Number(p.age) || band()));
+  const co = pick(COLOR_OBJ);
+  const cols = shuffle([co[1]].concat(shuffle(COLOR_OBJ.map(function (x) { return x[1]; }).filter(function (c) { return c !== co[1]; })).slice(0, 2)));
+  const ages = shuffle([age].concat(shuffle([4, 5, 6, 7, 8].filter(function (a) { return a !== age; })).slice(0, 2)));
+  const R = [
+    { q: "What colour is it?", top: '<span class="g-qem">' + co[0] + "</span>", opts: cols.map(function (c) { return { em: swatch(c), model: "It's " + c + ".", ok: c === co[1] }; }) },
+    { q: "How old are you?", top: C.titouSVG("wave", "g-qtitou"), opts: ages.map(function (a) { return { em: '<span class="g-num-big">' + a + "</span>", model: "I'm " + AGE_W[a] + ".", ok: a === age }; }) },
+    { q: "What do you want?", free: true, top: C.titouSVG("idle", "g-qtitou"), opts: shuffle(WANT).slice(0, 3).map(function (w) { return { em: w[1], model: "I want " + article(w[0]) + " " + w[0] + ", please." }; }) },
+    { q: "What do you say?", free: true, top: '<span class="g-qem">🙋</span>', opts: shuffle(HAVE).slice(0, 3).map(function (w) { return { em: w[1], model: "Can I have the " + w[0] + ", please?" }; }) },
+    { q: "How are you?", free: true, top: C.titouSVG("wave", "g-qtitou"), opts: shuffle(FEEL).slice(0, 3).map(function (f) { return { em: f[1], model: f[0] }; }) },
+    { q: "What's your name?", top: C.titouSVG("wave", "g-qtitou"), model: "My name is Titou. And you?", em: "🙋", sayFr: FR.sayName }
+  ];
+  return shuffle(R).slice(0, 5);
+}
+IMPL.answer = speakGame({ rounds: answerRounds });
+
+/* ===== 20. Le bon petit mot (7–8 ans) : am/is/are · has/have · a/an · passé · do/does ===== */
+// [sentence with ___, right word, [other words], picture]
+const GAP = [
+  ["I ___ happy.", "am", ["is", "are"], "😀"], ["The cat ___ black.", "is", ["am", "are"], "🐈‍⬛"], ["They ___ friends.", "are", ["is", "am"], "🧑‍🤝‍🧑"],
+  ["He ___ sleeping.", "is", ["are", "am"], "😴"], ["We ___ hungry.", "are", ["is", "am"], "🍽️"],
+  ["I ___ a dog.", "have", ["has"], "🐶"], ["She ___ a cat.", "has", ["have"], "🐱"], ["They ___ a big ball.", "have", ["has"], "⚽"], ["Titou ___ a hat.", "has", ["have"], "🎩"],
+  ["It's ___ apple.", "an", ["a"], "🍎"], ["It's ___ banana.", "a", ["an"], "🍌"], ["It's ___ elephant.", "an", ["a"], "🐘"], ["It's ___ dog.", "a", ["an"], "🐶"], ["It's ___ egg.", "an", ["a"], "🥚"], ["It's ___ umbrella.", "an", ["a"], "☂️"],
+  ["Yesterday, I ___ football.", "played", ["play", "plays"], "⚽"], ["Yesterday, I ___ TV.", "watched", ["watch", "watches"], "📺"],
+  ["Yesterday, I ___ to the park.", "went", ["go", "goes"], "🏞️"], ["Yesterday, I ___ a pizza.", "ate", ["eat", "eats"], "🍕"],
+  ["___ you like apples?", "Do", ["Does"], "🍎"], ["___ she like cats?", "Does", ["Do"], "🐱"], ["___ they play football?", "Do", ["Does"], "⚽"], ["___ he swim?", "Does", ["Do"], "🏊"]
+];
+function gapParts(g) { const p = g[0].split("___"); return [p[0].trim(), p[1].trim()]; }
+function gapSay(g) { return g[0].replace("___", "…"); }
+function gapFull(g) { return g[0].replace("___", g[1]); }
+IMPL.gap = pickGame({
+  next: function (s) {
+    // vary the grammar point each round
+    const groups = [[0, 5], [5, 9], [9, 15], [15, 19], [19, 23]];
+    const gr = groups[s.q % groups.length];
+    const g = fresh(GAP.slice(gr[0], gr[1]), s, function (x) { return x[0]; }); s.key = g[0];
+    s.say = gapSay(g); s.model = gapFull(g);
+    s.top = '<span class="g-qem">' + g[3] + '</span><span class="g-gap-txt">' + esc(g[0]).replace("___", '<b class="g-blank">?</b>') + "</span>";
+    s.parts = gapParts(g);
+    s.opts = shuffle([g[1]].concat(g[2])).map(function (w) { return { ok: w === g[1], label: w, html: '<span class="g-word">' + esc(w) + "</span>" }; });
+  },
+  // the sentence is said in two parts with a little chime where the missing word goes
+  ask: function (s, tok) {
+    const a = s.parts[0], b = s.parts[1];
+    return (a ? sayEn(a) : Promise.resolve()).then(function () { if (!live(tok)) return; C.sfx("star"); return wait(650); })
+      .then(function () { if (live(tok) && b) return sayEn(b); });
+  }
+});
+
+/* ===== 21. Joue avec Titou (7–8 ans) : mini-dialogues + décrire une image ===== */
+const WEATHER = [["☀️", "It's sunny."], ["🌧️", "It's raining."], ["❄️", "It's snowing."]];
+const SEE = [["🐶", "⚽", "I can see a dog and a ball."], ["🐱", "🚗", "I can see a cat and a car."], ["🐦", "🌳", "I can see a bird and a tree."], ["🐸", "🌼", "I can see a frog and a flower."]];
+function talkRounds() {
+  const w = pick(WEATHER); const see = shuffle(SEE).slice(0, 3);
+  const R = [
+    { q: "Hi! How are you?", top: C.titouSVG("wave", "g-qtitou"), opts: shuffle([
+      { em: "🙂", txt: "I'm fine, thank you!", model: "I'm fine, thank you!", ok: true }, { em: "7️⃣", txt: "I'm seven.", model: "I'm seven." }, { em: "🔵", txt: "It's blue.", model: "It's blue." }]) },
+    { q: "Where do you live?", top: C.titouSVG("idle", "g-qtitou"), opts: shuffle([
+      { em: "🇫🇷", txt: "I live in France.", model: "I live in France.", ok: true }, { em: "🍕", txt: "I like pizza.", model: "I like pizza." }, { em: "🐶", txt: "I have a dog.", model: "I have a dog." }]) },
+    { q: "Do you like cats?", free: true, top: '<span class="g-qem">🐱</span>', opts: [
+      { em: "👍", txt: "Yes, I do!", model: "Yes, I do!" }, { em: "👎", txt: "No, I don't.", model: "No, I don't." }] },
+    { q: "Can you swim?", free: true, top: '<span class="g-qem">🏊</span>', opts: [
+      { em: "👍", txt: "Yes, I can!", model: "Yes, I can!" }, { em: "👎", txt: "No, I can't.", model: "No, I can't." }] },
+    { q: "Hello! What would you like?", free: true, top: '<span class="g-qem">🧑‍🍳</span>', opts: [
+      { em: "🍦", txt: "I'd like an ice cream, please.", model: "I'd like an ice cream, please." }, { em: "🧃", txt: "I'd like some juice, please.", model: "I'd like some juice, please." },
+      { em: "🥐", txt: "I'd like a croissant, please.", model: "I'd like a croissant, please." }] },
+    { q: "What's the weather like?", pic: w[0], top: '<span class="g-qem">' + w[0] + "</span>", opts: shuffle(WEATHER).map(function (x) { return { em: "", txt: x[1], model: x[1], ok: x === w }; }) },
+    { q: "Look! What can you see?", pic: see[0][0] + see[0][1], top: '<span class="g-qem">' + see[0][0] + " " + see[0][1] + "</span>", opts: shuffle(see).map(function (x) { return { em: "", txt: x[2], model: x[2], ok: x === see[0] }; }) },
+    { q: "What's your favourite colour?", free: true, top: C.titouSVG("happy", "g-qtitou"), opts: shuffle(["red", "blue", "green", "yellow", "pink", "purple"]).slice(0, 3).map(function (c) { return { em: swatch(c), txt: "My favourite colour is " + c + ".", model: "My favourite colour is " + c + "." }; }) }
+  ];
+  // always one picture description and one weather round
+  const fixed = [R[6], R[5]]; const rest = shuffle(R.slice(0, 5).concat([R[7]])).slice(0, 3);
+  return shuffle(fixed.concat(rest));
+}
+IMPL.talk = speakGame({ rounds: talkRounds });
+
+/* ---------- audio needed by these games ---------- */
+function grammarAudio(en) {
+  PLURAL.forEach(function (w) { en(plSing(w)); PL_N.forEach(function (n) { en(plMany(w, n)); }); });
+  SIZE_W.forEach(function (w) { en("a big " + w[0]); en("a small " + w[0]); });
+  PREP_SETS.forEach(function (st) { en(wherePhrase(st[1], WHERE[st[0]].label)); en(wherePhrase(st[2], WHERE[st[0]].label)); });
+  REPEAT_CHUNKS.forEach(function (c) { en(c[0]); });
+  LIKE_FOOD.forEach(function (f) { en("I like " + f[0] + "."); en("I don't like " + f[0] + "."); });
+  THIS_W.forEach(function (w) { en(thisPhrase(w)); en(thesePhrase(w)); });
+  ACTIONS.forEach(function (a) { en(whoPhrase("girl", a)); en(whoPhrase("boy", a)); });
+  ["What colour is it?", "How old are you?", "What do you want?", "What do you say?", "How are you?", "What's your name?", "My name is Titou. And you?"].forEach(en);
+  COLOR_OBJ.forEach(function (c) { en("It's " + c[1] + "."); });
+  Object.keys(AGE_W).forEach(function (a) { en("I'm " + AGE_W[a] + "."); });
+  WANT.forEach(function (w) { en("I want " + article(w[0]) + " " + w[0] + ", please."); });
+  HAVE.forEach(function (w) { en("Can I have the " + w[0] + ", please?"); });
+  FEEL.forEach(function (f) { en(f[0]); });
+  GAP.forEach(function (g) { const p = gapParts(g); if (p[0]) en(p[0]); if (p[1]) en(p[1]); en(gapFull(g)); });
+  ["Hi! How are you?", "I'm fine, thank you!", "I'm seven.", "It's blue.", "Where do you live?", "I live in France.", "I like pizza.", "I have a dog.",
+    "Do you like cats?", "Yes, I do!", "No, I don't.", "Can you swim?", "Yes, I can!", "No, I can't.", "Hello! What would you like?",
+    "I'd like an ice cream, please.", "I'd like some juice, please.", "I'd like a croissant, please.", "What's the weather like?", "Look! What can you see?",
+    "What's your favourite colour?"].forEach(en);
+  WEATHER.forEach(function (w) { en(w[1]); }); SEE.forEach(function (x) { en(x[2]); });
+  ["red", "blue", "green", "yellow", "pink", "purple"].forEach(function (c) { en("My favourite colour is " + c + "."); });
+}
+
 /* ---------- Styles (Apple-like, uses the site's Valeo Santé variables) ---------- */
 const CSS = `
 .g-home-row{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin:0 0 14px}
@@ -1301,6 +1610,30 @@ const CSS = `
 .g-wtile{min-width:clamp(86px,26vw,124px);padding:8px 10px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm);border:.5px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .2s var(--ease)}
 .g-wtile.used{opacity:.3;pointer-events:none}
 .g-ticon{width:44px;height:44px}
+/* grammar + expression */
+.g-qtop{display:flex;align-items:center;justify-content:center;gap:14px;min-height:0;flex:none}
+.g-qtop.small .g-qtitou{height:70px}
+.g-qtitou{height:clamp(74px,14dvh,120px);width:auto}
+.g-qem{font-size:clamp(56px,11dvh,92px);line-height:1}
+.g-gram.g-two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:620px;width:100%;margin-left:auto;margin-right:auto}
+.g-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}
+.g-opt .em{font-size:clamp(52px,12vw,84px);line-height:1}
+.g-opt-txt{aspect-ratio:auto!important;min-height:120px}
+.g-otxt{font-size:clamp(15px,3.6vw,19px);font-weight:700;text-align:center;line-height:1.25}
+.g-pic{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;width:100%;height:100%;font-size:clamp(46px,10vw,78px);line-height:1}
+.g-pic-n{font-size:clamp(34px,7.4vw,56px)}
+.g-big{font-size:clamp(96px,20vw,150px)}
+.g-small{font-size:clamp(30px,6vw,44px)}
+.g-thumb-em{position:absolute;right:10%;bottom:10%;font-size:.62em;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
+.g-point{font-size:.6em;margin-right:4px}
+.g-kid{font-size:1.15em}
+.g-act{position:absolute;right:8%;bottom:8%;font-size:.62em;background:var(--surface2);border-radius:50%;padding:6px;box-shadow:var(--shadow-sm)}
+.g-swatch.big{width:clamp(60px,14vw,96px);height:clamp(60px,14vw,96px)}
+.g-num-big{font-size:clamp(56px,13vw,96px);font-weight:800;color:var(--accent)}
+.g-gap-txt{font-size:clamp(20px,4.8vw,30px);font-weight:700;letter-spacing:-.01em}
+.g-blank{display:inline-block;min-width:2.4em;text-align:center;border-bottom:3px dashed var(--accent);color:var(--accent);margin:0 4px}
+.g-word{font-size:clamp(26px,6vw,40px);font-weight:800;letter-spacing:-.01em}
+@media (max-width:640px){.g-qtop{gap:8px}.g-gap-txt{font-size:19px}.g-opt-txt{min-height:96px}}
 .g-swatch{width:42px;height:42px;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
 /* where */
 .g-scenes{flex:0 0 auto;width:100%;max-width:860px;margin:auto;grid-template-columns:repeat(3,1fr);grid-auto-rows:auto;align-content:center}
@@ -1421,6 +1754,7 @@ function audioList() {
   SHOP.forEach(function (o) { for (let n = 1; n <= 5; n++) en(shopPhrase(n, o)); });
   for (let n = 1; n <= 9; n++) en(NUMW[n]);
   SPEAK_WORDS.forEach(function (w) { en(w[0]); }); SPEAK_PHRASES.forEach(function (w) { en(w[0]); });
+  grammarAudio(en);
   return L;
 }
 
