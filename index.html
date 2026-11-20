@@ -2742,12 +2742,14 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     });
   }
 
-  function afterDiscoverShown() {
+  const DISCOVER_INTRO = "Appuie sur l'image pour entendre le mot en anglais, puis répète après moi !";
+  function afterDiscoverShown(intro) {
     const it = poolFor(currentTheme())[discoverIndex];
     if (!it) return;
     markSeen(it.id);
     const line = discoverLine(it);
-    const chain = store.frenchPrompts && it.prompt ? speak(it.prompt, "fr-FR") : Promise.resolve();
+    // French instruction only once, when the child enters Découvrir; afterwards only the English word.
+    const chain = intro === true && store.frenchPrompts ? speak(DISCOVER_INTRO, "fr-FR") : Promise.resolve();
     chain.then(function () { return speak(it.en, "en-US"); })
       .then(function () { if (line && screen === "discover" && poolFor(currentTheme())[discoverIndex] === it) return speak(line, "en-US"); });
   }
@@ -2912,10 +2914,10 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     }
     if (act === "discover") {
       discoverIndex = 0; go("discover");
-      setTimeout(afterDiscoverShown, 280); return;
+      setTimeout(function () { afterDiscoverShown(true); }, 280); return;
     }
-    if (act === "prev") { discoverIndex--; go("discover"); setTimeout(afterDiscoverShown, 180); return; }
-    if (act === "next") { discoverIndex++; go("discover"); setTimeout(afterDiscoverShown, 180); return; }
+    if (act === "prev") { discoverIndex--; go("discover"); setTimeout(function () { afterDiscoverShown(false); }, 180); return; }
+    if (act === "next") { discoverIndex++; go("discover"); setTimeout(function () { afterDiscoverShown(false); }, 180); return; }
     if (act === "say-word") {
       const it = poolFor(currentTheme())[discoverIndex];
       if (it) {
@@ -3106,7 +3108,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     showThemes: function () { seedDemo(1, 6); categoryId = "animaux"; go("themes"); },
     showQuiz: function (level, age) { seedDemo(level || 1, age || 6); startQuiz(); },
     openTheme: function (id, age, level) { seedDemo(level || 1, age || 6); themeId = id; categoryId = THEMES[id].cat; go("modes"); },
-    openDiscover: function (id, age) { seedDemo(1, age || 6); themeId = id; categoryId = THEMES[id].cat; discoverIndex = 0; go("discover"); setTimeout(afterDiscoverShown, 200); },
+    openDiscover: function (id, age) { seedDemo(1, age || 6); themeId = id; categoryId = THEMES[id].cat; discoverIndex = 0; go("discover"); setTimeout(function () { afterDiscoverShown(true); }, 200); },
     poolFor: function (id) { return poolFor(THEMES[id]).map(function (it) { return it.id; }); },
     difficulty: function () { return difficultyOf(profile()); },
     showAge: function () {
