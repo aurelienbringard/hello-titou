@@ -2,7 +2,7 @@
 
 ## En français
 
-Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Le jeu est aujourd'hui entièrement gratuit. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.
+Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.
 
 Hello Titou s'adresse aux enfants de 4 à 8 ans. À 4–5 ans, les activités restent sur des mots simples et des images, avec peu de choix. Vers 6 ans, les groupes de mots s'allongent un peu. À 7–8 ans, l'enfant entend des phrases utiles et accède à davantage de jeux. Dans chaque thème, les mots vont du plus facile au plus difficile, selon l'âge et la progression.
 
@@ -12,10 +12,10 @@ Hello Titou s'adresse aux enfants de 4 à 8 ans. À 4–5 ans, les activités re
 - Mémoire: On retrouve les paires, en s'appuyant sur le son et l'image.
 - Les jeux de Titou: 21 mini-jeux supplémentaires, avec une progression selon l'âge : les plus jeunes jouent sans lire, les plus grands entendent des phrases et s'expriment à l'oral.
 
-Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent facultatif (e-mail et mot de passe) permet de les synchroniser entre plusieurs appareils. La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions.
+Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent, ouvert après validation d'une demande d'accès anticipé gratuit, permet de les synchroniser entre plusieurs appareils. La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions.
 
 ### Tarifs
-Pour le moment, tout le jeu reste gratuit et ouvert. Deux formules sont prévues : un abonnement mensuel à 19 € par mois, sans engagement, et une offre à vie à 399 € en un seul paiement. Les boutons « S'abonner » affichent un message d'attente : aucune commande ni aucun prélèvement ne peut être réalisé aujourd'hui.
+Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement arriveront ensuite : 19 € par mois, sans engagement, ou 399 € à vie en un seul paiement. Les boutons « S'abonner » affichent un message d'attente : aucune commande ni aucun prélèvement ne peut être réalisé aujourd'hui.
 
 ### FAQ
 Q: Qu'est-ce que Hello Titou ?
@@ -28,13 +28,13 @@ Q: Mon enfant ne sait pas encore lire. Peut-il utiliser Hello Titou ?
 A: Oui. Rien n'est à lire ni à écrire. On écoute un mot ou une petite phrase, on touche une image, on peut répéter. Une consigne en français peut précéder les questions. La voix des mots et des phrases est en anglais américain.
 
 Q: Comment fonctionne le jeu ?
-A: Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent permet de les synchroniser entre plusieurs appareils.
+A: Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent, ouvert après validation d'une demande d'accès anticipé, permet de les synchroniser entre plusieurs appareils.
 
 Q: Est-ce payant ?
-A: Non, pas pour le moment : tout le jeu est gratuit. Deux formules sont prévues — 19 € par mois sans engagement, ou 399 € à vie — mais les paiements ne sont pas encore ouverts. Aucun prélèvement n'est possible aujourd'hui.
+A: Les abonnements — 19 € par mois sans engagement, ou 399 € à vie — arriveront bientôt ; les paiements ne sont pas encore ouverts. En attendant, un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Aucun prélèvement n'est possible aujourd'hui.
 
 Q: Faut-il créer un compte ?
-A: Non. On peut jouer sans compte : les progrès restent alors sur cet appareil. Un compte parent (e-mail et mot de passe) est facultatif et sert à synchroniser les profils et les étoiles entre plusieurs appareils.
+A: Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils.
 
 Q: Hello Titou remplace-t-il un cours d'anglais ?
 A: Non. C'est un complément ludique pour faire entendre l'anglais à la maison, à petit rythme. Ce n'est pas un cours, ni une promesse de bilinguisme ou de résultat scolaire.
@@ -65,6 +65,6 @@ Pas besoin d'être bilingue, ni de transformer le salon en salle de classe. Cinq
 
 ## In English
 
-Hello Titou is a web-based educational game for children aged 4–8. It helps them hear and learn English through short picture-and-sound games, with a mascot called Titou. Children do not need to read or type. There are three core modes (Discover, Find it, Memory) plus 21 extra mini-games with an age-based progression, and more than 300 themes. American English audio; a French prompt may precede a question. Progress stays on the device unless a parent creates an optional account to sync profiles. The game is currently entirely free. Two paid plans are planned but not yet purchasable: €19 per month (no commitment) or €399 lifetime.
+Hello Titou is a web-based educational game for children aged 4–8. It helps them hear and learn English through short picture-and-sound games, with a mascot called Titou. Children do not need to read or type. There are three core modes (Discover, Find it, Memory) plus 21 extra mini-games with an age-based progression, and more than 300 themes. American English audio; a French prompt may precede a question. Progress stays on the device unless a parent account, opened after an approved early-access request, syncs profiles. Free early access is offered to beta testers on request, subject to approval. Two paid plans are planned but not yet purchasable: €19 per month (no commitment) or €399 lifetime.
 
 Official site: https://hellotitou.fr/
