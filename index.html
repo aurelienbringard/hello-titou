@@ -1597,9 +1597,9 @@ a.pill { text-decoration: none; display: inline-flex; align-items: center; justi
   </div>
   <div class="sr" id="live" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js"></script>
-  <script src="content.js?v=202611201754"></script>
-  <script src="discover-fr.js?v=202611211040"></script>
-  <script src="games.js?v=202611211050"></script>
+  <script src="content.js?v=202611211930"></script>
+  <script src="discover-fr.js?v=202611211930"></script>
+  <script src="games.js?v=202611211930"></script>
   <script src="blog-posts.js?v=202611211050"></script>
   <script src="seo-content.js?v=202611211200"></script>
   <script>
@@ -2620,6 +2620,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
 
   function visualHTML(vis, big) {
     if (!vis) return "";
+    if (vis.pup && window.HT_GAMES && HT_GAMES.pupSVG) return '<div class="pup-vis' + (big ? " big" : "") + '">' + HT_GAMES.pupSVG(vis.pup) + "</div>";
     const count = vis.count || 0;
     if (vis.color && COLOR_HEX[vis.color]) {
       const border = (vis.color === "white") ? "border:3px solid #d0d5dd;" : "";
@@ -3073,7 +3074,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   }
 
   function isKidScreen(name) {
-    return /^(profiles|create|home|themes|modes|discover|quiz|memory|progress|games|game)$/.test(name || screen);
+    return /^(profiles|create|home|themes|modes|discover|quiz|memory|progress|games|game|rescue)$/.test(name || screen);
   }
   function isSiteScreen(name) {
     return /^(start|parent|legal|blog|aide|plans|play-gate)$/.test(name || screen);
@@ -3934,6 +3935,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     }
     html += '<div class="scroll">' + (window.HT_GAMES ? HT_GAMES.homeBanner() : "") + '<p class="hint">Choisis une catégorie</p><div class="grid cats">';
     visibleCats().forEach(function (c) {
+      if (c.id === "chiots" && window.HT_GAMES) return; /* shown as the big « Les chiots sauveteurs » card above */
       const n = visibleThemes(c.id).length;
       html += '<button class="tile cat-tile" data-act="category" data-id="' + c.id + '">' +
         '<div class="em-wrap" style="background:' + c.accent + "22" + '"><span class="em" style="font-size:30px">' + c.emoji + "</span></div>" +
@@ -3963,12 +3965,14 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   function renderModes() {
     const t = currentTheme();
     const d = difficultyOf(profile());
-    return '<div class="screen" data-screen="modes">' + topbar({ back: "themes", progress: true, settings: true }) +
+    const pups = t.cat === "chiots" && window.HT_GAMES;
+    return '<div class="screen" data-screen="modes">' + topbar({ back: pups ? "g:space" : "themes", progress: true, settings: true }) +
       '<div class="title"><div style="font-size:56px;line-height:1">' + t.emoji + '</div><h1 style="font-size:24px;margin-top:8px">' + escapeHtml(t.fr) + "</h1><p>" + escapeHtml(t.en) + "</p></div>" +
       '<div class="grid modes">' +
       '<button class="tile mode-btn' + (d.preferDiscover ? " featured" : "") + '" data-act="discover"><div class="em">👀</div><div class="txt"><b>Découvrir</b><span class="lbl">Look and listen<span class="en">Écoute les mots</span></span></div></button>' +
       '<button class="tile mode-btn" data-act="quiz"><div class="em">🎯</div><div class="txt"><b>Trouve</b><span class="lbl">Find it<span class="en">Écoute et touche</span></span></div></button>' +
       '<button class="tile mode-btn" data-act="memory"><div class="em">🃏</div><div class="txt"><b>Mémoire</b><span class="lbl">Memory<span class="en">Les deux pareils</span></span></div></button>' +
+      (pups ? '<button class="tile mode-btn" data-act="g:open" data-id="mission"><div class="em">🚨</div><div class="txt"><b>Mission !</b><span class="lbl">Rescue mission<span class="en">Aide les chiots</span></span></div></button>' : "") +
       "</div>" + accountMenuHTML() + "</div>";
   }
   function renderDiscover() {
