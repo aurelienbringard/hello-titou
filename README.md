@@ -28,7 +28,7 @@ Chaque jeu se débloque avec **2 étoiles sur 3** au jeu d’avant (les jeux des
 
 Dans chaque thème, les mots vont du plus facile au plus difficile : l’âge de l’enfant (et son niveau) débloque les mots suivants.
 
-La voix est en **anglais américain**. Une consigne en français peut précéder les questions. Les progrès (étoiles, mots appris) restent sur l’appareil, et un **compte parent** permet de les synchroniser entre plusieurs appareils.
+La voix est en **anglais américain**. Une consigne en français peut précéder les questions. Le jeu est **réservé aux comptes parents validés**. Les progrès (étoiles, mots appris) sont synchronisés entre les appareils du compte ; d’éventuels progrès déjà enregistrés en local sont conservés et peuvent être repris après connexion.
 
 ## Jouer
 
@@ -38,13 +38,13 @@ Ou ouvrir le fichier `index.html` dans un navigateur (Chrome, Safari, Edge…), 
 
 ## Parents
 
-En haut à droite : **Se connecter** pour créer un compte (e-mail + mot de passe). Une fois le parent connecté, les enfants n’ont plus rien à taper : ils choisissent juste leur avatar. La zone parents (profils, remise à zéro) est protégée par une petite question.
+En haut à droite : **Se connecter** (e-mail + mot de passe) si votre accès a déjà été validé, ou **Accès anticipé gratuit** pour déposer une demande (bêta testeur). Sans compte validé, le jeu n’est pas accessible. Une fois le parent connecté, les enfants n’ont plus rien à taper : ils choisissent juste leur avatar. La zone parents (profils, remise à zéro) est protégée par une petite question.
 
 Des offres d’abonnement (19 € / mois ou 399 € à vie) sont présentées dans la page **Abonnements**. Les paiements ne sont pas encore ouverts. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation (voir `tools/early_access.md`).
 
 ## Technique
 
-Application statique : `index.html` (jeu), `content.js` (catégories, thèmes, mots et phrases) et `games.js` (les 21 jeux, la révision et les accessoires). L’audio est hébergé sur un bucket public Supabase. Sans compte, tout reste en local (`localStorage`).
+Application statique : `index.html` (jeu), `content.js` (catégories, thèmes, mots et phrases) et `games.js` (les 21 jeux, la révision et les accessoires). L’audio est hébergé sur un bucket public Supabase. Les pages publiques (accueil, blog, aide, mentions) restent accessibles sans compte. Le jeu lui-même exige un compte parent validé ; le navigateur peut encore conserver des progrès locaux (`localStorage`) pour les reprendre après connexion.
 
 ## Nom de domaine
 

@@ -217,10 +217,10 @@ def extract_aide_html(index_html: str) -> str:
         "<h1>Parents / Aide</h1>"
         "<p>Hello Titou aide les enfants de 4 à 8 ans à entendre l'anglais et à apprendre des mots par le jeu, avec Titou. Tout est pensé pour que l'enfant n'ait rien à taper.</p>"
         "<h2>Jouer</h2>"
-        "<p>Sur l'accueil, touchez ▶ pour choisir un profil (mascotte, âge, prénom facultatif), puis une catégorie et un mini-jeu&nbsp;: Découvrir, Trouve, ou Mémoire. La voix est en anglais américain. Une consigne en français peut précéder les questions.</p>"
-        "<p><a class=\"pill ok\" href=\"/\">Jouer avec Titou</a></p>"
+        "<p>Le jeu est réservé aux familles dont le compte parent a été validé. Une fois connecté, touchez ▶ pour choisir un profil (mascotte, âge, prénom facultatif), puis une catégorie et un mini-jeu&nbsp;: Découvrir, Trouve, ou Mémoire. La voix est en anglais américain. Une consigne en français peut précéder les questions.</p>"
+        "<p><a class=\"pill ok\" href=\"/#play\">Jouer avec Titou</a></p>"
         "<h2>Compte parent</h2>"
-        "<p>L'inscription libre n'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, déposez une demande d'accès anticipé gratuit. Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils.</p>"
+        "<p>L'inscription libre n'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, déposez une demande d'accès anticipé gratuit. Après validation, vous recevez un e-mail pour activer votre compte parent, jouer et synchroniser les profils et les étoiles entre plusieurs appareils.</p>"
         "<p><a class=\"pill ok\" href=\"/acces-anticipe/\">Accès anticipé gratuit</a> "
         "<a class=\"pill no\" href=\"/#auth\">Se connecter</a></p>"
         "<h2>Zone parents</h2>"
@@ -468,7 +468,7 @@ def header_footer(current: str) -> tuple[str, str]:
         + theme_toggle_html()
         + '<a class="pill gold header-early" href="/acces-anticipe/">Accès anticipé gratuit</a>'
         + '<a class="pill no" href="/#auth">Se connecter</a>'
-        + '<a class="pill ok" href="/">Jouer</a>'
+        + '<a class="pill ok" href="/#play">Jouer</a>'
         + '<button type="button" class="site-nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>'
         + "</div>"
         + f'<div class="site-nav-drop" id="nav-drop" role="menu">{links}</div>'
@@ -564,7 +564,7 @@ def home_prerender(seo: dict) -> str:
         '<div class="home-hero">'
         f"{TITOU_MARK}"
         '<div class="title"><h1>Hello Titou</h1><p>L\'anglais en s\'amusant, dès 4 ans</p></div>'
-        '<a class="play-btn" href="/" aria-label="Jouer">▶</a>'
+        '<a class="play-btn" href="/#play" aria-label="Jouer">▶</a>'
         '<a class="pill ok early-access-cta" href="/acces-anticipe/">Accès anticipé gratuit</a>'
         '<div class="preview-row"><span>🐶</span><span>🎨</span><span>🍏</span><span>🚒</span><span>🚀</span></div>'
         "</div>"
@@ -680,7 +680,7 @@ def article_page(seo: dict, post: dict, posts: list[dict]) -> str:
         + (f'<span class="eyebrow">{escape(cta["eyebrow"])}</span>' if cta.get("eyebrow") else "")
         + f'<h2>{escape(cta.get("title") or "Essayer Hello Titou")}</h2>'
         + f'<p>{escape(cta.get("text") or "Des mini-jeux d\'anglais pour les enfants de 4 à 8 ans.")}</p>'
-        + f'<a class="pill ok" href="/">{escape(cta.get("button") or "Jouer avec Titou")}</a></div>'
+        + f'<a class="pill ok" href="/#play">{escape(cta.get("button") or "Jouer avec Titou")}</a></div>'
     )
     related = [p for p in posts if p["slug"] != post["slug"] and p.get("body")][:2]
     related_html = ""
@@ -1003,7 +1003,7 @@ def llms_txt(seo: dict, posts: list[dict]) -> str:
         "",
         f"> {seo['lead']}",
         "",
-        "Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. Free early access is offered to beta testers on request, subject to approval. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.",
+        "Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. Play requires an approved parent account. Free early access is offered to beta testers on request, subject to approval. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.",
         "",
         "## Pages",
         "",
@@ -1049,7 +1049,7 @@ def llms_full_txt(seo: dict, posts: list[dict]) -> str:
 ### Méthode
 {how}
 
-Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent, ouvert après validation d'une demande d'accès anticipé gratuit, permet de les synchroniser entre plusieurs appareils. La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions.
+Pour jouer, un compte parent validé est nécessaire. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Une fois connecté, les progrès (étoiles, mots appris) sont synchronisés entre les appareils du compte. D'éventuels progrès déjà enregistrés sur l'appareil sont conservés et peuvent être repris après connexion. La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions.
 
 ### Tarifs
 {seo['priceText']}
@@ -1062,7 +1062,7 @@ Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent, o
 
 ## In English
 
-Hello Titou is a web-based educational game for children aged 4–8. It helps them hear and learn English through short picture-and-sound games, with a mascot called Titou. Children do not need to read or type. There are three core modes (Discover, Find it, Memory) plus 21 extra mini-games with an age-based progression, and more than 300 themes. American English audio; a French prompt may precede a question. Progress stays on the device unless a parent account, opened after an approved early-access request, syncs profiles. Free early access is offered to beta testers on request, subject to approval. Two paid plans are planned but not yet purchasable: €19 per month (no commitment) or €399 lifetime.
+Hello Titou is a web-based educational game for children aged 4–8. It helps them hear and learn English through short picture-and-sound games, with a mascot called Titou. Children do not need to read or type. There are three core modes (Discover, Find it, Memory) plus 21 extra mini-games with an age-based progression, and more than 300 themes. American English audio; a French prompt may precede a question. Play requires an approved parent account. Free early access is offered to beta testers on request, subject to approval. Once signed in, progress syncs across the parent's devices; any progress already stored on the device is kept and can be reused after sign-in. Two paid plans are planned but not yet purchasable: €19 per month (no commitment) or €399 lifetime.
 
 Official site: {SITE}/
 """
