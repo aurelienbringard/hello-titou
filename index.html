@@ -589,6 +589,43 @@ input { font: inherit; color: var(--text); }
 .big-card .em { font-size: clamp(80px, 24vw, 160px); line-height: 1; }
 .big-card .word { font-size: clamp(24px, 6vw, 36px); font-weight: 700; letter-spacing: -0.02em; }
 .big-card .word-fr { font-size: 15px; color: var(--text2); font-weight: 500; }
+.big-card-wrap {
+  position: relative;
+  width: min(84vw, 400px);
+  max-width: 100%;
+  max-height: min(52dvh, 400px);
+  aspect-ratio: 1;
+  flex-shrink: 1;
+  min-height: 0;
+}
+.big-card-wrap .big-card {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  aspect-ratio: auto;
+}
+.fr-flag-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  border: 0.5px solid var(--line);
+  font-size: 32px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  padding: 0;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.fr-flag-btn:active { transform: scale(0.94); }
 .nav-row { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .listen-btn {
   width: 72px; height: 72px; border-radius: 50%; background: var(--accent); color: var(--on-accent);
@@ -776,7 +813,8 @@ input { font: inherit; color: var(--text); }
   .title { margin: 4px 0 8px; }
   .title h1 { font-size: clamp(22px, 6vh, 36px); }
   .title p { font-size: 14px; }
-  .big-card { max-height: calc(100dvh - var(--bar-h) - var(--safe-t) - 100px); width: min(50vw, 280px); }
+  .big-card-wrap { max-height: calc(100dvh - var(--bar-h) - var(--safe-t) - 100px); width: min(50vw, 280px); }
+  .fr-flag-btn { width: 52px; height: 52px; min-width: 52px; min-height: 52px; font-size: 26px; top: 6px; right: 6px; }
   .listen-btn { width: 52px; height: 52px; font-size: 22px; }
   .discover-wrap { gap: 8px; }
   .nav-row { gap: 12px; }
@@ -807,7 +845,7 @@ input { font: inherit; color: var(--text); }
 @media (hover: hover) and (pointer: fine) {
   .tile, .choice, .pill, .play-btn, .listen-btn, .icon-btn,
   .account-btn, .theme-toggle, .age-btn, .profile-chip, .brand-logo,
-  .speaker-hero, .big-card, .mode-btn, .listen-again, .more-btn {
+  .speaker-hero, .big-card, .mode-btn, .listen-again, .more-btn, .fr-flag-btn {
     transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
   .tile:hover, .choice:hover, .age-btn:hover, .big-card:hover, .mode-btn:hover, .pill:hover {
@@ -823,7 +861,7 @@ input { font: inherit; color: var(--text); }
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(54, 211, 190, 0.16);
   }
   .play-btn:hover, .listen-btn:hover, .speaker-hero:hover, .icon-btn:hover,
-  .account-btn:hover, .theme-toggle:hover, .profile-chip:hover, .listen-again:hover, .brand-logo:hover {
+  .account-btn:hover, .theme-toggle:hover, .profile-chip:hover, .listen-again:hover, .brand-logo:hover, .fr-flag-btn:hover {
     transform: translateY(-2px) scale(1.02);
   }
   .mcard:hover { filter: brightness(1.06); }
@@ -1122,6 +1160,29 @@ mark.legal-todo {
 @media (prefers-reduced-motion: reduce) {
   .contact-info:hover, .contact-submit:hover { transform: none; }
 }
+
+.home-hero .early-access-cta {
+  min-height: 48px; padding: 0 20px; font-size: 16px; font-weight: 700;
+  text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 6px;
+}
+.header-early { display: none; }
+@media (min-width: 1100px) {
+  .header-early { display: inline-flex; }
+}
+.contact-consent {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; font-weight: 550; color: var(--text2); line-height: 1.45; margin: 0;
+}
+.contact-consent input[type="checkbox"] {
+  width: 18px; height: 18px; margin-top: 2px; flex-shrink: 0; accent-color: var(--accent);
+}
+.contact-consent button, .contact-consent a {
+  color: var(--accent); font-weight: 700; background: none; padding: 0;
+  min-height: 0; border-radius: 0;
+}
+.contact-consent a:hover, .contact-consent button:hover { text-decoration: underline; text-underline-offset: 2px; }
+
 .admin-messages { margin: 22px 0 8px; text-align: left; }
 .admin-messages h3 { margin: 0 0 10px; font-size: 16px; }
 .admin-msg-card {
@@ -1450,7 +1511,8 @@ a.pill { text-decoration: none; display: inline-flex; align-items: center; justi
   <div class="sr" id="live" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js"></script>
   <script src="content.js?v=202611201754"></script>
-  <script src="games.js?v=202611210100"></script>
+  <script src="discover-fr.js?v=202611211040"></script>
+  <script src="games.js?v=202611211040"></script>
   <script src="blog-posts.js?v=202611210015"></script>
   <script src="seo-content.js?v=202611210040"></script>
   <script>
@@ -1540,6 +1602,12 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   let contactMsg = "";
   let contactMsgKind = "";
   let contactSent = false;
+  const EARLY_MSG_MAX = 1000;
+  let earlyDraft = { firstName: "", email: "", children: "", message: "", company: "", consent: false };
+  let earlyBusy = false;
+  let earlyMsg = "";
+  let earlyMsgKind = "";
+  let earlySent = false;
   let memoryMiss = false;
 
   try {
@@ -1611,6 +1679,23 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   }
   function isAdmin() { return !!(parentAccount && parentAccount.is_admin); }
   function currentPlan() { return (parentAccount && parentAccount.plan) || "free"; }
+  function hasCloudAccess() {
+    if (!isLoggedIn() || !parentAccount) return false;
+    if (parentAccount.is_admin || parentAccount.access_granted) return true;
+    const plan = currentPlan();
+    return plan === "monthly" || plan === "lifetime" || plan === "lifetime_free";
+  }
+  const ACCESS_DENIED_MSG = "L'inscription est réservée aux bêta testeurs validés. Déposez une demande d'accès anticipé gratuit : vous recevrez un e-mail dès validation.";
+  async function denyCloudAccess(message) {
+    try { if (sb) await sb.auth.signOut(); } catch (e) { /* ignore */ }
+    session = null; syncState = "local"; parentAccount = null; adminCustomers = [];
+    authMsg = message || ACCESS_DENIED_MSG;
+    authMsgKind = "err";
+    accountMenu = false;
+    overlay = { type: "auth" };
+    render();
+  }
+
   function formatDateFr(iso) {
     if (!iso) return "—";
     try {
@@ -1688,11 +1773,11 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   async function loadParentAccount() {
     if (!sb || !isLoggedIn()) { parentAccount = null; return; }
     try {
-      const res = await sb.from("parent_accounts").select("email,plan,is_admin,created_at,plan_updated_at").eq("user_id", session.user.id).maybeSingle();
+      const res = await sb.from("parent_accounts").select("email,plan,is_admin,access_granted,created_at,plan_updated_at").eq("user_id", session.user.id).maybeSingle();
       if (res.error) throw res.error;
-      parentAccount = res.data || { plan: "free", is_admin: false, email: session.user.email || "" };
+      parentAccount = res.data || { plan: "free", is_admin: false, access_granted: false, email: session.user.email || "" };
     } catch (e) {
-      if (!parentAccount) parentAccount = { plan: "free", is_admin: false, email: session.user.email || "" };
+      if (!parentAccount) parentAccount = { plan: "free", is_admin: false, access_granted: false, email: session.user.email || "" };
     }
   }
   async function loadAdminCustomers() {
@@ -1935,6 +2020,11 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     syncing = true; pendingSync = false; syncState = "syncing";
     try {
       await loadParentAccount();
+      if (!hasCloudAccess()) {
+        syncing = false;
+        await denyCloudAccess();
+        return;
+      }
       const userId = session.user.id;
       const previousUser = store.cloud && store.cloud.userId;
       const switching = previousUser && previousUser !== userId;
@@ -2040,25 +2130,11 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     return { email: email, password: password };
   }
   async function doSignUp() {
-    if (authBusy) return;
-    const form = readAuthForm();
-    if (form.error) { showAuthMsg(form.error, "err"); return; }
-    authBusy = true; authMsg = ""; authMsgKind = "";
-    render();
-    try {
-      const res = await sb.auth.signUp({ email: form.email, password: form.password });
-      if (res.error) throw res.error;
-      if (res.data && res.data.session) {
-        session = res.data.session;
-        authMsg = "Compte créé. Les profils et les étoiles de cet appareil vont être synchronisés.";
-        authMsgKind = "ok";
-        await syncNow();
-      } else {
-        authMsg = "Compte créé ! Ouvre ta boîte mail, clique sur le lien de confirmation, puis reviens te connecter ici. (Le lien peut ouvrir une page vide : c'est normal, reviens ensuite à Hello Titou.)";
-        authMsgKind = "ok";
-      }
-    } catch (e) { authMsg = authErrorFr(e); authMsgKind = "err"; }
-    authBusy = false; render();
+    authMsg = ACCESS_DENIED_MSG;
+    authMsgKind = "err";
+    overlay = null;
+    if (goPublic("/acces-anticipe/")) return;
+    goSite("legal", { id: "acces-anticipe", hash: "acces-anticipe" });
   }
   async function doSignIn() {
     if (authBusy) return;
@@ -2183,6 +2259,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const band = effectiveBand(profile());
     poolFor(theme).forEach(function (it) {
       prefetchUrl(audioUrl(it.en, "en-US")).catch(function () {});
+      const frw = discoverFr(it);
+      if (frw) prefetchUrl(audioUrl(frw, "fr-FR")).catch(function () {});
       if (band >= 6 && it.phrase) prefetchUrl(audioUrl(it.phrase, "en-US")).catch(function () {});
       if (band >= 7 && it.s) prefetchUrl(audioUrl(it.s, "en-US")).catch(function () {});
       if (it.prompt && store.frenchPrompts) prefetchUrl(audioUrl(it.prompt, "fr-FR")).catch(function () {});
@@ -2426,6 +2504,34 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (band >= 6 && item.phrase && item.phrase !== item.en) return item.phrase;
     return "";
   }
+  function discoverFr(item) {
+    if (!item) return "";
+    const raw = String(item.fr || "").trim();
+    const M = window.HT_DISCOVER_FR || {};
+    if (item.id && M["#" + item.id]) return M["#" + item.id];
+    if (Object.prototype.hasOwnProperty.call(M, raw)) return M[raw];
+    return raw;
+  }
+  let discoverHeard = {};
+  function resetDiscoverHeard() { discoverHeard = {}; }
+  function playDiscoverWord(item, first) {
+    if (!item) return Promise.resolve();
+    const line = discoverLine(item);
+    const fr = discoverFr(item);
+    const still = function () { return screen === "discover" && poolFor(currentTheme())[discoverIndex] === item; };
+    let chain;
+    if (first && fr) {
+      // EN → FR once → EN last, so the child can repeat the English word.
+      chain = speak(item.en, "en-US")
+        .then(function () { if (fr && still()) return speak(fr, "fr-FR"); })
+        .then(function () { if (still()) return speak(item.en, "en-US"); });
+    } else {
+      chain = speak(item.en, "en-US");
+    }
+    return chain.then(function () {
+      if (line && still()) return speak(line, "en-US");
+    });
+  }
   function makeWordQuestion(theme, n, mode) {
     const items = poolFor(theme);
     const target = items[Math.floor(Math.random() * items.length)];
@@ -2668,7 +2774,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     cgu: { title: "Conditions générales d'utilisation", hash: "cgu" },
     confidentialite: { title: "Politique de confidentialité", hash: "confidentialite" },
     cookies: { title: "Cookies", hash: "cookies" },
-    contact: { title: "Contact", hash: "contact" }
+    contact: { title: "Contact", hash: "contact" },
+    "acces-anticipe": { title: "Accès anticipé gratuit", hash: "acces-anticipe" }
   };
 
   function legalBody(id) {
@@ -2863,6 +2970,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       else if (h === "confidentialite" || h === "privacy") dest = "/confidentialite/";
       else if (h === "cookies") dest = "/cookies/";
       else if (h === "contact" || h === "contactez-nous") dest = "/contact/";
+      else if (h === "acces-anticipe" || h === "acces" || h === "early-access") dest = "/acces-anticipe/";
       if (dest) { location.replace(dest); return true; }
     }
     if (!h || h === "accueil") { if (isSiteScreen() || screen === "start") goSite("start", { hash: false }); return true; }
@@ -2875,7 +2983,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     }
     if (h === "abonnements") { goSite("plans", { hash: false }); return true; }
     if (h === "aide" || h === "parents") { goSite("aide", { hash: false }); return true; }
-    const legalAliases = { "mentions-legales": "mentions", "privacy": "confidentialite", "mentions": "mentions", "cgv": "cgv", "cgu": "cgu", "confidentialite": "confidentialite", "cookies": "cookies", "contact": "contact", "contactez-nous": "contact" };
+    const legalAliases = { "mentions-legales": "mentions", "privacy": "confidentialite", "mentions": "mentions", "cgv": "cgv", "cgu": "cgu", "confidentialite": "confidentialite", "cookies": "cookies", "contact": "contact", "contactez-nous": "contact", "acces-anticipe": "acces-anticipe", "acces": "acces-anticipe", "early-access": "acces-anticipe" };
     if (legalAliases[h]) { goSite("legal", { id: legalAliases[h], hash: false }); return true; }
     return false;
   }
@@ -2886,7 +2994,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       aide: "/aide/", parents: "/aide/", mentions: "/mentions-legales/",
       "mentions-legales": "/mentions-legales/", cgv: "/cgv/", cgu: "/cgu/",
       confidentialite: "/confidentialite/", cookies: "/cookies/",
-      contact: "/contact/", "contactez-nous": "/contact/"
+      contact: "/contact/", "contactez-nous": "/contact/",
+      "acces-anticipe": "/acces-anticipe/", acces: "/acces-anticipe/"
     };
     if (id && id.indexOf("blog/") === 0) return "/blog/" + encodeURIComponent(id.slice(5)) + "/";
     return map[id || ""] || "/";
@@ -2923,7 +3032,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
         titouSVG("logo") + '<span class="site-wordmark">Hello Titou</span>' +
         (useRealPaths() ? "</a>" : "</button>") +
       '<nav class="site-nav" aria-label="Navigation principale">' + links + "</nav>" +
-      '<div class="site-header-actions">' + themeToggle() + accountButton() +
+      '<div class="site-header-actions">' + themeToggle() + (useRealPaths() ? '<a class="pill gold header-early" href="/acces-anticipe/">Accès anticipé gratuit</a>' : '<button type="button" class="pill gold header-early" data-act="nav-early">Accès anticipé gratuit</button>') + accountButton() +
         '<button type="button" class="site-nav-toggle" data-act="site-nav-toggle" aria-label="Menu" aria-expanded="' + (siteNavOpen ? "true" : "false") + '">☰</button>' +
       "</div>" +
       (siteNavOpen ? '<div class="site-nav-drop open" role="menu">' + links + "</div>" : "") +
@@ -2937,6 +3046,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       ["nav-legal", "confidentialite", "Politique de confidentialité"],
       ["nav-legal", "cookies", "Cookies"],
       ["nav-legal", "contact", "Contactez-nous"],
+      ["nav-early", "acces-anticipe", "Accès anticipé gratuit"],
       ["nav-blog", "blog", "Blog"]
     ];
     let nav = "<nav aria-label=\"Pied de page\">";
@@ -2954,7 +3064,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       siteHeader() + '<div class="site-main">' + mainHtml + "</div>" + siteFooter() + accountMenuHTML() + "</div>";
   }
   function planCardsHTML() {
-    return "<p>Choisis la formule qui te convient. Pour le moment, tout le jeu reste gratuit et ouvert : les abonnements arriveront très bientôt.</p>" +
+    return "<p>Les abonnements arriveront bientôt (19 € / mois sans engagement, ou 399 € à vie). En attendant, un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation.</p>" +      (useRealPaths() ? '<p><a class="pill ok" href="/acces-anticipe/">Accès anticipé gratuit</a></p>' : '<p><button type="button" class="pill ok" data-act="nav-early">Accès anticipé gratuit</button></p>') +
       '<div class="plan-card"><h3>Mensuel</h3><div class="price">19 € <span class="period">/ mois</span></div>' +
       "<p>Accès à toutes les fonctionnalités. Sans engagement.</p>" +
       '<button class="pill ok" data-act="subscribe-soon" type="button">S\'abonner</button></div>' +
@@ -2975,13 +3085,14 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       "<h2>Jouer</h2>" +
       "<p>Sur l'accueil, touchez ▶ pour choisir un profil (mascotte, âge, prénom facultatif), puis une catégorie et un mini-jeu&nbsp;: Découvrir, Trouve, ou Mémoire. La voix est en anglais américain. Une consigne en français peut précéder les questions.</p>" +
       "<h2>Compte parent</h2>" +
-      "<p>En haut à droite, «&nbsp;Se connecter&nbsp;» permet de créer un compte (e-mail et mot de passe) pour synchroniser les profils et les étoiles entre plusieurs appareils. Sans compte, tout reste sur cet appareil.</p>" +
+      "<p>L'inscription libre n'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, déposez une demande d'accès anticipé gratuit. Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils.</p>" +
+      (useRealPaths() ? '<p><a class="pill ok" href="/acces-anticipe/">Accès anticipé gratuit</a></p>' : '<p><button type="button" class="pill ok" data-act="nav-early">Accès anticipé gratuit</button></p>') +
       "<h2>Zone parents</h2>" +
       "<p>La zone parents permet de gérer les profils, l'âge, et de remettre les étoiles à zéro. Elle est protégée par une petite question, pour éviter les changements accidentels.</p>" +
       '<p><button type="button" class="pill ok" data-act="parent-gate">Ouvrir la zone parents</button></p>' +
       backGame +
       "<h2>Abonnements</h2>" +
-      "<p>Deux formules sont prévues (19&nbsp;€ / mois sans engagement, ou 399&nbsp;€ à vie). Les paiements ne sont pas encore ouverts&nbsp;: le jeu reste entièrement gratuit pour le moment.</p>" +
+      "<p>Deux formules sont prévues (19&nbsp;€ / mois sans engagement, ou 399&nbsp;€ à vie). Les paiements ne sont pas encore ouverts. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation.</p>" +
       '<p><button type="button" class="pill no" data-act="nav-plans">Voir les abonnements</button></p>' +
       "</div>",
       "aide"
@@ -3392,6 +3503,9 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       titouSVG("wave", "titou-hero") +
       '<div class="title"><h1>Hello Titou</h1><p>L\'anglais en s\'amusant, dès 4 ans</p></div>' +
       '<button class="play-btn" data-act="play" aria-label="Jouer">▶</button>' +
+      (useRealPaths()
+        ? '<a class="pill ok early-access-cta" href="/acces-anticipe/">Accès anticipé gratuit</a>'
+        : '<button type="button" class="pill ok early-access-cta" data-act="nav-early">Accès anticipé gratuit</button>') +
       '<div class="preview-row"><span>🐶</span><span>🎨</span><span>🍏</span><span>🚒</span><span>🚀</span></div>' +
       "</div>" + homeExplainerHTML(),
       "start"
@@ -3496,12 +3610,16 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     let dots = '<div class="dots">';
     items.forEach(function (_, i) { dots += '<i class="' + (i === discoverIndex ? "on" : (i < discoverIndex ? "done" : "")) + '"></i>'; });
     dots += "</div>";
+    const frWord = discoverFr(it);
     return '<div class="screen" data-screen="discover">' + topbar({ back: "modes" }) +
       '<div class="discover-wrap">' +
-      '<button class="big-card" data-act="say-word">' + itemVisual(it, true) +
+      '<div class="big-card-wrap">' +
+      '<button type="button" class="big-card" data-act="say-word">' + itemVisual(it, true) +
       '<div class="word">' + escapeHtml(it.en) + "</div>" +
-      '<div class="word-fr">' + escapeHtml(it.fr) + "</div>" +
+      (frWord ? '<div class="word-fr">' + escapeHtml(frWord) + "</div>" : "") +
       (discoverLine(it) ? '<div class="word-line">' + escapeHtml(discoverLine(it)) + "</div>" : "") + "</button>" +
+      '<button type="button" class="fr-flag-btn" data-act="say-fr" aria-label="Écouter le mot en français">🇫🇷</button>' +
+      "</div>" +
       '<div class="nav-row">' +
       '<button class="icon-btn" data-act="prev" aria-label="Précédent">←</button>' +
       '<button type="button" class="listen-again" data-act="say-word" aria-label="Écouter encore">' +
@@ -3612,7 +3730,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       inner += '<div class="row-btns"><button class="pill gold" data-act="auth-sync" type="button">Synchroniser</button>' +
         '<button class="pill no" data-act="auth-signout" type="button">Se déconnecter</button></div>';
     } else {
-      inner += '<p class="tiny">Pour retrouver les profils et les étoiles sur un autre appareil, crée un compte. Les enfants n\'ont rien à taper : une fois connecté, ils choisissent juste leur avatar.<br><br>Tu peux aussi jouer sans compte : tout reste sur cet appareil seulement.</p>';
+      inner += '<p class="tiny">L\'inscription libre n\'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, dépose une demande d\'accès anticipé gratuit. Après validation, tu reçois un e-mail pour activer ton compte parent et synchroniser les profils et les étoiles.</p>';
       if (!sb && !authMsg) {
         authMsg = "Le service de connexion n'est pas prêt. Vérifie ta connexion internet, recharge la page, puis réessaie.";
         authMsgKind = "err";
@@ -3807,11 +3925,10 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const it = poolFor(currentTheme())[discoverIndex];
     if (!it) return;
     markSeen(it.id);
-    const line = discoverLine(it);
-    // French instruction only once, when the child enters Découvrir; afterwards only the English word.
+    const first = !discoverHeard[it.id];
+    if (first) discoverHeard[it.id] = true;
     const chain = intro === true && store.frenchPrompts ? speak(DISCOVER_INTRO, "fr-FR") : Promise.resolve();
-    chain.then(function () { return speak(it.en, "en-US"); })
-      .then(function () { if (line && screen === "discover" && poolFor(currentTheme())[discoverIndex] === it) return speak(line, "en-US"); });
+    chain.then(function () { return playDiscoverWord(it, first); });
   }
   function celebrateRound() {
     if (window.HT_GAMES) { HT_GAMES.finishCore("listen", HT_GAMES.starsFor(quiz.first || 0, quiz.total), "quiz", hubReturn || "modes"); render(); return; }
@@ -4008,16 +4125,24 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       go("modes"); return;
     }
     if (act === "discover") {
+      resetDiscoverHeard();
       discoverIndex = 0; go("discover");
       setTimeout(function () { afterDiscoverShown(true); }, 280); return;
     }
     if (act === "prev") { discoverIndex--; go("discover"); setTimeout(function () { afterDiscoverShown(false); }, 180); return; }
     if (act === "next") { discoverIndex++; go("discover"); setTimeout(function () { afterDiscoverShown(false); }, 180); return; }
+    if (act === "say-fr") {
+      const it = poolFor(currentTheme())[discoverIndex];
+      const fr = discoverFr(it);
+      if (fr) speak(fr, "fr-FR");
+      return;
+    }
     if (act === "say-word") {
       const it = poolFor(currentTheme())[discoverIndex];
       if (it) {
-        const line = discoverLine(it);
-        speak(it.en, "en-US").then(function () { if (line) return speak(line, "en-US"); });
+        const first = !discoverHeard[it.id];
+        if (first) discoverHeard[it.id] = true;
+        playDiscoverWord(it, first);
       }
       return;
     }
@@ -4160,6 +4285,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const btn = e.target.closest("[data-act]");
     if (!btn || !$app.contains(btn)) return;
     if (btn.classList.contains("overlay") && e.target !== btn) return;
+    if (btn.getAttribute("data-act") === "say-fr") e.stopPropagation();
     e.preventDefault();
     onAct(btn.getAttribute("data-act"), btn.getAttribute("data-id"), btn);
   });
@@ -4203,7 +4329,9 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     showThemes: function () { seedDemo(1, 6); categoryId = "animaux"; go("themes"); },
     showQuiz: function (level, age) { seedDemo(level || 1, age || 6); startQuiz(); },
     openTheme: function (id, age, level) { seedDemo(level || 1, age || 6); themeId = id; categoryId = THEMES[id].cat; go("modes"); },
-    openDiscover: function (id, age) { seedDemo(1, age || 6); themeId = id; categoryId = THEMES[id].cat; discoverIndex = 0; go("discover"); setTimeout(function () { afterDiscoverShown(true); }, 200); },
+    discoverFr: discoverFr,
+    playDiscoverWord: playDiscoverWord,
+    openDiscover: function (id, age) { seedDemo(1, age || 6); themeId = id; categoryId = THEMES[id].cat; resetDiscoverHeard(); discoverIndex = 0; go("discover"); setTimeout(function () { afterDiscoverShown(true); }, 200); },
     poolFor: function (id) { return poolFor(THEMES[id]).map(function (it) { return it.id; }); },
     difficulty: function () { return difficultyOf(profile()); },
     showAge: function () {
