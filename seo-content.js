@@ -4,7 +4,7 @@ window.HT_SEO = {
   name: "Hello Titou",
   tagline: "L'anglais en s'amusant, dès 4 ans",
   titleHome: "Hello Titou — L'anglais en s'amusant, dès 4 ans",
-  descriptionHome: "Hello Titou est un jeu web d'anglais pour les enfants de 4 à 8 ans : on écoute, on touche une image, on répète. Rien à lire. Aujourd'hui entièrement gratuit.",
+  descriptionHome: "Hello Titou est un jeu web d'anglais pour les enfants de 4 à 8 ans : on écoute, on touche une image, on répète. Rien à lire. Accès anticipé gratuit pour les bêta testeurs, sur demande et après validation. Abonnements prévus : 19 € par mois ou 399 € à vie.",
   ogImage: "https://hyfvwxfgsmuyekfxucot.supabase.co/storage/v1/object/public/blog/seo/og-home.webp",
   ogImageAlt: "Hello Titou — L'anglais en s'amusant, dès 4 ans",
   locale: "fr_FR",
@@ -17,7 +17,7 @@ window.HT_SEO = {
     monthlyLabel: "19 € par mois, sans engagement",
     lifetimeLabel: "399 € à vie, en un seul paiement"
   },
-  lead: "Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Le jeu est aujourd'hui entièrement gratuit. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.",
+  lead: "Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.",
   aboutTitle: "Qu'est-ce que Hello Titou ?",
   aboutParagraphs: [
     "Hello Titou est un jeu web conçu pour les parents qui veulent faire entendre l'anglais à la maison, sans pression et sans cahier. L'enfant choisit une mascotte, un âge (de 4 à 8 ans) et, s'il le souhaite, un prénom, puis une catégorie et un thème.",
@@ -33,7 +33,7 @@ window.HT_SEO = {
   agesTitle: "Pour quel âge ?",
   agesText: "Hello Titou s'adresse aux enfants de 4 à 8 ans. À 4–5 ans, les activités restent sur des mots simples et des images, avec peu de choix. Vers 6 ans, les groupes de mots s'allongent un peu. À 7–8 ans, l'enfant entend des phrases utiles et accède à davantage de jeux. Dans chaque thème, les mots vont du plus facile au plus difficile, selon l'âge et la progression.",
   priceTitle: "Combien ça coûte ?",
-  priceText: "Pour le moment, tout le jeu reste gratuit et ouvert. Deux formules sont prévues : un abonnement mensuel à 19 € par mois, sans engagement, et une offre à vie à 399 € en un seul paiement. Les boutons « S'abonner » affichent un message d'attente : aucune commande ni aucun prélèvement ne peut être réalisé aujourd'hui.",
+  priceText: "Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement arriveront ensuite : 19 € par mois, sans engagement, ou 399 € à vie en un seul paiement. Les boutons « S'abonner » affichent un message d'attente : aucune commande ni aucun prélèvement ne peut être réalisé aujourd'hui.",
   faqTitle: "Questions fréquentes des parents",
   faq: [
     {
@@ -50,15 +50,15 @@ window.HT_SEO = {
     },
     {
       q: "Comment fonctionne le jeu ?",
-      a: "Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent permet de les synchroniser entre plusieurs appareils."
+      a: "Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent, ouvert après validation d'une demande d'accès anticipé, permet de les synchroniser entre plusieurs appareils."
     },
     {
       q: "Est-ce payant ?",
-      a: "Non, pas pour le moment : tout le jeu est gratuit. Deux formules sont prévues — 19 € par mois sans engagement, ou 399 € à vie — mais les paiements ne sont pas encore ouverts. Aucun prélèvement n'est possible aujourd'hui."
+      a: "Les abonnements — 19 € par mois sans engagement, ou 399 € à vie — arriveront bientôt ; les paiements ne sont pas encore ouverts. En attendant, un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Aucun prélèvement n'est possible aujourd'hui."
     },
     {
       q: "Faut-il créer un compte ?",
-      a: "Non. On peut jouer sans compte : les progrès restent alors sur cet appareil. Un compte parent (e-mail et mot de passe) est facultatif et sert à synchroniser les profils et les étoiles entre plusieurs appareils."
+      a: "Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils."
     },
     {
       q: "Hello Titou remplace-t-il un cours d'anglais ?",
@@ -74,13 +74,17 @@ window.HT_SEO = {
       title: "Contactez-nous — Hello Titou",
       description: "Une question sur Hello Titou, un compte parent, les exercices ou un futur abonnement ? Écrivez à l'équipe : nous vous répondons sous 24 à 48 h ouvrées."
     },
+    "acces-anticipe": {
+      title: "Accès anticipé gratuit — Hello Titou",
+      description: "Demandez un accès anticipé gratuit à Hello Titou pour tester le jeu en tant que bêta testeur. Chaque demande est examinée avant validation."
+    },
     abonnements: {
       title: "Abonnements — Hello Titou",
-      description: "Formules prévues pour Hello Titou : 19 € par mois sans engagement, ou 399 € à vie. Les paiements ne sont pas encore ouverts : le jeu reste entièrement gratuit."
+      description: "Formules prévues pour Hello Titou : 19 € par mois sans engagement, ou 399 € à vie. Les paiements ne sont pas encore ouverts. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation."
     },
     aide: {
       title: "Parents / Aide — Hello Titou",
-      description: "Comment jouer à Hello Titou, créer un profil, utiliser un compte parent et comprendre les futures offres d'abonnement."
+      description: "Comment jouer à Hello Titou, créer un profil, demander un accès anticipé gratuit et comprendre les futures offres d'abonnement."
     },
     "mentions-legales": {
       title: "Mentions légales — Hello Titou",

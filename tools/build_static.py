@@ -29,7 +29,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://hellotitou.fr"
 TODAY = date(2026, 11, 21).isoformat()
-SEO_JS_VER = "202611210040"
+SEO_JS_VER = "202611211050"
 
 PUBLIC_PATHS = {
     "": "/",
@@ -46,6 +46,7 @@ PUBLIC_PATHS = {
     "cookies": "/cookies/",
     "contact": "/contact/",
     "contactez-nous": "/contact/",
+    "acces-anticipe": "/acces-anticipe/",
 }
 
 NAV = [
@@ -63,6 +64,7 @@ FOOTER = [
     ("/confidentialite/", "Politique de confidentialité"),
     ("/cookies/", "Cookies"),
     ("/contact/", "Contactez-nous"),
+    ("/acces-anticipe/", "Accès anticipé gratuit"),
     ("/blog/", "Blog"),
 ]
 
@@ -107,7 +109,33 @@ ARROW_ICO = (
 STATIC_CSS_EXTRA = """
 /* Static marketing pages: body already scrolls via html[data-chrome="site"] */
 html.static-page .site-header-actions .pill { min-height: 36px; padding: 0 12px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; }
+@media (max-width: 420px) {
+  html.static-page .site-header-actions .pill { min-width: 0; min-height: 36px; padding: 0 8px; font-size: 12px; }
+}
 html.static-page a.pill { text-decoration: none; }
+html.static-page .site-nav a,
+html.static-page .site-nav-drop a,
+html.static-page .site-nav a:hover,
+html.static-page .site-nav a:focus,
+html.static-page .site-nav a:focus-visible,
+html.static-page .site-nav a:active,
+html.static-page .site-nav a:visited,
+html.static-page .site-nav-drop a:hover,
+html.static-page .site-nav-drop a:focus,
+html.static-page .site-nav-drop a:focus-visible,
+html.static-page .site-nav-drop a:active,
+html.static-page .site-nav-drop a:visited {
+  text-decoration: none;
+}
+html.static-page .site-nav-drop a {
+  display: flex; align-items: center; width: 100%;
+}
+html.static-page .site-header-actions a.pill.header-early,
+html.static-page .site-header-actions .header-early { display: none !important; }
+@media (min-width: 1320px) {
+  html.static-page .site-header-actions a.pill.header-early,
+  html.static-page .site-header-actions .header-early { display: inline-flex !important; white-space: nowrap; }
+}
 html.static-page .article-toc a {
   display: block; width: 100%; text-align: left; color: inherit; text-decoration: none;
   font-size: 14px; font-weight: 600; padding: 6px 0; min-height: 36px;
@@ -192,12 +220,13 @@ def extract_aide_html(index_html: str) -> str:
         "<p>Sur l'accueil, touchez ▶ pour choisir un profil (mascotte, âge, prénom facultatif), puis une catégorie et un mini-jeu&nbsp;: Découvrir, Trouve, ou Mémoire. La voix est en anglais américain. Une consigne en français peut précéder les questions.</p>"
         "<p><a class=\"pill ok\" href=\"/\">Jouer avec Titou</a></p>"
         "<h2>Compte parent</h2>"
-        "<p>En haut à droite, «&nbsp;Se connecter&nbsp;» permet de créer un compte (e-mail et mot de passe) pour synchroniser les profils et les étoiles entre plusieurs appareils. Sans compte, tout reste sur cet appareil.</p>"
-        "<p><a class=\"pill no\" href=\"/#auth\">Se connecter</a></p>"
+        "<p>L'inscription libre n'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, déposez une demande d'accès anticipé gratuit. Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils.</p>"
+        "<p><a class=\"pill ok\" href=\"/acces-anticipe/\">Accès anticipé gratuit</a> "
+        "<a class=\"pill no\" href=\"/#auth\">Se connecter</a></p>"
         "<h2>Zone parents</h2>"
         "<p>La zone parents permet de gérer les profils, l'âge, et de remettre les étoiles à zéro. Elle est protégée par une petite question, pour éviter les changements accidentels. Ouvrez-la depuis le jeu, une fois un profil choisi.</p>"
         "<h2>Abonnements</h2>"
-        "<p>Deux formules sont prévues (19&nbsp;€ / mois sans engagement, ou 399&nbsp;€ à vie). Les paiements ne sont pas encore ouverts&nbsp;: le jeu reste entièrement gratuit pour le moment.</p>"
+        "<p>Deux formules sont prévues (19&nbsp;€ / mois sans engagement, ou 399&nbsp;€ à vie). Les paiements ne sont pas encore ouverts. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation.</p>"
         '<p><a class="pill no" href="/abonnements/">Voir les abonnements</a></p>'
         "</div>"
     )
@@ -252,7 +281,7 @@ def org_graph(seo: dict) -> list:
             "educationalRole": "student",
             "audienceType": "Enfants de 4 à 8 ans et leurs parents",
         },
-        "isAccessibleForFree": True,
+        "isAccessibleForFree": False,
         "offers": [
             {
                 "@type": "Offer",
@@ -260,7 +289,7 @@ def org_graph(seo: dict) -> list:
                 "price": "19.00",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/PreOrder",
-                "description": "19 € par mois, sans engagement. Les paiements ne sont pas encore ouverts ; le jeu reste gratuit.",
+                "description": "19 € par mois, sans engagement. Paiements bientôt disponibles.",
                 "url": SITE + "/abonnements/",
             },
             {
@@ -269,7 +298,7 @@ def org_graph(seo: dict) -> list:
                 "price": "399.00",
                 "priceCurrency": "EUR",
                 "availability": "https://schema.org/PreOrder",
-                "description": "399 € en un seul paiement, accès à vie prévu. Les paiements ne sont pas encore ouverts ; le jeu reste gratuit.",
+                "description": "399 € en un seul paiement, accès à vie prévu. Paiements bientôt disponibles.",
                 "url": SITE + "/abonnements/",
             },
         ],
@@ -437,6 +466,7 @@ def header_footer(current: str) -> tuple[str, str]:
         f'<nav class="site-nav" aria-label="Navigation principale">{links}</nav>'
         '<div class="site-header-actions">'
         + theme_toggle_html()
+        + '<a class="pill gold header-early" href="/acces-anticipe/">Accès anticipé gratuit</a>'
         + '<a class="pill no" href="/#auth">Se connecter</a>'
         + '<a class="pill ok" href="/">Jouer</a>'
         + '<button type="button" class="site-nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>'
@@ -467,7 +497,8 @@ def page_shell(seo: dict, *, title, description, canonical, current, main_html,
     return (
         head
         + "<body>\n"
-        + '  <div class="sky" aria-hidden="true"></div>\n'
+                + '  <div class="sky" aria-hidden="true"></div>\n'
+        + '  <div class="site-clouds" aria-hidden="true"><div class="clouds-fade"></div><svg viewBox="0 0 1440 240" preserveAspectRatio="xMidYMax slice" focusable="false"><g class="c-back"><ellipse cx="120" cy="210" rx="260" ry="78"/><ellipse cx="340" cy="200" rx="210" ry="70"/><ellipse cx="720" cy="214" rx="280" ry="72"/><ellipse cx="1080" cy="204" rx="240" ry="74"/><ellipse cx="1360" cy="216" rx="220" ry="68"/></g><g class="c-mid"><ellipse cx="0" cy="222" rx="200" ry="62"/><ellipse cx="250" cy="214" rx="190" ry="58"/><ellipse cx="500" cy="220" rx="210" ry="64"/><ellipse cx="820" cy="210" rx="230" ry="66"/><ellipse cx="1120" cy="218" rx="200" ry="60"/><ellipse cx="1440" cy="224" rx="210" ry="62"/></g><g class="c-front"><ellipse cx="180" cy="230" rx="170" ry="48"/><ellipse cx="430" cy="226" rx="160" ry="46"/><ellipse cx="700" cy="232" rx="190" ry="50"/><ellipse cx="980" cy="228" rx="170" ry="48"/><ellipse cx="1280" cy="234" rx="180" ry="46"/></g></svg></div>\n'
         + '  <div id="app">\n'
         + '    <div class="screen screen-site" data-screen="' + escape(current, quote=True) + '">\n'
         + "      " + header + "\n"
@@ -534,6 +565,7 @@ def home_prerender(seo: dict) -> str:
         f"{TITOU_MARK}"
         '<div class="title"><h1>Hello Titou</h1><p>L\'anglais en s\'amusant, dès 4 ans</p></div>'
         '<a class="play-btn" href="/" aria-label="Jouer">▶</a>'
+        '<a class="pill ok early-access-cta" href="/acces-anticipe/">Accès anticipé gratuit</a>'
         '<div class="preview-row"><span>🐶</span><span>🎨</span><span>🍏</span><span>🚒</span><span>🚀</span></div>'
         "</div>"
     )
@@ -747,7 +779,8 @@ def quote(s: str) -> str:
 def plans_html(seo: dict) -> str:
     return (
         '<article class="legal-doc"><h1>Abonnements</h1>'
-        "<p>Choisis la formule qui te convient. Pour le moment, tout le jeu reste gratuit et ouvert : les abonnements arriveront très bientôt.</p>"
+        "<p>Les abonnements arriveront bientôt (19 € / mois sans engagement, ou 399 € à vie). En attendant, un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation.</p>"
+        '<p><a class="pill ok" href="/acces-anticipe/">Accès anticipé gratuit</a></p>'
         '<div class="plan-card"><h2>Mensuel</h2><div class="price">19 € <span class="period">/ mois</span></div>'
         "<p>Sans engagement. Les paiements ne sont pas encore ouverts.</p>"
         '<a class="pill ok" href="/">S\'abonner — bientôt disponible</a></div>'
@@ -970,7 +1003,7 @@ def llms_txt(seo: dict, posts: list[dict]) -> str:
         "",
         f"> {seo['lead']}",
         "",
-        "Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. The game is free today. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.",
+        "Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. Free early access is offered to beta testers on request, subject to approval. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.",
         "",
         "## Pages",
         "",
@@ -980,7 +1013,8 @@ def llms_txt(seo: dict, posts: list[dict]) -> str:
     for p in posts:
         lines.append(f"- [{p['title']}]({SITE}/blog/{p['slug']}/): {p['excerpt']}")
     lines += [
-        f"- [Abonnements]({SITE}/abonnements/): Formules prévues (19 € / mois ou 399 € à vie) et rappel que les paiements ne sont pas ouverts.",
+        f"- [Abonnements]({SITE}/abonnements/): Formules prévues (19 € / mois ou 399 € à vie) ; paiements pas encore ouverts ; accès anticipé gratuit pour les bêta testeurs, sur demande.",
+        f"- [Accès anticipé gratuit]({SITE}/acces-anticipe/): Demande de compte bêta testeur, soumise à validation.",
         f"- [Parents / Aide]({SITE}/aide/): Comment jouer, compte parent, zone parents.",
         f"- [Contact]({SITE}/contact/): Formulaire de contact.",
         f"- [Mentions légales]({SITE}/mentions-legales/)",
@@ -1015,7 +1049,7 @@ def llms_full_txt(seo: dict, posts: list[dict]) -> str:
 ### Méthode
 {how}
 
-Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent facultatif (e-mail et mot de passe) permet de les synchroniser entre plusieurs appareils. La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions.
+Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent, ouvert après validation d'une demande d'accès anticipé gratuit, permet de les synchroniser entre plusieurs appareils. La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions.
 
 ### Tarifs
 {seo['priceText']}
@@ -1028,7 +1062,7 @@ Les progrès (étoiles, mots appris) restent sur l'appareil. Un compte parent fa
 
 ## In English
 
-Hello Titou is a web-based educational game for children aged 4–8. It helps them hear and learn English through short picture-and-sound games, with a mascot called Titou. Children do not need to read or type. There are three core modes (Discover, Find it, Memory) plus 21 extra mini-games with an age-based progression, and more than 300 themes. American English audio; a French prompt may precede a question. Progress stays on the device unless a parent creates an optional account to sync profiles. The game is currently entirely free. Two paid plans are planned but not yet purchasable: €19 per month (no commitment) or €399 lifetime.
+Hello Titou is a web-based educational game for children aged 4–8. It helps them hear and learn English through short picture-and-sound games, with a mascot called Titou. Children do not need to read or type. There are three core modes (Discover, Find it, Memory) plus 21 extra mini-games with an age-based progression, and more than 300 themes. American English audio; a French prompt may precede a question. Progress stays on the device unless a parent account, opened after an approved early-access request, syncs profiles. Free early access is offered to beta testers on request, subject to approval. Two paid plans are planned but not yet purchasable: €19 per month (no commitment) or €399 lifetime.
 
 Official site: {SITE}/
 """
@@ -1088,6 +1122,140 @@ def not_found_page(seo: dict) -> str:
     html = html.replace('  <link rel="alternate" hreflang="x-default" href="' + SITE + '/" />\n', "")
     html = html.replace('  <meta property="og:url" content="' + SITE + '/" />\n', "")
     return html
+
+
+
+def early_access_form_js(sb_url: str, sb_key: str) -> str:
+    return f"""
+  var SB_URL = {json.dumps(sb_url)};
+  var SB_KEY = {json.dumps(sb_key)};
+  var form = document.getElementById("early-form");
+  if (!form || !window.supabase) return;
+  var sb = window.supabase.createClient(SB_URL, SB_KEY);
+  var btn = document.getElementById("early-submit");
+  var msgBox = document.getElementById("early-msg");
+  var count = document.getElementById("early-count");
+  var consent = document.getElementById("early-consent");
+  function values() {{
+    return {{
+      firstName: (document.getElementById("early-first").value || "").trim(),
+      email: (document.getElementById("early-email").value || "").trim(),
+      children: (document.getElementById("early-children").value || "").trim(),
+      message: (document.getElementById("early-message").value || "").trim(),
+      company: (document.getElementById("early-company").value || "").trim(),
+      consent: !!(consent && consent.checked)
+    }};
+  }}
+  function ready() {{
+    var v = values();
+    return v.firstName.length >= 2 && /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(v.email) && v.consent;
+  }}
+  function show(msg, kind) {{
+    if (!msgBox) return;
+    msgBox.hidden = !msg;
+    msgBox.className = "auth-msg " + (kind || "");
+    msgBox.textContent = msg || "";
+  }}
+  function sync() {{
+    if (count) count.textContent = ((document.getElementById("early-message").value || "").length) + "/1000";
+    if (btn) btn.disabled = !ready();
+  }}
+  ["early-first","early-email","early-children","early-message","early-company"].forEach(function (id) {{
+    var el = document.getElementById(id);
+    if (el) el.addEventListener("input", sync);
+  }});
+  if (consent) consent.addEventListener("change", sync);
+  form.addEventListener("submit", async function (e) {{
+    e.preventDefault();
+    var v = values();
+    if (v.company) {{
+      show("Demande reçue, vous recevrez un email dès validation.", "ok");
+      form.hidden = true;
+      return;
+    }}
+    if (!ready()) {{
+      show("Merci de renseigner votre prénom, un e-mail valide, et d'accepter la politique de confidentialité.", "err");
+      return;
+    }}
+    btn.disabled = true;
+    btn.textContent = "Envoi en cours…";
+    try {{
+      var res = await sb.from("early_access_requests").insert({{
+        first_name: v.firstName,
+        email: v.email,
+        children_info: v.children || null,
+        message: v.message || null,
+        status: "pending"
+      }});
+      if (res.error) throw res.error;
+      show("Demande reçue, vous recevrez un email dès validation.", "ok");
+      form.hidden = true;
+    }} catch (err) {{
+      var raw = (err && (err.message || err.code)) ? String(err.message || err.code) : "";
+      if (/duplicate|unique|23505/i.test(raw)) {{
+        show("Une demande est déjà enregistrée pour cet e-mail. Vous recevrez un e-mail dès validation.", "err");
+      }} else {{
+        show("La demande n'a pas pu être envoyée. Vérifiez votre connexion et réessayez.", "err");
+      }}
+      btn.disabled = false;
+      btn.textContent = "Envoyer la demande";
+    }}
+  }});
+  sync();
+"""
+
+
+def early_access_html() -> str:
+    def field(fid, label, typ, placeholder, required, autocomplete, extra=""):
+        req = ' <span class="req">*</span>' if required else ""
+        req_attr = " required" if required else ""
+        return (
+            f'<div><label class="contact-field-label" for="{fid}">{label}{req}</label>'
+            f'<input class="field" id="{fid}" name="{fid}" type="{typ}"{req_attr} '
+            f'placeholder="{placeholder}" autocomplete="{autocomplete}" {extra}/></div>'
+        )
+    form = (
+        '<div class="contact-form-card"><h2>Demander un accès anticipé</h2>'
+        '<p class="contact-form-hint">Cet accès anticipé gratuit est destiné aux <strong>bêta testeurs</strong>. '
+        "Chaque demande est examinée avant validation. Les champs marqués d'un <span class=\"req\">*</span> sont obligatoires.</p>"
+        '<p class="auth-msg" id="early-msg" hidden></p>'
+        '<form id="early-form" class="contact-form" novalidate>'
+        + field("early-first", "Prénom", "text", "Votre prénom", True, "given-name", 'maxlength="80"')
+        + field("early-email", "Adresse e-mail", "email", "votre@email.com", True, "email", 'maxlength="254"')
+        + field("early-children", "Nombre et âges des enfants (facultatif)", "text", "Par exemple : 2 enfants, 5 et 6 ans", False, "off", 'maxlength="400"')
+        + '<div><div class="contact-msg-head"><label class="contact-field-label" for="early-message">'
+        "Message (facultatif)</label>"
+        + '<span class="contact-count" id="early-count">0/1000</span></div>'
+        + '<textarea class="field" id="early-message" name="early-message" rows="5" maxlength="1000" '
+        'placeholder="Une courte précision, si vous le souhaitez…"></textarea></div>'
+        + '<label class="contact-consent"><input type="checkbox" id="early-consent" name="early-consent" />'
+        "<span>J'accepte que mes informations soient utilisées pour traiter cette demande, conformément à la "
+        '<a href="/confidentialite/">politique de confidentialité</a>.</span></label>'
+        + '<input class="contact-hp" id="early-company" name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" value="" />'
+        + '<button type="submit" class="contact-submit" id="early-submit" disabled>Envoyer la demande</button>'
+        + "</form></div>"
+    )
+    aside = (
+        '<aside class="contact-aside">'
+        '<div class="contact-info"><div class="hd"><h2>Pour qui ?</h2></div>'
+        "<p>Aux parents qui souhaitent tester Hello Titou avec leurs enfants, en tant que bêta testeurs, avant l'ouverture des abonnements.</p></div>"
+        '<div class="contact-info"><div class="hd"><h2>Comment ça se passe ?</h2></div>'
+        "<p>Vous déposez une demande. Après validation, vous recevez un e-mail pour activer votre compte parent.</p></div>"
+        '<div class="contact-info"><div class="hd"><h2>Abonnements</h2></div>'
+        "<p>Deux formules arriveront bientôt : 19 € par mois, ou 399 € à vie. Les paiements ne sont pas encore ouverts.</p></div>"
+        "</aside>"
+    )
+    return (
+        '<div class="contact-page">'
+        '<section class="contact-hero"><div class="glow" aria-hidden="true"></div>'
+        "<h1>Accès anticipé <span class=\"em\">gratuit.</span></h1>"
+        "<p>Hello Titou s'ouvre progressivement aux bêta testeurs. Déposez une demande : nous l'examinons, puis nous vous écrivons dès validation.</p>"
+        "</section>"
+        '<nav class="contact-crumb" aria-label="Fil d\'Ariane">'
+        '<a href="/">Accueil</a><span aria-hidden="true">›</span>'
+        '<span class="here">Accès anticipé gratuit</span></nav>'
+        '<div class="contact-layout">' + form + aside + "</div></div>"
+    )
 
 
 def extract_sb(index_html: str) -> tuple[str, str]:
@@ -1190,6 +1358,25 @@ def build() -> None:
         extra_js=extra,
     ))
 
+    # Accès anticipé
+    early_meta = seo["pageMeta"]["acces-anticipe"]
+    early_js = (
+        '<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js" defer></script>\n'
+        "<script defer>\nwindow.addEventListener('DOMContentLoaded', function () {\n"
+        + early_access_form_js(sb_url, sb_key)
+        + "});\n</script>\n"
+    )
+    write(ROOT / "acces-anticipe" / "index.html", page_shell(
+        seo,
+        title=early_meta["title"],
+        description=early_meta["description"],
+        canonical=SITE + "/acces-anticipe/",
+        current="home",
+        main_html=early_access_html(),
+        jsonld=org_graph(seo) + [breadcrumb_jsonld([("/", "Accueil"), ("/acces-anticipe/", "Accès anticipé gratuit")])],
+        extra_js=early_js,
+    ))
+
     # Abonnements
     abo = seo["pageMeta"]["abonnements"]
     write(ROOT / "abonnements" / "index.html", page_shell(
@@ -1248,6 +1435,7 @@ def build() -> None:
         ("/abonnements/", "0.7"),
         ("/aide/", "0.6"),
         ("/contact/", "0.6"),
+        ("/acces-anticipe/", "0.7"),
         ("/mentions-legales/", "0.3"),
         ("/cgv/", "0.3"),
         ("/cgu/", "0.3"),

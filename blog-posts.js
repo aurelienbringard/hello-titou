@@ -125,7 +125,7 @@ window.HT_BLOG = {
       "cta": {
         "eyebrow": "Prêt à essayer ?",
         "title": "Dix minutes avec Titou, et c'est déjà un rituel",
-        "text": "Des mini-jeux d'écoute, d'images et de petites phrases, adaptés de 4 à 8 ans. Vous pouvez commencer dès aujourd'hui, gratuitement.",
+        "text": "Des mini-jeux d'écoute, d'images et de petites phrases, adaptés de 4 à 8 ans. Vous pouvez demander un accès anticipé gratuit (bêta testeur), soumis à validation.",
         "button": "Lancer Hello Titou"
       },
       "takeaways": [
