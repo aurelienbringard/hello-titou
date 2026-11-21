@@ -6,25 +6,25 @@ window.HT_GAMES = G;
 
 /* ---------- Games list (order = unlocking order) ---------- */
 const GAMES = [
-  { id: "listen",  n: 1,  band: 4, emoji: "🎯", fr: "Écoute et touche",     en: "Listen and tap",   intro: "Écoute, et touche la bonne image !" },
-  { id: "balloon", n: 2,  band: 4, emoji: "🎈", fr: "Le ballon de Titou",   en: "Pop the balloon",  intro: "Écoute bien, et éclate le bon ballon !" },
-  { id: "paint",   n: 3,  band: 4, emoji: "🎨", fr: "Coloriage magique",    en: "Magic colors",     intro: "Écoute la couleur, et touche le bon pot de peinture !" },
+  { id: "listen",  n: 1,  band: 4, open: 1, emoji: "🎯", fr: "Écoute et touche",     en: "Listen and tap",   intro: "Écoute, et touche la bonne image !" },
+  { id: "balloon", n: 2,  band: 4, open: 1, emoji: "🎈", fr: "Le ballon de Titou",   en: "Pop the balloon",  intro: "Écoute bien, et éclate le bon ballon !" },
+  { id: "paint",   n: 3,  band: 4, open: 1, emoji: "🎨", fr: "Coloriage magique",    en: "Magic colors",     intro: "Écoute la couleur, et touche le bon pot de peinture !" },
   { id: "feed",    n: 4,  band: 4, emoji: "🍎", fr: "Nourris Titou",        en: "Feed Titou",       intro: "Titou a faim ! Donne-lui ce qu'il demande." },
   { id: "plural",  n: 5,  band: 4, emoji: "🍒", fr: "Un ou plusieurs ?",    en: "One or many?",     intro: "Écoute bien : un seul, ou plusieurs ? Touche la bonne image !", kind: "grammar" },
   { id: "sizes",   n: 6,  band: 4, emoji: "🐘", fr: "Grand, petit, sur, sous", en: "Big, small, on, under", intro: "Écoute bien les petits mots : grand ou petit, sur ou sous ? Touche la bonne image !", kind: "grammar" },
-  { id: "repeat",  n: 7,  band: 4, emoji: "🦜", fr: "Répète avec Titou",    en: "Say it with Titou", intro: "Écoute Titou, puis répète comme un perroquet !", kind: "speak" },
-  { id: "memory",  n: 8,  band: 6, emoji: "🃏", fr: "Mémoire sonore",       en: "Sound memory",     intro: "Trouve les paires ! Écoute bien chaque mot." },
-  { id: "dress",   n: 9,  band: 6, emoji: "👕", fr: "Habille Titou",        en: "Dress Titou",      intro: "Habille Titou ! Écoute bien la couleur et le vêtement." },
-  { id: "simon",   n: 10, band: 6, emoji: "🙌", fr: "Jacques a dit",        en: "Simon says",       intro: "Jacques a dit ! Touche la bonne image, puis fais-le pour de vrai !" },
+  { id: "repeat",  n: 7,  band: 4, open: 1, emoji: "🦜", fr: "Répète avec Titou",    en: "Say it with Titou", intro: "Écoute Titou, puis répète comme un perroquet !", kind: "speak" },
+  { id: "memory",  n: 8,  band: 6, open: 1, emoji: "🃏", fr: "Mémoire sonore",       en: "Sound memory",     intro: "Trouve les paires ! Écoute bien chaque mot." },
+  { id: "dress",   n: 9,  band: 6, open: 1, emoji: "👕", fr: "Habille Titou",        en: "Dress Titou",      intro: "Habille Titou ! Écoute bien la couleur et le vêtement." },
+  { id: "simon",   n: 10, band: 6, open: 1, emoji: "🙌", fr: "Jacques a dit",        en: "Simon says",       intro: "Jacques a dit ! Touche la bonne image, puis fais-le pour de vrai !" },
   { id: "count",   n: 11, band: 6, emoji: "🔢", fr: "Compte avec Titou",    en: "Count with Titou", intro: "Compte avec Titou ! Touche le groupe qui a le bon nombre." },
   { id: "phrases", n: 12, band: 6, emoji: "👍", fr: "Les petites phrases",  en: "Little sentences", intro: "Écoute bien la petite phrase de Titou, et touche la bonne image !", kind: "grammar" },
   { id: "who",     n: 13, band: 6, emoji: "👧", fr: "Qui fait quoi ?",      en: "Who is doing what?", intro: "Écoute bien : c'est une fille ou un garçon ? Et qu'est-ce qu'il fait ? Touche la bonne image !", kind: "grammar" },
   { id: "answer",  n: 14, band: 6, emoji: "💬", fr: "Réponds à Titou",      en: "Answer Titou",     intro: "Titou te pose une question. Touche ta réponse, puis dis-la en anglais !", kind: "speak" },
   { id: "build",   n: 15, band: 7, emoji: "🧩", fr: "Construis la phrase",  en: "Build the phrase", intro: "Écoute, puis touche les images dans le bon ordre !" },
-  { id: "where",   n: 16, band: 7, emoji: "📍", fr: "Où est Titou ?",       en: "Where is Titou?",  intro: "Où est Titou ? Écoute, et touche la bonne image." },
-  { id: "story",   n: 17, band: 7, emoji: "📖", fr: "Écoute l'histoire",    en: "Story time",       intro: "Écoute bien l'histoire, puis réponds aux questions !" },
+  { id: "where",   n: 16, band: 7, open: 1, emoji: "📍", fr: "Où est Titou ?",       en: "Where is Titou?",  intro: "Où est Titou ? Écoute, et touche la bonne image." },
+  { id: "story",   n: 17, band: 7, open: 1, emoji: "📖", fr: "Écoute l'histoire",    en: "Story time",       intro: "Écoute bien l'histoire, puis réponds aux questions !" },
   { id: "shop",    n: 18, band: 7, emoji: "🛒", fr: "Le magasin de Titou",  en: "Titou's shop",     intro: "Bienvenue au magasin ! Mets dans le panier ce qu'on te demande, puis touche le bouton vert." },
-  { id: "speak",   n: 19, band: 7, emoji: "🎤", fr: "À toi de parler",      en: "Your turn to speak", intro: "À toi de parler ! Écoute Titou, puis répète." },
+  { id: "speak",   n: 19, band: 7, open: 1, emoji: "🎤", fr: "À toi de parler",      en: "Your turn to speak", intro: "À toi de parler ! Écoute Titou, puis répète." },
   { id: "gap",     n: 20, band: 7, emoji: "✏️", fr: "Le bon petit mot",     en: "The right word",   intro: "Écoute la phrase. Il manque un petit mot : touche le bon !", kind: "grammar" },
   { id: "talk",    n: 21, band: 7, emoji: "🎭", fr: "Joue avec Titou",      en: "Talk with Titou",  intro: "On joue une petite scène ! Écoute Titou, choisis ta réponse, puis dis-la.", kind: "speak" }
 ];
@@ -232,12 +232,24 @@ function isUnlocked(p, g) {
   if (p.gamesAll) return true;
   const gb = group(band());
   if (g.band < gb) return true;
+  if (g.open) return true;
   const list = GAMES.filter(function (x) { return x.band === g.band; });
-  const i = list.indexOf(g);
-  if (i <= 0) return true;
-  return (p.games[list[i - 1].id] || 0) >= 2;
+  const locked = list.filter(function (x) { return !x.open; });
+  const i = locked.indexOf(g);
+  if (i < 0) return true;
+  /* First locked game in the band opens after 2 stars on any game in that band. */
+  if (i === 0) return list.some(function (x) { return (p.games[x.id] || 0) >= 2; });
+  return (p.games[locked[i - 1].id] || 0) >= 2;
 }
-function prevGame(g) { const list = GAMES.filter(function (x) { return x.band === g.band; }); const i = list.indexOf(g); return i > 0 ? list[i - 1] : null; }
+function prevGame(g) {
+  const list = GAMES.filter(function (x) { return x.band === g.band; });
+  const locked = list.filter(function (x) { return !x.open; });
+  const i = locked.indexOf(g);
+  if (i > 0) return locked[i - 1];
+  if (i === 0) return list.filter(function (x) { return x.open; })[0] || null;
+  const j = list.indexOf(g);
+  return j > 0 ? list[j - 1] : null;
+}
 function unlockedSet(p) { const s = {}; visibleGames().forEach(function (g) { if (isUnlocked(p, g)) s[g.id] = 1; }); return s; }
 function totalGameStars(p) { ensure(p); return Object.keys(p.games).reduce(function (s, k) { return s + (GAME[k] ? (p.games[k] || 0) : 0); }, 0); }
 
@@ -423,8 +435,15 @@ function pickTheme() {
 function lockedTap(g, el) {
   C.sfx("no");
   if (el) { el.classList.remove("g-wrong"); void el.offsetWidth; el.classList.add("g-wrong"); }
-  const pg = prevGame(g);
-  toast("Réussis <b>" + esc(pg ? pg.emoji + " " + pg.fr : "le jeu d'avant") + "</b> pour débloquer !<br><small>(2 étoiles ⭐⭐)</small>");
+  const list = GAMES.filter(function (x) { return x.band === g.band; });
+  const locked = list.filter(function (x) { return !x.open; });
+  const i = locked.indexOf(g);
+  if (i === 0) {
+    toast("Gagne <b>2 étoiles ⭐⭐</b> à un jeu déjà ouvert pour débloquer !");
+  } else {
+    const pg = prevGame(g);
+    toast("Réussis <b>" + esc(pg ? pg.emoji + " " + pg.fr : "le jeu d'avant") + "</b> pour débloquer !<br><small>(2 étoiles ⭐⭐)</small>");
+  }
   sayFr(FR.locked);
 }
 function startGame(id, el) {

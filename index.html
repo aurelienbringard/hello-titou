@@ -589,6 +589,43 @@ input { font: inherit; color: var(--text); }
 .big-card .em { font-size: clamp(80px, 24vw, 160px); line-height: 1; }
 .big-card .word { font-size: clamp(24px, 6vw, 36px); font-weight: 700; letter-spacing: -0.02em; }
 .big-card .word-fr { font-size: 15px; color: var(--text2); font-weight: 500; }
+.big-card-wrap {
+  position: relative;
+  width: min(84vw, 400px);
+  max-width: 100%;
+  max-height: min(52dvh, 400px);
+  aspect-ratio: 1;
+  flex-shrink: 1;
+  min-height: 0;
+}
+.big-card-wrap .big-card {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  aspect-ratio: auto;
+}
+.fr-flag-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  border: 0.5px solid var(--line);
+  font-size: 32px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  padding: 0;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.fr-flag-btn:active { transform: scale(0.94); }
 .nav-row { display: flex; align-items: center; justify-content: center; gap: 16px; }
 .listen-btn {
   width: 72px; height: 72px; border-radius: 50%; background: var(--accent); color: var(--on-accent);
@@ -776,7 +813,8 @@ input { font: inherit; color: var(--text); }
   .title { margin: 4px 0 8px; }
   .title h1 { font-size: clamp(22px, 6vh, 36px); }
   .title p { font-size: 14px; }
-  .big-card { max-height: calc(100dvh - var(--bar-h) - var(--safe-t) - 100px); width: min(50vw, 280px); }
+  .big-card-wrap { max-height: calc(100dvh - var(--bar-h) - var(--safe-t) - 100px); width: min(50vw, 280px); }
+  .fr-flag-btn { width: 52px; height: 52px; min-width: 52px; min-height: 52px; font-size: 26px; top: 6px; right: 6px; }
   .listen-btn { width: 52px; height: 52px; font-size: 22px; }
   .discover-wrap { gap: 8px; }
   .nav-row { gap: 12px; }
@@ -807,7 +845,7 @@ input { font: inherit; color: var(--text); }
 @media (hover: hover) and (pointer: fine) {
   .tile, .choice, .pill, .play-btn, .listen-btn, .icon-btn,
   .account-btn, .theme-toggle, .age-btn, .profile-chip, .brand-logo,
-  .speaker-hero, .big-card, .mode-btn, .listen-again, .more-btn {
+  .speaker-hero, .big-card, .mode-btn, .listen-again, .more-btn, .fr-flag-btn {
     transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
   }
   .tile:hover, .choice:hover, .age-btn:hover, .big-card:hover, .mode-btn:hover, .pill:hover {
@@ -823,7 +861,7 @@ input { font: inherit; color: var(--text); }
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(54, 211, 190, 0.16);
   }
   .play-btn:hover, .listen-btn:hover, .speaker-hero:hover, .icon-btn:hover,
-  .account-btn:hover, .theme-toggle:hover, .profile-chip:hover, .listen-again:hover, .brand-logo:hover {
+  .account-btn:hover, .theme-toggle:hover, .profile-chip:hover, .listen-again:hover, .brand-logo:hover, .fr-flag-btn:hover {
     transform: translateY(-2px) scale(1.02);
   }
   .mcard:hover { filter: brightness(1.06); }
@@ -1450,7 +1488,8 @@ a.pill { text-decoration: none; display: inline-flex; align-items: center; justi
   <div class="sr" id="live" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js"></script>
   <script src="content.js?v=202611201754"></script>
-  <script src="games.js?v=202611210100"></script>
+  <script src="discover-fr.js?v=202611211040"></script>
+  <script src="games.js?v=202611211040"></script>
   <script src="blog-posts.js?v=202611210015"></script>
   <script src="seo-content.js?v=202611210040"></script>
   <script>
@@ -2183,6 +2222,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const band = effectiveBand(profile());
     poolFor(theme).forEach(function (it) {
       prefetchUrl(audioUrl(it.en, "en-US")).catch(function () {});
+      const frw = discoverFr(it);
+      if (frw) prefetchUrl(audioUrl(frw, "fr-FR")).catch(function () {});
       if (band >= 6 && it.phrase) prefetchUrl(audioUrl(it.phrase, "en-US")).catch(function () {});
       if (band >= 7 && it.s) prefetchUrl(audioUrl(it.s, "en-US")).catch(function () {});
       if (it.prompt && store.frenchPrompts) prefetchUrl(audioUrl(it.prompt, "fr-FR")).catch(function () {});
@@ -2425,6 +2466,34 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (band >= 7 && item.s && item.s !== item.en) return item.s;
     if (band >= 6 && item.phrase && item.phrase !== item.en) return item.phrase;
     return "";
+  }
+  function discoverFr(item) {
+    if (!item) return "";
+    const raw = String(item.fr || "").trim();
+    const M = window.HT_DISCOVER_FR || {};
+    if (item.id && M["#" + item.id]) return M["#" + item.id];
+    if (Object.prototype.hasOwnProperty.call(M, raw)) return M[raw];
+    return raw;
+  }
+  let discoverHeard = {};
+  function resetDiscoverHeard() { discoverHeard = {}; }
+  function playDiscoverWord(item, first) {
+    if (!item) return Promise.resolve();
+    const line = discoverLine(item);
+    const fr = discoverFr(item);
+    const still = function () { return screen === "discover" && poolFor(currentTheme())[discoverIndex] === item; };
+    let chain;
+    if (first && fr) {
+      // EN → FR once → EN last, so the child can repeat the English word.
+      chain = speak(item.en, "en-US")
+        .then(function () { if (fr && still()) return speak(fr, "fr-FR"); })
+        .then(function () { if (still()) return speak(item.en, "en-US"); });
+    } else {
+      chain = speak(item.en, "en-US");
+    }
+    return chain.then(function () {
+      if (line && still()) return speak(line, "en-US");
+    });
   }
   function makeWordQuestion(theme, n, mode) {
     const items = poolFor(theme);
@@ -3496,12 +3565,16 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     let dots = '<div class="dots">';
     items.forEach(function (_, i) { dots += '<i class="' + (i === discoverIndex ? "on" : (i < discoverIndex ? "done" : "")) + '"></i>'; });
     dots += "</div>";
+    const frWord = discoverFr(it);
     return '<div class="screen" data-screen="discover">' + topbar({ back: "modes" }) +
       '<div class="discover-wrap">' +
-      '<button class="big-card" data-act="say-word">' + itemVisual(it, true) +
+      '<div class="big-card-wrap">' +
+      '<button type="button" class="big-card" data-act="say-word">' + itemVisual(it, true) +
       '<div class="word">' + escapeHtml(it.en) + "</div>" +
-      '<div class="word-fr">' + escapeHtml(it.fr) + "</div>" +
+      (frWord ? '<div class="word-fr">' + escapeHtml(frWord) + "</div>" : "") +
       (discoverLine(it) ? '<div class="word-line">' + escapeHtml(discoverLine(it)) + "</div>" : "") + "</button>" +
+      '<button type="button" class="fr-flag-btn" data-act="say-fr" aria-label="Écouter le mot en français">🇫🇷</button>' +
+      "</div>" +
       '<div class="nav-row">' +
       '<button class="icon-btn" data-act="prev" aria-label="Précédent">←</button>' +
       '<button type="button" class="listen-again" data-act="say-word" aria-label="Écouter encore">' +
@@ -3807,11 +3880,10 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const it = poolFor(currentTheme())[discoverIndex];
     if (!it) return;
     markSeen(it.id);
-    const line = discoverLine(it);
-    // French instruction only once, when the child enters Découvrir; afterwards only the English word.
+    const first = !discoverHeard[it.id];
+    if (first) discoverHeard[it.id] = true;
     const chain = intro === true && store.frenchPrompts ? speak(DISCOVER_INTRO, "fr-FR") : Promise.resolve();
-    chain.then(function () { return speak(it.en, "en-US"); })
-      .then(function () { if (line && screen === "discover" && poolFor(currentTheme())[discoverIndex] === it) return speak(line, "en-US"); });
+    chain.then(function () { return playDiscoverWord(it, first); });
   }
   function celebrateRound() {
     if (window.HT_GAMES) { HT_GAMES.finishCore("listen", HT_GAMES.starsFor(quiz.first || 0, quiz.total), "quiz", hubReturn || "modes"); render(); return; }
@@ -4008,16 +4080,24 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       go("modes"); return;
     }
     if (act === "discover") {
+      resetDiscoverHeard();
       discoverIndex = 0; go("discover");
       setTimeout(function () { afterDiscoverShown(true); }, 280); return;
     }
     if (act === "prev") { discoverIndex--; go("discover"); setTimeout(function () { afterDiscoverShown(false); }, 180); return; }
     if (act === "next") { discoverIndex++; go("discover"); setTimeout(function () { afterDiscoverShown(false); }, 180); return; }
+    if (act === "say-fr") {
+      const it = poolFor(currentTheme())[discoverIndex];
+      const fr = discoverFr(it);
+      if (fr) speak(fr, "fr-FR");
+      return;
+    }
     if (act === "say-word") {
       const it = poolFor(currentTheme())[discoverIndex];
       if (it) {
-        const line = discoverLine(it);
-        speak(it.en, "en-US").then(function () { if (line) return speak(line, "en-US"); });
+        const first = !discoverHeard[it.id];
+        if (first) discoverHeard[it.id] = true;
+        playDiscoverWord(it, first);
       }
       return;
     }
@@ -4160,6 +4240,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     const btn = e.target.closest("[data-act]");
     if (!btn || !$app.contains(btn)) return;
     if (btn.classList.contains("overlay") && e.target !== btn) return;
+    if (btn.getAttribute("data-act") === "say-fr") e.stopPropagation();
     e.preventDefault();
     onAct(btn.getAttribute("data-act"), btn.getAttribute("data-id"), btn);
   });
@@ -4203,7 +4284,9 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     showThemes: function () { seedDemo(1, 6); categoryId = "animaux"; go("themes"); },
     showQuiz: function (level, age) { seedDemo(level || 1, age || 6); startQuiz(); },
     openTheme: function (id, age, level) { seedDemo(level || 1, age || 6); themeId = id; categoryId = THEMES[id].cat; go("modes"); },
-    openDiscover: function (id, age) { seedDemo(1, age || 6); themeId = id; categoryId = THEMES[id].cat; discoverIndex = 0; go("discover"); setTimeout(function () { afterDiscoverShown(true); }, 200); },
+    discoverFr: discoverFr,
+    playDiscoverWord: playDiscoverWord,
+    openDiscover: function (id, age) { seedDemo(1, age || 6); themeId = id; categoryId = THEMES[id].cat; resetDiscoverHeard(); discoverIndex = 0; go("discover"); setTimeout(function () { afterDiscoverShown(true); }, 200); },
     poolFor: function (id) { return poolFor(THEMES[id]).map(function (it) { return it.id; }); },
     difficulty: function () { return difficultyOf(profile()); },
     showAge: function () {
