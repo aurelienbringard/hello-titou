@@ -17,10 +17,10 @@ window.HT_SEO = {
     monthlyLabel: "19 € par mois, sans engagement",
     lifetimeLabel: "399 € à vie, en un seul paiement"
   },
-  lead: "Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.",
+  lead: "Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Pour jouer, un compte parent validé est nécessaire. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.",
   aboutTitle: "Qu'est-ce que Hello Titou ?",
   aboutParagraphs: [
-    "Hello Titou est un jeu web conçu pour les parents qui veulent faire entendre l'anglais à la maison, sans pression et sans cahier. L'enfant choisit une mascotte, un âge (de 4 à 8 ans) et, s'il le souhaite, un prénom, puis une catégorie et un thème.",
+    "Hello Titou est un jeu web conçu pour les parents qui veulent faire entendre l'anglais à la maison, sans pression et sans cahier. Après connexion à un compte parent validé, l'enfant choisit une mascotte, un âge (de 4 à 8 ans) et, s'il le souhaite, un prénom, puis une catégorie et un thème.",
     "Le contenu s'appuie sur plus de 300 thèmes, répartis en de nombreuses catégories (animaux, nature, métiers, vie quotidienne…). La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions, pour que l'enfant comprenne quoi faire."
   ],
   howTitle: "Comment ça marche ?",
@@ -50,7 +50,7 @@ window.HT_SEO = {
     },
     {
       q: "Comment fonctionne le jeu ?",
-      a: "Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent, ouvert après validation d'une demande d'accès anticipé, permet de les synchroniser entre plusieurs appareils."
+      a: "Pour jouer, un compte parent validé est nécessaire (accès anticipé gratuit pour les bêta testeurs, sur demande et après validation). Une fois connecté, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) sont synchronisés entre les appareils du compte parent. D'éventuels progrès déjà enregistrés sur l'appareil sont conservés et peuvent être repris après connexion."
     },
     {
       q: "Est-ce payant ?",
@@ -58,7 +58,7 @@ window.HT_SEO = {
     },
     {
       q: "Faut-il créer un compte ?",
-      a: "Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils."
+      a: "Oui : le jeu est réservé aux comptes parents validés. Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte, jouer et synchroniser les profils et les étoiles entre plusieurs appareils. Il n'est plus possible de jouer sans compte."
     },
     {
       q: "Hello Titou remplace-t-il un cours d'anglais ?",

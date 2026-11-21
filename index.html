@@ -142,7 +142,7 @@
           "name": "Comment fonctionne le jeu ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent, ouvert après validation d'une demande d'accès anticipé, permet de les synchroniser entre plusieurs appareils."
+            "text": "Pour jouer, un compte parent validé est nécessaire (accès anticipé gratuit pour les bêta testeurs, sur demande et après validation). Une fois connecté, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) sont synchronisés entre les appareils du compte parent. D'éventuels progrès déjà enregistrés sur l'appareil sont conservés et peuvent être repris après connexion."
           }
         },
         {
@@ -158,7 +158,7 @@
           "name": "Faut-il créer un compte ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils."
+            "text": "Oui : le jeu est réservé aux comptes parents validés. Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte, jouer et synchroniser les profils et les étoiles entre plusieurs appareils. Il n'est plus possible de jouer sans compte."
           }
         },
         {
@@ -1539,6 +1539,14 @@ a.site-brand { text-decoration: none; color: inherit; }
 a.post-card { text-decoration: none; cursor: pointer; color: inherit; }
 a.pill { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
 .home-hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 4px 0 20px; }
+.play-gate {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  max-width: 520px; margin: 0 auto; padding: 12px 8px 48px;
+}
+.play-gate h1 { font-size: 28px; letter-spacing: -0.03em; margin: 8px 0 12px; font-weight: 800; }
+.play-gate p { font-size: 17px; line-height: 1.55; font-weight: 500; margin: 0 0 8px; color: var(--text2); }
+.play-gate .row-btns { margin-top: 22px; }
+.play-gate .titou-hero { width: 140px; height: auto; margin: 0 0 8px; }
 .home-section {
   width: 100%; max-width: 720px; margin: 0 auto;
   padding: 8px 4px 28px; text-align: left;
@@ -1584,7 +1592,7 @@ a.pill { text-decoration: none; display: inline-flex; align-items: center; justi
   <canvas id="confetti"></canvas>
   <div id="app">
   <!-- SEO:PRERENDER:START -->
-<div class="screen screen-site" data-screen="start"><header class="site-header"><a class="site-brand" href="/" aria-label="Hello Titou, accueil"><svg class="titou" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#080a12"/><path d="M16 28C14 11 28 8 31 22" fill="#F4A56C"/><path d="M48 28C50 11 36 8 33 22" fill="#F4A56C"/><path d="M19 24C18.5 15 27 14.5 29 22" fill="#36d3be"/><path d="M45 24C45.5 15 37 14.5 35 22" fill="#36d3be"/><circle cx="32" cy="36" r="20" fill="#F4A56C"/><circle cx="32" cy="41" r="12" fill="#FFE9D2"/><circle cx="25" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="39" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="26.2" cy="31.8" r="1.1" fill="#fff"/><circle cx="40.2" cy="31.8" r="1.1" fill="#fff"/><ellipse cx="32" cy="38.5" rx="2.3" ry="1.6" fill="#36d3be"/><path d="M26 44q6 5.5 12 0" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/></svg><span class="site-wordmark">Hello Titou</span></a><nav class="site-nav" aria-label="Navigation principale"><a href="/" class="on">Accueil</a><a href="/blog/" class="">Blog</a><a href="/abonnements/" class="">Abonnements</a><a href="/aide/" class="">Parents/Aide</a><a href="/contact/" class="">Contactez-nous</a></nav><div class="site-header-actions"><button type="button" class="theme-toggle" id="theme-toggle" onclick="HT_toggleTheme()" aria-label="Mode sombre" aria-pressed="true" title="Mode sombre"><span class="theme-ico" aria-hidden="true">🌙</span><span class="ios-switch on" aria-hidden="true"><i></i></span></button><a class="pill gold header-early" href="/acces-anticipe/">Accès anticipé gratuit</a><a class="pill no" href="/#auth">Se connecter</a><a class="pill ok" href="/">Jouer</a><button type="button" class="site-nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button></div><div class="site-nav-drop" id="nav-drop" role="menu"><a href="/" class="on">Accueil</a><a href="/blog/" class="">Blog</a><a href="/abonnements/" class="">Abonnements</a><a href="/aide/" class="">Parents/Aide</a><a href="/contact/" class="">Contactez-nous</a></div></header><div class="site-main"><div class="home-hero"><svg class="titou" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#080a12"/><path d="M16 28C14 11 28 8 31 22" fill="#F4A56C"/><path d="M48 28C50 11 36 8 33 22" fill="#F4A56C"/><path d="M19 24C18.5 15 27 14.5 29 22" fill="#36d3be"/><path d="M45 24C45.5 15 37 14.5 35 22" fill="#36d3be"/><circle cx="32" cy="36" r="20" fill="#F4A56C"/><circle cx="32" cy="41" r="12" fill="#FFE9D2"/><circle cx="25" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="39" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="26.2" cy="31.8" r="1.1" fill="#fff"/><circle cx="40.2" cy="31.8" r="1.1" fill="#fff"/><ellipse cx="32" cy="38.5" rx="2.3" ry="1.6" fill="#36d3be"/><path d="M26 44q6 5.5 12 0" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/></svg><div class="title"><h1>Hello Titou</h1><p>L'anglais en s'amusant, dès 4 ans</p></div><a class="play-btn" href="/" aria-label="Jouer">▶</a><a class="pill ok early-access-cta" href="/acces-anticipe/">Accès anticipé gratuit</a><div class="preview-row"><span>🐶</span><span>🎨</span><span>🍏</span><span>🚒</span><span>🚀</span></div></div><section class="home-section home-about" aria-labelledby="about-title"><h2 id="about-title">Qu'est-ce que Hello Titou ?</h2><p class="home-lead">Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.</p><p>Hello Titou est un jeu web conçu pour les parents qui veulent faire entendre l'anglais à la maison, sans pression et sans cahier. L'enfant choisit une mascotte, un âge (de 4 à 8 ans) et, s'il le souhaite, un prénom, puis une catégorie et un thème.</p><p>Le contenu s'appuie sur plus de 300 thèmes, répartis en de nombreuses catégories (animaux, nature, métiers, vie quotidienne…). La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions, pour que l'enfant comprenne quoi faire.</p></section><section class="home-section home-how" aria-labelledby="how-title"><h2 id="how-title">Comment ça marche ?</h2><ol class="how-list"><li><h3>Découvrir</h3><p>On touche une image et on écoute le mot en anglais.</p></li><li><h3>Trouve</h3><p>On écoute un mot ou une petite phrase, puis on touche la bonne image.</p></li><li><h3>Mémoire</h3><p>On retrouve les paires, en s'appuyant sur le son et l'image.</p></li><li><h3>Les jeux de Titou</h3><p>21 mini-jeux supplémentaires, avec une progression selon l'âge : les plus jeunes jouent sans lire, les plus grands entendent des phrases et s'expriment à l'oral.</p></li></ol></section><section class="home-section" aria-labelledby="ages-title"><h2 id="ages-title">Pour quel âge ?</h2><p>Hello Titou s'adresse aux enfants de 4 à 8 ans. À 4–5 ans, les activités restent sur des mots simples et des images, avec peu de choix. Vers 6 ans, les groupes de mots s'allongent un peu. À 7–8 ans, l'enfant entend des phrases utiles et accède à davantage de jeux. Dans chaque thème, les mots vont du plus facile au plus difficile, selon l'âge et la progression.</p></section><section class="home-section" aria-labelledby="price-title"><h2 id="price-title">Combien ça coûte ?</h2><p>Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement arriveront ensuite : 19 € par mois, sans engagement, ou 399 € à vie en un seul paiement. Les boutons « S'abonner » affichent un message d'attente : aucune commande ni aucun prélèvement ne peut être réalisé aujourd'hui.</p><p><a class="pill no" href="/abonnements/">Voir les abonnements</a></p></section><section class="home-section home-faq" aria-labelledby="faq-title"><h2 id="faq-title">Questions fréquentes des parents</h2><details class="faq-item" open><summary>Qu'est-ce que Hello Titou ?</summary><p>Hello Titou est un jeu web pour aider les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. Les activités s'appuient sur l'écoute, l'image et le toucher : l'enfant n'a rien à lire ni à taper.</p></details><details class="faq-item"><summary>À partir de quel âge mon enfant peut-il jouer ?</summary><p>Le jeu est conçu pour les enfants de 4 à 8 ans. Les plus jeunes (4–5 ans) jouent avec des mots et des images, sans lecture. Les plus grands accèdent à des phrases et à davantage de mini-jeux, selon une progression par âge.</p></details><details class="faq-item"><summary>Mon enfant ne sait pas encore lire. Peut-il utiliser Hello Titou ?</summary><p>Oui. Rien n'est à lire ni à écrire. On écoute un mot ou une petite phrase, on touche une image, on peut répéter. Une consigne en français peut précéder les questions. La voix des mots et des phrases est en anglais américain.</p></details><details class="faq-item"><summary>Comment fonctionne le jeu ?</summary><p>Sur l'accueil, on lance une partie, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) restent sur l'appareil ; un compte parent, ouvert après validation d'une demande d'accès anticipé, permet de les synchroniser entre plusieurs appareils.</p></details><details class="faq-item"><summary>Est-ce payant ?</summary><p>Les abonnements — 19 € par mois sans engagement, ou 399 € à vie — arriveront bientôt ; les paiements ne sont pas encore ouverts. En attendant, un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Aucun prélèvement n'est possible aujourd'hui.</p></details><details class="faq-item"><summary>Faut-il créer un compte ?</summary><p>Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils.</p></details><details class="faq-item"><summary>Hello Titou remplace-t-il un cours d'anglais ?</summary><p>Non. C'est un complément ludique pour faire entendre l'anglais à la maison, à petit rythme. Ce n'est pas un cours, ni une promesse de bilinguisme ou de résultat scolaire.</p></details></section></div><footer class="site-footer"><div class="foot-top"><div class="foot-brand"><svg class="titou" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#080a12"/><path d="M16 28C14 11 28 8 31 22" fill="#F4A56C"/><path d="M48 28C50 11 36 8 33 22" fill="#F4A56C"/><path d="M19 24C18.5 15 27 14.5 29 22" fill="#36d3be"/><path d="M45 24C45.5 15 37 14.5 35 22" fill="#36d3be"/><circle cx="32" cy="36" r="20" fill="#F4A56C"/><circle cx="32" cy="41" r="12" fill="#FFE9D2"/><circle cx="25" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="39" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="26.2" cy="31.8" r="1.1" fill="#fff"/><circle cx="40.2" cy="31.8" r="1.1" fill="#fff"/><ellipse cx="32" cy="38.5" rx="2.3" ry="1.6" fill="#36d3be"/><path d="M26 44q6 5.5 12 0" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/></svg><span>Hello Titou</span></div><nav aria-label="Pied de page"><a href="/mentions-legales/">Mentions légales</a><a href="/cgv/">CGV</a><a href="/cgu/">CGU</a><a href="/confidentialite/">Politique de confidentialité</a><a href="/cookies/">Cookies</a><a href="/contact/">Contactez-nous</a><a href="/acces-anticipe/">Accès anticipé gratuit</a><a href="/blog/">Blog</a></nav></div><p class="foot-copy">© 2026 Hello Titou</p></footer></div>
+<div class="screen screen-site" data-screen="start"><header class="site-header"><a class="site-brand" href="/" aria-label="Hello Titou, accueil"><svg class="titou" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#080a12"/><path d="M16 28C14 11 28 8 31 22" fill="#F4A56C"/><path d="M48 28C50 11 36 8 33 22" fill="#F4A56C"/><path d="M19 24C18.5 15 27 14.5 29 22" fill="#36d3be"/><path d="M45 24C45.5 15 37 14.5 35 22" fill="#36d3be"/><circle cx="32" cy="36" r="20" fill="#F4A56C"/><circle cx="32" cy="41" r="12" fill="#FFE9D2"/><circle cx="25" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="39" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="26.2" cy="31.8" r="1.1" fill="#fff"/><circle cx="40.2" cy="31.8" r="1.1" fill="#fff"/><ellipse cx="32" cy="38.5" rx="2.3" ry="1.6" fill="#36d3be"/><path d="M26 44q6 5.5 12 0" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/></svg><span class="site-wordmark">Hello Titou</span></a><nav class="site-nav" aria-label="Navigation principale"><a href="/" class="on">Accueil</a><a href="/blog/" class="">Blog</a><a href="/abonnements/" class="">Abonnements</a><a href="/aide/" class="">Parents/Aide</a><a href="/contact/" class="">Contactez-nous</a></nav><div class="site-header-actions"><button type="button" class="theme-toggle" id="theme-toggle" onclick="HT_toggleTheme()" aria-label="Mode sombre" aria-pressed="true" title="Mode sombre"><span class="theme-ico" aria-hidden="true">🌙</span><span class="ios-switch on" aria-hidden="true"><i></i></span></button><a class="pill gold header-early" href="/acces-anticipe/">Accès anticipé gratuit</a><a class="pill no" href="/#auth">Se connecter</a><a class="pill ok" href="/#play">Jouer</a><button type="button" class="site-nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button></div><div class="site-nav-drop" id="nav-drop" role="menu"><a href="/" class="on">Accueil</a><a href="/blog/" class="">Blog</a><a href="/abonnements/" class="">Abonnements</a><a href="/aide/" class="">Parents/Aide</a><a href="/contact/" class="">Contactez-nous</a></div></header><div class="site-main"><div class="home-hero"><svg class="titou" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#080a12"/><path d="M16 28C14 11 28 8 31 22" fill="#F4A56C"/><path d="M48 28C50 11 36 8 33 22" fill="#F4A56C"/><path d="M19 24C18.5 15 27 14.5 29 22" fill="#36d3be"/><path d="M45 24C45.5 15 37 14.5 35 22" fill="#36d3be"/><circle cx="32" cy="36" r="20" fill="#F4A56C"/><circle cx="32" cy="41" r="12" fill="#FFE9D2"/><circle cx="25" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="39" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="26.2" cy="31.8" r="1.1" fill="#fff"/><circle cx="40.2" cy="31.8" r="1.1" fill="#fff"/><ellipse cx="32" cy="38.5" rx="2.3" ry="1.6" fill="#36d3be"/><path d="M26 44q6 5.5 12 0" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/></svg><div class="title"><h1>Hello Titou</h1><p>L'anglais en s'amusant, dès 4 ans</p></div><a class="play-btn" href="/#play" aria-label="Jouer">▶</a><a class="pill ok early-access-cta" href="/acces-anticipe/">Accès anticipé gratuit</a><div class="preview-row"><span>🐶</span><span>🎨</span><span>🍏</span><span>🚒</span><span>🚀</span></div></div><section class="home-section home-about" aria-labelledby="about-title"><h2 id="about-title">Qu'est-ce que Hello Titou ?</h2><p class="home-lead">Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Pour jouer, un compte parent validé est nécessaire. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.</p><p>Hello Titou est un jeu web conçu pour les parents qui veulent faire entendre l'anglais à la maison, sans pression et sans cahier. Après connexion à un compte parent validé, l'enfant choisit une mascotte, un âge (de 4 à 8 ans) et, s'il le souhaite, un prénom, puis une catégorie et un thème.</p><p>Le contenu s'appuie sur plus de 300 thèmes, répartis en de nombreuses catégories (animaux, nature, métiers, vie quotidienne…). La voix des mots et des phrases est en anglais américain. Une consigne en français peut précéder les questions, pour que l'enfant comprenne quoi faire.</p></section><section class="home-section home-how" aria-labelledby="how-title"><h2 id="how-title">Comment ça marche ?</h2><ol class="how-list"><li><h3>Découvrir</h3><p>On touche une image et on écoute le mot en anglais.</p></li><li><h3>Trouve</h3><p>On écoute un mot ou une petite phrase, puis on touche la bonne image.</p></li><li><h3>Mémoire</h3><p>On retrouve les paires, en s'appuyant sur le son et l'image.</p></li><li><h3>Les jeux de Titou</h3><p>21 mini-jeux supplémentaires, avec une progression selon l'âge : les plus jeunes jouent sans lire, les plus grands entendent des phrases et s'expriment à l'oral.</p></li></ol></section><section class="home-section" aria-labelledby="ages-title"><h2 id="ages-title">Pour quel âge ?</h2><p>Hello Titou s'adresse aux enfants de 4 à 8 ans. À 4–5 ans, les activités restent sur des mots simples et des images, avec peu de choix. Vers 6 ans, les groupes de mots s'allongent un peu. À 7–8 ans, l'enfant entend des phrases utiles et accède à davantage de jeux. Dans chaque thème, les mots vont du plus facile au plus difficile, selon l'âge et la progression.</p></section><section class="home-section" aria-labelledby="price-title"><h2 id="price-title">Combien ça coûte ?</h2><p>Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement arriveront ensuite : 19 € par mois, sans engagement, ou 399 € à vie en un seul paiement. Les boutons « S'abonner » affichent un message d'attente : aucune commande ni aucun prélèvement ne peut être réalisé aujourd'hui.</p><p><a class="pill no" href="/abonnements/">Voir les abonnements</a></p></section><section class="home-section home-faq" aria-labelledby="faq-title"><h2 id="faq-title">Questions fréquentes des parents</h2><details class="faq-item" open><summary>Qu'est-ce que Hello Titou ?</summary><p>Hello Titou est un jeu web pour aider les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. Les activités s'appuient sur l'écoute, l'image et le toucher : l'enfant n'a rien à lire ni à taper.</p></details><details class="faq-item"><summary>À partir de quel âge mon enfant peut-il jouer ?</summary><p>Le jeu est conçu pour les enfants de 4 à 8 ans. Les plus jeunes (4–5 ans) jouent avec des mots et des images, sans lecture. Les plus grands accèdent à des phrases et à davantage de mini-jeux, selon une progression par âge.</p></details><details class="faq-item"><summary>Mon enfant ne sait pas encore lire. Peut-il utiliser Hello Titou ?</summary><p>Oui. Rien n'est à lire ni à écrire. On écoute un mot ou une petite phrase, on touche une image, on peut répéter. Une consigne en français peut précéder les questions. La voix des mots et des phrases est en anglais américain.</p></details><details class="faq-item"><summary>Comment fonctionne le jeu ?</summary><p>Pour jouer, un compte parent validé est nécessaire (accès anticipé gratuit pour les bêta testeurs, sur demande et après validation). Une fois connecté, on choisit un profil (mascotte, âge, prénom facultatif), une catégorie et un thème, puis un mini-jeu : Découvrir, Trouve ou Mémoire. Il existe aussi 21 « Jeux de Titou », débloqués progressivement. Les progrès (étoiles, mots appris) sont synchronisés entre les appareils du compte parent. D'éventuels progrès déjà enregistrés sur l'appareil sont conservés et peuvent être repris après connexion.</p></details><details class="faq-item"><summary>Est-ce payant ?</summary><p>Les abonnements — 19 € par mois sans engagement, ou 399 € à vie — arriveront bientôt ; les paiements ne sont pas encore ouverts. En attendant, un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Aucun prélèvement n'est possible aujourd'hui.</p></details><details class="faq-item"><summary>Faut-il créer un compte ?</summary><p>Oui : le jeu est réservé aux comptes parents validés. Pour obtenir un accès anticipé gratuit en tant que bêta testeur, déposez une demande depuis le bouton « Accès anticipé gratuit ». Après validation, vous recevez un e-mail pour activer votre compte, jouer et synchroniser les profils et les étoiles entre plusieurs appareils. Il n'est plus possible de jouer sans compte.</p></details><details class="faq-item"><summary>Hello Titou remplace-t-il un cours d'anglais ?</summary><p>Non. C'est un complément ludique pour faire entendre l'anglais à la maison, à petit rythme. Ce n'est pas un cours, ni une promesse de bilinguisme ou de résultat scolaire.</p></details></section></div><footer class="site-footer"><div class="foot-top"><div class="foot-brand"><svg class="titou" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#080a12"/><path d="M16 28C14 11 28 8 31 22" fill="#F4A56C"/><path d="M48 28C50 11 36 8 33 22" fill="#F4A56C"/><path d="M19 24C18.5 15 27 14.5 29 22" fill="#36d3be"/><path d="M45 24C45.5 15 37 14.5 35 22" fill="#36d3be"/><circle cx="32" cy="36" r="20" fill="#F4A56C"/><circle cx="32" cy="41" r="12" fill="#FFE9D2"/><circle cx="25" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="39" cy="33" r="3.2" fill="#1d1d1f"/><circle cx="26.2" cy="31.8" r="1.1" fill="#fff"/><circle cx="40.2" cy="31.8" r="1.1" fill="#fff"/><ellipse cx="32" cy="38.5" rx="2.3" ry="1.6" fill="#36d3be"/><path d="M26 44q6 5.5 12 0" fill="none" stroke="#1d1d1f" stroke-width="1.8" stroke-linecap="round"/></svg><span>Hello Titou</span></div><nav aria-label="Pied de page"><a href="/mentions-legales/">Mentions légales</a><a href="/cgv/">CGV</a><a href="/cgu/">CGU</a><a href="/confidentialite/">Politique de confidentialité</a><a href="/cookies/">Cookies</a><a href="/contact/">Contactez-nous</a><a href="/acces-anticipe/">Accès anticipé gratuit</a><a href="/blog/">Blog</a></nav></div><p class="foot-copy">© 2026 Hello Titou</p></footer></div>
   <!-- SEO:PRERENDER:END -->
   </div>
   <div class="sr" id="live" aria-live="polite"></div>
@@ -1593,7 +1601,7 @@ a.pill { text-decoration: none; display: inline-flex; align-items: center; justi
   <script src="discover-fr.js?v=202611211040"></script>
   <script src="games.js?v=202611211050"></script>
   <script src="blog-posts.js?v=202611211050"></script>
-  <script src="seo-content.js?v=202611211050"></script>
+  <script src="seo-content.js?v=202611211200"></script>
   <script>
 const CATS = (window.HT_CONTENT && window.HT_CONTENT.cats) || [];
 const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
@@ -1765,6 +1773,47 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     return plan === "monthly" || plan === "lifetime" || plan === "lifetime_free";
   }
   const ACCESS_DENIED_MSG = "L'inscription est réservée aux bêta testeurs validés. Déposez une demande d'accès anticipé gratuit : vous recevrez un e-mail dès validation.";
+  const PLAY_PENDING_MSG = "Votre demande est en cours de validation. Dès qu'elle sera acceptée, vous pourrez jouer avec vos enfants. Vous recevrez un e-mail.";
+  let authReady = false;
+  let pendingPlay = null;
+  function requiresPlayAccess(name) {
+    return isKidScreen(name) || name === "parent";
+  }
+  function showPlayGate() {
+    skipAnnounce = true;
+    accountMenu = false;
+    barMore = false;
+    siteNavOpen = false;
+    screen = "play-gate";
+    render();
+    try { window.scrollTo(0, 0); } catch (e) { /* ignore */ }
+  }
+  function requestPlay(thenFn) {
+    if (!authReady) {
+      pendingPlay = thenFn || function () { go("profiles"); };
+      showPlayGate();
+      return false;
+    }
+    if (hasCloudAccess()) {
+      pendingPlay = null;
+      if (thenFn) thenFn();
+      return true;
+    }
+    pendingPlay = null;
+    showPlayGate();
+    return false;
+  }
+  function afterAuthReady() {
+    if (pendingPlay) {
+      const fn = pendingPlay;
+      pendingPlay = null;
+      if (hasCloudAccess()) fn();
+      else showPlayGate();
+      return;
+    }
+    if (requiresPlayAccess(screen) && !hasCloudAccess()) showPlayGate();
+    else if (screen === "play-gate") render();
+  }
   async function denyCloudAccess(message) {
     try { if (sb) await sb.auth.signOut(); } catch (e) { /* ignore */ }
     session = null; syncState = "local"; parentAccount = null; adminCustomers = [];
@@ -2101,7 +2150,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       await loadParentAccount();
       if (!hasCloudAccess()) {
         syncing = false;
-        await denyCloudAccess();
+        syncState = "local";
         return;
       }
       const userId = session.user.id;
@@ -2228,6 +2277,20 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       authMsg = "Connecté. Les progrès sont synchronisés entre tes appareils.";
       authMsgKind = "ok";
       await syncNow();
+      authBusy = false;
+      if (hasCloudAccess()) {
+        overlay = null;
+        const fn = pendingPlay;
+        pendingPlay = null;
+        if (fn) fn();
+        else go("profiles");
+        return;
+      }
+      overlay = null;
+      authMsg = PLAY_PENDING_MSG;
+      authMsgKind = "ok";
+      showPlayGate();
+      return;
     } catch (e) { authMsg = authErrorFr(e); authMsgKind = "err"; }
     authBusy = false; render();
   }
@@ -2236,22 +2299,31 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     authBusy = true;
     try { if (sb) await sb.auth.signOut(); } catch (e) { /* ignore */ }
     session = null; syncState = "local"; parentAccount = null; adminCustomers = [];
-    authMsg = "Déconnecté. Tu peux continuer à jouer sur cet appareil.";
-    authMsgKind = "ok"; authBusy = false; accountMenu = false; render();
+    authMsg = "Déconnecté.";
+    authMsgKind = "ok"; authBusy = false; accountMenu = false;
+    if (requiresPlayAccess(screen) || screen === "play-gate") showPlayGate();
+    else render();
   }
   async function initCloud() {
-    if (!sb) { syncState = "local"; return; }
+    if (!sb) { syncState = "local"; authReady = true; afterAuthReady(); return; }
     try {
       const res = await sb.auth.getSession();
       session = res.data && res.data.session ? res.data.session : null;
       sb.auth.onAuthStateChange(function (event, sess) {
         session = sess;
         if (event === "INITIAL_SESSION") return;
-        if (sess) syncNow();
-        else { syncState = "local"; parentAccount = null; adminCustomers = []; if (screen === "parent" || screen === "profiles" || (overlay && overlay.type === "auth")) render(); }
+        if (sess) {
+          syncNow().then(function () { afterAuthReady(); });
+        } else {
+          syncState = "local"; parentAccount = null; adminCustomers = [];
+          if (requiresPlayAccess(screen) || screen === "play-gate") showPlayGate();
+          else if (overlay && overlay.type === "auth") render();
+        }
       });
       if (session) await syncNow();
     } catch (e) { syncState = "offline"; }
+    authReady = true;
+    afterAuthReady();
   }
   window.addEventListener("online", function () { if (isLoggedIn()) syncNow(); });
   document.addEventListener("visibilitychange", function () { if (!document.hidden && isLoggedIn()) syncNow(); });
@@ -2494,6 +2566,17 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
   }
 
   function go(name) {
+    if (requiresPlayAccess(name)) {
+      if (!authReady) {
+        pendingPlay = function () { go(name); };
+        showPlayGate();
+        return;
+      }
+      if (!hasCloudAccess()) {
+        showPlayGate();
+        return;
+      }
+    }
     screen = name; overlay = null; accountMenu = false; barMore = false; render();
     if (name === "modes" || name === "discover" || name === "quiz" || name === "memory") {
       try { preloadThemeAudio(currentTheme()); } catch (e) { /* ignore */ }
@@ -2917,13 +3000,13 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
         "<h2>1. Acceptation</h2>" +
         "<p>En utilisant le service, le parent ou le titulaire de l'autorité parentale (l'«&nbsp;utilisateur&nbsp;») accepte ces CGU.</p>" +
         "<h2>2. Public concerné</h2>" +
-        "<p>Hello Titou s'adresse aux enfants de 4 à 8 ans, sous la responsabilité d'un adulte. Les enfants n'ont pas à créer de compte ni à saisir d'identifiants&nbsp;: seul le parent peut ouvrir un compte (e-mail et mot de passe). Il est aussi possible de jouer sans compte&nbsp;; les progrès restent alors uniquement sur l'appareil.</p>" +
+        "<p>Hello Titou s'adresse aux enfants de 4 à 8 ans, sous la responsabilité d'un adulte. Les enfants n'ont pas à créer de compte ni à saisir d'identifiants&nbsp;: seul le parent ouvre un compte (e-mail et mot de passe). Le jeu n'est accessible qu'après connexion à un compte parent validé (accès anticipé gratuit pour les bêta testeurs, sur demande et après validation, ou abonnement lorsque les paiements seront ouverts).</p>" +
         "<h2>3. Compte parent</h2>" +
         "<p>Le parent est responsable de la confidentialité de ses identifiants et des informations renseignées, y compris le prénom éventuel de l'enfant. Un compte peut comporter plusieurs profils enfants.</p>" +
         "<h2>4. Licence d'utilisation</h2>" +
         "<p>Hello Titou est mis à disposition pour un usage familial, personnel et non commercial. Il est interdit de copier, revendre ou extraire de façon massive les contenus, de contourner les mesures de sécurité, ou d'utiliser le service de manière illicite ou préjudiciable aux autres utilisateurs ou aux enfants.</p>" +
         "<h2>5. Contenus et accès</h2>" +
-        "<p>Le jeu, ses illustrations et sa mascotte Titou sont originaux. Les abonnements, lorsqu'ils seront ouverts, donneront accès aux fonctionnalités décrites dans les CGV. Il est possible de jouer localement sans compte. Un compte parent (synchronisation des profils et des progrès) est proposé en accès anticipé gratuit aux bêta testeurs, sur demande et après validation.</p>" +
+        "<p>Le jeu, ses illustrations et sa mascotte Titou sont originaux. L'accès au jeu (profils enfants, mini-jeux et progression) est réservé aux parents disposant d'un compte validé. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Les abonnements, lorsqu'ils seront ouverts, donneront accès aux fonctionnalités décrites dans les CGV. D'éventuels progrès déjà enregistrés sur l'appareil sont conservés et peuvent être repris une fois le parent connecté.</p>" +
         "<h2>6. Données</h2>" +
         "<p>Le traitement des données personnelles est décrit dans la Politique de confidentialité.</p>" +
         "<h2>7. Responsabilité</h2>" +
@@ -2941,7 +3024,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
         "<p>" + legalTodo("raison sociale / statut") + ", " + legalTodo("SIRET") + ", " + legalTodo("adresse") + ". Contact&nbsp;: " + legalTodo("e-mail de contact") + ".</p>" +
         "<h2>2. Données collectées</h2>" +
         "<p>Selon l'usage du service&nbsp;:</p><ul>" +
-        "<li><b>Sans compte</b>&nbsp;: les progrès (étoiles, mots travaillés) et les préférences d'affichage sont enregistrés uniquement dans le navigateur (localStorage). Ces informations restent sur l'appareil et ne sont pas envoyées à nos serveurs.</li>" +
+        "<li><b>Sans être connecté</b>&nbsp;: seules des préférences techniques (par exemple le thème clair / sombre) et d'éventuels progrès déjà enregistrés dans le navigateur (localStorage) restent sur l'appareil. Ces informations ne sont pas envoyées à nos serveurs. Le jeu lui-même n'est accessible qu'avec un compte parent validé.</li>" +
         "<li><b>Avec un compte parent</b>&nbsp;: l'e-mail du parent, le mot de passe (stocké de façon chiffrée par le prestataire d'authentification), la date de création du compte et, le cas échéant, la formule d'abonnement.</li>" +
         "<li><b>Profils enfants</b>&nbsp;: le prénom (facultatif), l'avatar, l'âge et les progrès de jeu (étoiles, mots travaillés). L'enfant n'a pas de compte propre.</li>" +
         "</ul>" +
@@ -2993,7 +3076,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     return /^(profiles|create|home|themes|modes|discover|quiz|memory|progress|games|game)$/.test(name || screen);
   }
   function isSiteScreen(name) {
-    return /^(start|parent|legal|blog|aide|plans)$/.test(name || screen);
+    return /^(start|parent|legal|blog|aide|plans|play-gate)$/.test(name || screen);
   }
   function currentSiteRoute() {
     if (screen === "blog") return blogSlug ? "blog/" + blogSlug : "blog";
@@ -3065,6 +3148,26 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (h === "aide" || h === "parents") { goSite("aide", { hash: false }); return true; }
     const legalAliases = { "mentions-legales": "mentions", "privacy": "confidentialite", "mentions": "mentions", "cgv": "cgv", "cgu": "cgu", "confidentialite": "confidentialite", "cookies": "cookies", "contact": "contact", "contactez-nous": "contact", "acces-anticipe": "acces-anticipe", "acces": "acces-anticipe", "early-access": "acces-anticipe" };
     if (legalAliases[h]) { goSite("legal", { id: legalAliases[h], hash: false }); return true; }
+    if (h === "auth") {
+      if (!isSiteScreen() && !requiresPlayAccess(screen)) goSite("start", { hash: false });
+      overlay = { type: "auth" };
+      accountMenu = false;
+      render();
+      return true;
+    }
+    if (/^(play|jouer|profiles|profils)$/.test(h)) {
+      requestPlay(function () { go("profiles"); });
+      return true;
+    }
+    if (h === "games" || h === "jeux") {
+      requestPlay(function () { go(window.HT_GAMES ? "games" : "profiles"); });
+      return true;
+    }
+    if (h === "quiz") { requestPlay(function () { seedDemo(1, 5); startQuiz(); }); return true; }
+    if (h === "home") { requestPlay(function () { seedDemo(1, 6); go("home"); }); return true; }
+    if (h === "themes") { requestPlay(function () { seedDemo(1, 6); categoryId = "animaux"; go("themes"); }); return true; }
+    if (h === "age") { requestPlay(function () { window.__englishStars.showAge(); }); return true; }
+    if (h === "progress") { requestPlay(function () { seedDemo(1, 6); go("progress"); }); return true; }
     return false;
   }
 
@@ -3163,9 +3266,9 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       "<h1>Parents / Aide</h1>" +
       "<p>Hello Titou aide les enfants de 4 à 8 ans à entendre l'anglais et à apprendre des mots par le jeu, avec Titou. Tout est pensé pour que l'enfant n'ait rien à taper.</p>" +
       "<h2>Jouer</h2>" +
-      "<p>Sur l'accueil, touchez ▶ pour choisir un profil (mascotte, âge, prénom facultatif), puis une catégorie et un mini-jeu&nbsp;: Découvrir, Trouve, ou Mémoire. La voix est en anglais américain. Une consigne en français peut précéder les questions.</p>" +
+      "<p>Le jeu est réservé aux familles dont le compte parent a été validé. Une fois connecté, touchez ▶ pour choisir un profil (mascotte, âge, prénom facultatif), puis une catégorie et un mini-jeu&nbsp;: Découvrir, Trouve, ou Mémoire. La voix est en anglais américain. Une consigne en français peut précéder les questions.</p>" +
       "<h2>Compte parent</h2>" +
-      "<p>L'inscription libre n'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, déposez une demande d'accès anticipé gratuit. Après validation, vous recevez un e-mail pour activer votre compte parent et synchroniser les profils et les étoiles entre plusieurs appareils.</p>" +
+      "<p>L'inscription libre n'est pas ouverte. Pour tester Hello Titou en tant que bêta testeur, déposez une demande d'accès anticipé gratuit. Après validation, vous recevez un e-mail pour activer votre compte parent, jouer et synchroniser les profils et les étoiles entre plusieurs appareils.</p>" +
       (useRealPaths() ? '<p><a class="pill ok" href="/acces-anticipe/">Accès anticipé gratuit</a></p>' : '<p><button type="button" class="pill ok" data-act="nav-early">Accès anticipé gratuit</button></p>') +
       "<h2>Zone parents</h2>" +
       "<p>La zone parents permet de gérer les profils, l'âge, et de remettre les étoiles à zéro. Elle est protégée par une petite question, pour éviter les changements accidentels.</p>" +
@@ -3731,6 +3834,38 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     html += faqSectionHTML();
     return html;
   }
+  function renderPlayGate() {
+    let title, text, actions;
+    if (!authReady) {
+      title = "Un instant…";
+      text = "Nous vérifions votre accès.";
+      actions = "";
+    } else if (isLoggedIn() && !hasCloudAccess()) {
+      title = "Votre demande est en cours de validation.";
+      text = "Merci de votre patience. Dès que votre accès anticipé sera validé, vous pourrez jouer avec vos enfants. Vous recevrez un e-mail.";
+      actions = (useRealPaths()
+        ? '<a class="pill ok" href="/acces-anticipe/">Accès anticipé gratuit</a>'
+        : '<button type="button" class="pill ok" data-act="nav-early">Accès anticipé gratuit</button>') +
+        (useRealPaths()
+          ? '<a class="pill no" href="/">Accueil</a>'
+          : '<button type="button" class="pill no" data-act="nav-home">Accueil</button>');
+    } else {
+      title = "Pour jouer, un compte parent est nécessaire.";
+      text = "Hello Titou est réservé aux familles dont l'accès a été validé. Connectez-vous, ou demandez un accès anticipé gratuit (bêta testeur).";
+      actions = '<button type="button" class="pill no" data-act="open-auth">Se connecter</button>' +
+        (useRealPaths()
+          ? '<a class="pill ok" href="/acces-anticipe/">Accès anticipé gratuit</a>'
+          : '<button type="button" class="pill ok" data-act="nav-early">Accès anticipé gratuit</button>');
+    }
+    return siteShell(
+      '<div class="play-gate">' + titouSVG("wave", "titou-hero") +
+      "<h1>" + title + "</h1><p>" + text + "</p>" +
+      (actions ? '<div class="row-btns">' + actions + "</div>" : "") +
+      (authMsg && isLoggedIn() && !hasCloudAccess() && authReady ? '<p class="auth-msg ' + (authMsgKind || "ok") + '">' + escapeHtml(authMsg) + "</p>" : "") +
+      "</div>",
+      "play-gate"
+    );
+  }
   function renderStart() {
     return siteShell(
       '<div class="home-hero">' +
@@ -4056,7 +4191,9 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
 
   function render() {
     let html = "";
-    if (screen === "start") html = renderStart();
+    if (requiresPlayAccess(screen) && (!authReady || !hasCloudAccess())) html = renderPlayGate();
+    else if (screen === "play-gate") html = renderPlayGate();
+    else if (screen === "start") html = renderStart();
     else if (screen === "profiles") html = renderProfiles();
     else if (screen === "create") html = renderCreate();
     else if (screen === "home") html = renderHome();
@@ -4195,16 +4332,22 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     if (act !== "close-overlay") sfx("tap");
     unlockAudio();
     if (act !== "bar-more" && barMore) barMore = false;
-    if (window.HT_GAMES && act && (act === "games" || act.indexOf("g:") === 0)) { HT_GAMES.act(act, id, el); return; }
+    if (window.HT_GAMES && act && (act === "games" || act.indexOf("g:") === 0)) {
+      requestPlay(function () { HT_GAMES.act(act, id, el); });
+      return;
+    }
 
     if (act === "play") {
-      skipAnnounce = true;
-      speak("Hello!", "en-US").then(function () {
-        return speak("Hi! I'm Titou! Let's play!", "en-US");
-      }).then(function () {
-        if (store.frenchPrompts) speak("C'est qui ?", "fr-FR");
+      requestPlay(function () {
+        skipAnnounce = true;
+        speak("Hello!", "en-US").then(function () {
+          return speak("Hi! I'm Titou! Let's play!", "en-US");
+        }).then(function () {
+          if (store.frenchPrompts) speak("C'est qui ?", "fr-FR");
+        });
+        go("profiles");
       });
-      go("profiles"); return;
+      return;
     }
     if (act === "titou-hello") {
       speak("Hello!", "en-US").then(function () {
@@ -4635,18 +4778,11 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     } catch (e) { /* ignore */ }
     initCloud();
     window.addEventListener("hashchange", function () {
-      const r = (location.hash || "").replace("#", "");
-      if (r && r.charAt(0) !== "/" && /^(quiz|home|themes|age|auth|progress)$/.test(r)) return;
       if (!applyHashRoute()) {
+        const r = normalizeHash();
         if (!r || r === "/") goSite("start", { hash: false });
       }
     });
-    if (raw === "quiz") { seedDemo(1, 5); startQuiz(); return; }
-    if (raw === "home") { seedDemo(1, 6); go("home"); return; }
-    if (raw === "themes") { seedDemo(1, 6); categoryId = "animaux"; go("themes"); return; }
-    if (raw === "age") { window.__englishStars.showAge(); return; }
-    if (raw === "auth") { seedDemo(1, 6); go("home"); overlay = { type: "auth" }; render(); return; }
-    if (raw === "progress") { seedDemo(1, 6); go("progress"); return; }
     if (applyHashRoute()) return;
     go("start");
   }
