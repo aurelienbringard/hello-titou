@@ -40,7 +40,7 @@ Ou ouvrir le fichier `index.html` dans un navigateur (Chrome, Safari, Edge…), 
 
 En haut à droite : **Se connecter** pour créer un compte (e-mail + mot de passe). Une fois le parent connecté, les enfants n’ont plus rien à taper : ils choisissent juste leur avatar. La zone parents (profils, remise à zéro) est protégée par une petite question.
 
-Des offres d’abonnement (19 € / mois ou 399 € à vie) sont présentées dans la page **Abonnements**. Les paiements ne sont pas encore ouverts : tout le jeu reste gratuit pour le moment.
+Des offres d’abonnement (19 € / mois ou 399 € à vie) sont présentées dans la page **Abonnements**. Les paiements ne sont pas encore ouverts. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation (voir `tools/early_access.md`).
 
 ## Technique
 
