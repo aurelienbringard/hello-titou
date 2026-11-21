@@ -48,3 +48,9 @@ Status:
 - AE-7: starter `open: 1` games — 4–5: listen, balloon, paint, repeat (3 locked: feed, plural, sizes). 6: all band-4 + memory, dress, simon (locked: count, phrases, who, answer). 7–8: all lower bands + where, story, speak (locked: build, shop, gap, talk). First locked game in the band opens after 2 stars on any game in that band; then the locked chain continues. Accessory rewards unchanged.
 - tests: tools/test_discover_fr.py ALL OK (desktop+mobile). screenshots/discover-fr-* and screenshots/unlock-*.
 - next: deploy main + gh-pages (index.html, games.js, discover-fr.js)
+
+## 10:45 AE-7 clarification: exactly 5 default games
+- User: default unlock = Découvrir + Trouve + Mémoire + 2 Titou games, for every new profile (and existing profiles get at least those 5).
+- Starters kept: Écoute et touche (listen) and Le ballon de Titou (balloon) — the two simplest listening games, suitable for 4–5. Removed open flags from paint, repeat, memory, dress, simon, where, story, speak.
+- Lower age-bands are no longer auto-unlocked for older children. Progression: 2 stars on any open Titou game unlocks the next locked game in list order (paint, then feed, …). Accessory rewards unchanged.
+- tests retaken: ALL OK. 4/6/8 all start with listen+balloon only in the hub (plus the 3 theme modes). screenshots/unlock-* updated.
