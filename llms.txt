@@ -1,8 +1,8 @@
 # Hello Titou
 
-> Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Le jeu est aujourd'hui entièrement gratuit. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.
+> Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.
 
-Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. The game is free today. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.
+Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. Free early access is offered to beta testers on request, subject to approval. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.
 
 ## Pages
 
@@ -11,7 +11,8 @@ Hello Titou is a web game that helps children aged 4 to 8 hear and learn English
 - [Pourquoi apprendre l'anglais dès 4 ans ?](https://hellotitou.fr/blog/apprendre-anglais-des-4-ans/): À 4 ou 5 ans, un enfant n'a pas besoin de savoir lire pour entrer dans l'anglais. L'oreille, le jeu et le quotidien suffisent — sans pression et sans cahier.
 - [Bilinguisme : les bienfaits pour le cerveau de l'enfant](https://hellotitou.fr/blog/bilinguisme-bienfaits-cerveau/): Grandir avec deux langues n'a rien d'extraordinaire. Voici ce que cela peut apporter au quotidien — sans en faire une promesse miracle.
 - [5 astuces pour faire entendre l'anglais à la maison](https://hellotitou.fr/blog/5-astuces-anglais-a-la-maison/): Pas besoin d'être bilingue, ni de transformer le salon en salle de classe. Cinq gestes simples, à glisser dans la journée, pour que l'anglais devienne une habitude légère.
-- [Abonnements](https://hellotitou.fr/abonnements/): Formules prévues (19 € / mois ou 399 € à vie) et rappel que les paiements ne sont pas ouverts.
+- [Abonnements](https://hellotitou.fr/abonnements/): Formules prévues (19 € / mois ou 399 € à vie) ; paiements pas encore ouverts ; accès anticipé gratuit pour les bêta testeurs, sur demande.
+- [Accès anticipé gratuit](https://hellotitou.fr/acces-anticipe/): Demande de compte bêta testeur, soumise à validation.
 - [Parents / Aide](https://hellotitou.fr/aide/): Comment jouer, compte parent, zone parents.
 - [Contact](https://hellotitou.fr/contact/): Formulaire de contact.
 - [Mentions légales](https://hellotitou.fr/mentions-legales/)

@@ -1,7 +1,7 @@
 {
   "name": "Hello Titou",
   "short_name": "Hello Titou",
-  "description": "Hello Titou est un jeu web d'anglais pour les enfants de 4 à 8 ans : on écoute, on touche une image, on répète. Rien à lire. Aujourd'hui entièrement gratuit.",
+  "description": "Hello Titou est un jeu web d'anglais pour les enfants de 4 à 8 ans : on écoute, on touche une image, on répète. Rien à lire. Accès anticipé gratuit pour les bêta testeurs, sur demande et après validation. Abonnements prévus : 19 € par mois ou 399 € à vie.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
