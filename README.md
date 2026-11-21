@@ -44,7 +44,7 @@ Des offres d’abonnement (19 € / mois ou 399 € à vie) sont présentées da
 
 ## Technique
 
-Application statique : `index.html` (jeu), `content.js` (catégories, thèmes, mots et phrases) et `games.js` (les 21 jeux, la révision et les accessoires). L’audio est hébergé sur un bucket public Supabase. Les pages publiques (accueil, blog, aide, mentions) restent accessibles sans compte. Le jeu lui-même exige un compte parent validé ; le navigateur peut encore conserver des progrès locaux (`localStorage`) pour les reprendre après connexion.
+Application statique : `index.html` (jeu), `content.js` (catégories, thèmes, mots et phrases) et `games.js` (les 21 jeux, la révision, les accessoires et l’espace « Les chiots sauveteurs » avec sa Mission sauvetage). L’audio est hébergé sur un bucket public Supabase. Les pages publiques (accueil, blog, aide, mentions) restent accessibles sans compte. Le jeu lui-même exige un compte parent validé ; le navigateur peut encore conserver des progrès locaux (`localStorage`) pour les reprendre après connexion.
 
 ## Nom de domaine
 
