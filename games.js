@@ -1,4 +1,4 @@
-/* Hello Titou — games pack (21 jeux, déblocage, révision, récompenses). Loaded before the main script. */
+/* Hello Titou — games pack (21 jeux + Mission sauvetage des chiots sauveteurs, déblocage, révision, récompenses). Loaded before the main script. */
 (function () {
 "use strict";
 const G = {};
@@ -170,7 +170,8 @@ const ACC = [
   { id: "balloon", slot: "hand", fr: "Ballon", em: "🎈", svg: '<path d="M172 152 Q178 120 186 86" fill="none" stroke="#6e6e73" stroke-width="2"/><ellipse cx="186" cy="64" rx="14" ry="18" fill="#ff3b30"/><path d="M182 82 L190 82 L186 88 Z" fill="#ff3b30"/>' },
   { id: "mask", slot: "face", fr: "Masque de héros", em: "🦹", svg: '<path fill-rule="evenodd" d="M56 100 Q100 86 144 100 L144 120 Q122 128 100 116 Q78 128 56 120 Z M70 110 a10 9 0 1 0 20 0 a10 9 0 1 0 -20 0 Z M110 110 a10 9 0 1 0 20 0 a10 9 0 1 0 -20 0 Z" fill="#af52de"/>' },
   { id: "flower", slot: "hand", fr: "Fleur", em: "🌻", svg: '<path d="M170 152 L180 108" stroke="#34c759" stroke-width="4" stroke-linecap="round"/><g fill="#ffd60a"><circle cx="180" cy="88" r="7"/><circle cx="190" cy="98" r="7"/><circle cx="180" cy="108" r="7"/><circle cx="170" cy="98" r="7"/></g><circle cx="180" cy="98" r="7" fill="#a2724a"/>' },
-  { id: "tophat", slot: "head", fr: "Chapeau magique", em: "🎩", svg: '<rect x="74" y="24" width="52" height="46" rx="4" fill="#1d1d1f"/><rect x="74" y="56" width="52" height="8" fill="#ff3b30"/><ellipse cx="100" cy="72" rx="42" ry="8" fill="#1d1d1f"/>' }
+  { id: "tophat", slot: "head", fr: "Chapeau magique", em: "🎩", svg: '<rect x="74" y="24" width="52" height="46" rx="4" fill="#1d1d1f"/><rect x="74" y="56" width="52" height="8" fill="#ff3b30"/><ellipse cx="100" cy="72" rx="42" ry="8" fill="#1d1d1f"/>' },
+  { id: "rescuehelmet", slot: "head", fr: "Casque de sauveteur", em: "🚨", icon: "40 24 120 70", svg: '<path d="M56 80 C54 28 146 28 144 80 Z" fill="#FFC21A" stroke="#C98F00" stroke-width="3" stroke-linejoin="round"/><path d="M44 82 Q100 66 156 82 Q160 90 152 90 Q100 76 48 90 Q40 90 44 82 Z" fill="#E5A800" stroke="#C98F00" stroke-width="2.5"/><rect x="96" y="30" width="8" height="40" rx="4" fill="#fff" opacity=".85"/><rect x="86" y="46" width="28" height="18" rx="6" fill="#f8f6f2" stroke="#C98F00" stroke-width="2.5"/><circle cx="100" cy="55" r="5.5" fill="#36d3be"/>' }
 ];
 const ACC_BY = {}; ACC.forEach(function (a) { ACC_BY[a.id] = a; });
 const SLOTS = ["back", "head", "face", "neck", "hand"];
@@ -297,7 +298,7 @@ function celebrate(stars, res, replayAct, backAct) {
   C.burst(110); C.sfx("fanfare");
   C.setOverlay({
     type: "celebrate", titou: "happy", title: "Bravo !", text: text,
-    actions: '<button class="pill no" data-act="' + back + '">' + (back === "games" ? "🎮 Jeux" : "Accueil") + "</button>" +
+    actions: '<button class="pill no" data-act="' + back + '">' + (back === "games" ? "🎮 Jeux" : back === "g:space" ? "🐶 Les chiots" : "Accueil") + "</button>" +
       (replayAct ? '<button class="pill ok" data-act="' + replayAct + '">↻ Rejouer</button>' : "") +
       (res.rewards.length ? '<button class="pill gold" data-act="g:wardrobe">👕 Garde-robe</button>' : "")
   });
@@ -561,7 +562,7 @@ function homeBanner() {
   backfill(p);
   const due = dueList(p).length;
   const vis = visibleGames(); const open = vis.filter(function (g) { return isUnlocked(p, g); }).length;
-  return '<div class="g-home-row">' +
+  return spaceBanner() + '<div class="g-home-row">' +
     '<button class="tile g-home-games" data-act="games">' + titou("wave", "g-home-titou") +
     '<div class="lbl">🎮 Les jeux de Titou<span class="en">' + open + " / " + vis.length + " jeux ouverts</span></div></button>" +
     '<button class="tile g-home-review' + (due ? " hot" : "") + '" data-act="g:review"><div class="em">' + (due ? "✨" : "🌙") + "</div>" +
@@ -571,7 +572,7 @@ function homeBanner() {
 function renderGame() {
   if (!cur || !IMPL[cur.id]) return renderHub();
   const g = GAME[cur.id] || { emoji: "✨", fr: "Révision" };
-  return '<div class="screen" data-screen="game">' + C.topbar({ back: "games" }) +
+  return '<div class="screen" data-screen="game">' + C.topbar({ back: cur.id === "mission" ? "g:space" : "games" }) +
     '<div class="g-head"><button type="button" class="g-speaker" data-act="g:again" aria-label="Écouter encore">🔊</button>' +
     '<div class="round-chip">' + g.emoji + " ⭐ " + cur.first + " · " + Math.min(cur.q + 1, cur.total) + " / " + cur.total + "</div></div>" +
     '<div class="g-body g-' + cur.id + '">' + IMPL[cur.id].html(cur) + "</div>" + C.accountMenu() + "</div>";
@@ -584,7 +585,7 @@ function wardrobeHTML() {
   ACC.forEach(function (a) {
     const has = p.acc.indexOf(a.id) >= 0; const on = has && p.wear[a.slot] === a.id;
     grid += '<button class="g-acc' + (has ? "" : " locked") + (on ? " on" : "") + '" data-act="g:wear" data-id="' + a.id + '">' +
-      '<span class="g-acc-em">' + (has ? a.em : "🔒") + '</span><span class="g-acc-lbl">' + esc(has ? a.fr : "Surprise") + "</span></button>";
+      '<span class="g-acc-em">' + (has ? (a.icon ? '<svg class="g-acc-svg" viewBox="' + a.icon + '" aria-hidden="true">' + a.svg + "</svg>" : a.em) : "🔒") + '</span><span class="g-acc-lbl">' + esc(has ? a.fr : "Surprise") + "</span></button>";
   });
   return '<div class="overlay center"><div class="modal g-wardrobe">' + titou("wave", "g-wr-titou") +
     "<h2>La garde-robe de Titou</h2><p>" + p.acc.length + " / " + ACC.length + " cadeaux · Gagne des étoiles et débloque des jeux pour en avoir d'autres !</p>" +
@@ -603,6 +604,8 @@ function toggleWear(id) {
 function tapAct(a, id, el, dropped) {
   if (!dropped && Date.now() - suppressTap < 350) return;
   if (a === "open") { startGame(id, el); return; }
+  if (a === "space") { if (cur) cur.tok = -1; cur = null; clearHint(); C.stop(); C.setReturn(null); C.go("rescue"); return; }
+  if (a === "pup") { pupHello(id, el); return; }
   if (a === "replay") {
     if (cur && cur.id === "review") { startReview(); return; }
     startGame(cur ? cur.id : id); return;
@@ -2016,7 +2019,7 @@ const CSS = `
 `;
 function injectCSS() {
   if (document.getElementById("g-style")) return;
-  const st = document.createElement("style"); st.id = "g-style"; st.textContent = CSS;
+  const st = document.createElement("style"); st.id = "g-style"; st.textContent = CSS + R_CSS;
   document.head.appendChild(st);
 }
 
@@ -2073,23 +2076,262 @@ function audioList() {
   for (let n = 1; n <= 9; n++) en(NUMW[n]);
   SPEAK_WORDS.forEach(function (w) { en(w[0]); }); SPEAK_PHRASES.forEach(function (w) { en(w[0]); });
   grammarAudio(en);
+  rescueAudio(en, fr);
   return L;
 }
 
+
+/* ===== Les chiots sauveteurs (rescue pups space + "Mission sauvetage") =====
+   100% original characters: Titou (team leader) + 5 pups. Every pup wears the same aqua team scarf. */
+const PUPS = [
+  { id: "pepper",  name: "Pepper",  job: "firefighter",    fr: "pompier",   em: "🚒", fur: "#8B5A3C", ear: "#5E3B26", muz: "#F3DCC2", ears: "flop", hat: "fire" },
+  { id: "biscuit", name: "Biscuit", job: "police officer", fr: "policière", em: "🚓", fur: "#F2D3A2", ear: "#D9A963", muz: "#FFF4E2", ears: "up",   hat: "police" },
+  { id: "cloud",   name: "Cloud",   job: "pilot",          fr: "pilote",    em: "🚁", fur: "#EEF2F8", ear: "#B8C2D1", muz: "#FFFFFF", ears: "flop", hat: "pilot" },
+  { id: "splash",  name: "Splash",  job: "diver",          fr: "plongeur",  em: "🚤", fur: "#4A505E", ear: "#2E333D", muz: "#C9CED8", ears: "flop", hat: "diver" },
+  { id: "momo",    name: "Momo",    job: "doctor",         fr: "docteur",   em: "🚑", fur: "#FBF7F0", ear: "#B07A4F", muz: "#FFFFFF", ears: "up",   hat: "doctor", spot: "#B07A4F" }
+];
+const PUP = {}; PUPS.forEach(function (u) { PUP[u.id] = u; u.hello = "Hi! I'm " + u.name + ". I'm " + (/^[aeiou]/.test(u.job) ? "an " : "a ") + u.job + "!"; u.go = u.name + ", let's go!"; u.who = "Who can help? Call the " + u.job + "!"; });
+const R_STROKE = 'stroke="rgba(0,0,0,.28)" stroke-width="2.5" stroke-linejoin="round"';
+function pupHat(h) {
+  if (h === "fire") return '<path d="M28 42 C28 12 92 12 92 42 Z" fill="#FFC21A" stroke="#C98F00" stroke-width="2.5"/>' +
+    '<path d="M18 45 Q60 31 102 45 Q105 51 98 51 Q60 40 22 51 Q15 51 18 45 Z" fill="#E5A800" stroke="#C98F00" stroke-width="2"/>' +
+    '<rect x="57" y="15" width="6" height="26" rx="3" fill="#fff" opacity=".85"/>';
+  if (h === "police") {
+    let chk = "";
+    for (let i = 0; i < 9; i++) chk += '<rect x="' + (25 + i * 7.8) + '" y="' + (i % 2 ? 37 : 33) + '" width="7.8" height="4" fill="#fff"/>';
+    return '<path d="M25 41 Q22 16 60 15 Q98 16 95 41 Z" fill="#1F2433" stroke="#0d1018" stroke-width="2"/>' + chk +
+      '<path d="M34 41 Q60 50 86 41 L87 46 Q60 57 33 46 Z" fill="#0d1018"/>';
+  }
+  if (h === "pilot") return '<path d="M27 54 C24 14 96 14 93 54 L86 54 C85 31 35 31 34 54 Z" fill="#8A5A3B" stroke="#5b3a26" stroke-width="2"/>' +
+    '<rect x="30" y="33" width="60" height="6" rx="3" fill="#5b3a26"/>' +
+    '<circle cx="47" cy="36" r="8.5" fill="#9be7f0" stroke="#5b3a26" stroke-width="3"/><circle cx="73" cy="36" r="8.5" fill="#9be7f0" stroke="#5b3a26" stroke-width="3"/>' +
+    '<circle cx="44" cy="33" r="2.4" fill="#fff" opacity=".8"/><circle cx="70" cy="33" r="2.4" fill="#fff" opacity=".8"/>';
+  if (h === "diver") return '<path d="M29 37 L38 35 M82 35 L91 37" stroke="#0b7f8f" stroke-width="4" stroke-linecap="round"/>' +
+    '<rect x="37" y="26" width="46" height="17" rx="8" fill="#9be7f0" stroke="#0b7f8f" stroke-width="3"/><path d="M60 26 L60 43" stroke="#0b7f8f" stroke-width="2.5"/>' +
+    '<path d="M92 44 L97 9" stroke="#ff9f0a" stroke-width="5" stroke-linecap="round"/><path d="M97 9 L104 11" stroke="#ff9f0a" stroke-width="5" stroke-linecap="round"/>';
+  if (h === "doctor") return '<path d="M33 37 Q33 16 60 16 Q87 16 87 37 Z" fill="#fff" stroke="#c7ccd6" stroke-width="2"/>' +
+    '<path d="M60 31 C56 25 48 28 51 34 L60 40 L69 34 C72 28 64 25 60 31 Z" fill="#34c759"/>';
+  return "";
+}
+function pupInner(u) {
+  const S = R_STROKE;
+  const earL = u.ears === "up" ? '<path d="M31 47 L27 15 L51 33 Z" fill="' + u.ear + '" ' + S + '/>' : '<path d="M32 44 C14 46 10 78 22 86 C32 82 34 62 40 52 Z" fill="' + u.ear + '" ' + S + '/>';
+  const earR = u.ears === "up" ? '<path d="M89 47 L93 15 L69 33 Z" fill="' + u.ear + '" ' + S + '/>' : '<path d="M88 44 C106 46 110 78 98 86 C88 82 86 62 80 52 Z" fill="' + u.ear + '" ' + S + '/>';
+  let g = '<path d="M20 120 Q22 88 60 86 Q98 88 100 120 Z" fill="' + u.fur + '" ' + S + '/>';
+  g += '<path d="M33 91 Q60 104 87 91 L89 102 Q60 117 31 102 Z" fill="#36d3be" stroke="#1f9e8c" stroke-width="2"/><path d="M60 106 L52 118 L68 118 Z" fill="#36d3be" stroke="#1f9e8c" stroke-width="2" stroke-linejoin="round"/>';
+  if (u.hat === "doctor") g += '<path d="M42 93 Q44 109 60 109 Q76 109 78 93" fill="none" stroke="#8e8e93" stroke-width="3"/><circle cx="60" cy="111" r="4.5" fill="#d0d4dc" stroke="#8e8e93" stroke-width="2"/>';
+  if (u.ears === "up") g += earL + earR;
+  g += '<ellipse cx="60" cy="58" rx="32" ry="30" fill="' + u.fur + '" ' + S + '/>';
+  if (u.spot) g += '<ellipse cx="72" cy="52" rx="10" ry="9" fill="' + u.spot + '" opacity=".85"/>';
+  g += '<ellipse cx="60" cy="71" rx="16" ry="12" fill="' + u.muz + '"/>';
+  g += '<ellipse cx="38" cy="67" rx="5" ry="3" fill="#ff8fa3" opacity=".45"/><ellipse cx="82" cy="67" rx="5" ry="3" fill="#ff8fa3" opacity=".45"/>';
+  g += '<ellipse cx="48" cy="55" rx="4.3" ry="5.2" fill="#1d1d1f"/><ellipse cx="72" cy="55" rx="4.3" ry="5.2" fill="#1d1d1f"/>' +
+    '<circle cx="49.6" cy="53.2" r="1.5" fill="#fff"/><circle cx="73.6" cy="53.2" r="1.5" fill="#fff"/>';
+  g += '<ellipse cx="60" cy="65" rx="5.6" ry="4" fill="#1d1d1f"/><path d="M53 73 Q60 79 67 73" fill="none" stroke="#1d1d1f" stroke-width="2.4" stroke-linecap="round"/>';
+  if (u.ears !== "up") g += earL + earR;
+  g += pupHat(u.hat);
+  return g;
+}
+const HELMET_WEAR = function () { const p = prof(); const w = {}; Object.keys((p && p.wear) || {}).forEach(function (k) { w[k] = p.wear[k]; }); w.head = "rescuehelmet"; return w; };
+function pupSVG(id, cls) {
+  const c = cls ? ' class="' + cls + '"' : "";
+  if (id === "titou") return titou("wave", "r-titou-vis" + (cls ? " " + cls : ""), { wear: HELMET_WEAR() });
+  if (id === "team") {
+    return '<svg' + c + ' viewBox="0 0 120 120" role="img" aria-label="team">' +
+      '<g transform="translate(-4 44) scale(.56)">' + pupInner(PUP.biscuit) + '</g>' +
+      '<g transform="translate(64 44) scale(.56)">' + pupInner(PUP.splash) + '</g>' +
+      '<g transform="translate(27 26) scale(.6)">' + pupInner(PUP.pepper) + "</g></svg>";
+  }
+  const u = PUP[id]; if (!u) return "";
+  return '<svg' + c + ' viewBox="0 0 120 120" role="img" aria-label="' + esc(u.name) + '">' + pupInner(u) + "</svg>";
+}
+
+const MISSION_GAME = { id: "mission", n: 0, band: 4, open: 1, emoji: "🚨", fr: "Mission sauvetage", en: "Rescue mission", intro: "Titou appelle les chiots ! Écoute bien, et touche ce qu'il faut pour aider !" };
+GAME.mission = MISSION_GAME;
+const MISSIONS = [
+  { scene: "🏠🔥", pup: "pepper",  need: "rp-firetruck",  line: "Oh no! A fire! We need the fire truck!" },
+  { scene: "🐱🌳", pup: "pepper",  need: "rp-ladder",     line: "Oh no! The kitten is in the tree! We need the ladder!" },
+  { scene: "🧒🤕", pup: "momo",    need: "rp-ambulance",  line: "Oh no! He is hurt! We need the ambulance!" },
+  { scene: "🐰🤕", pup: "momo",    need: "rp-bandage",    line: "Ouch! The bunny is hurt! We need a bandage!" },
+  { scene: "🏔️🧗", pup: "cloud",   need: "rp-helicopter", line: "Help! He is on the mountain! We need the helicopter!" },
+  { scene: "🏝️🐒", pup: "cloud",   need: "rp-plane",      line: "The monkey is on the island! We need the plane!" },
+  { scene: "🌊🏊", pup: "splash",  need: "rp-boat",       line: "Help! She is in the water! We need the boat!" },
+  { scene: "🐄🕳️", pup: "splash",  need: "rp-rope",       line: "Oh no! The cow is stuck! We need the rope!" },
+  { scene: "🚗🚗🚗", pup: "biscuit", need: "rp-policecar",  line: "Oh no! Too many cars! We need the police car!" },
+  { scene: "🐶❓", pup: "biscuit", need: "rp-map",        line: "Oh no! A puppy is lost! We need the map!" },
+  { scene: "🌙🌲", pup: "biscuit", need: "rp-flashlight", line: "It is dark in the forest! We need the flashlight!" }
+];
+const R_EN = { team: "Good job, team!", title: "Rescue pups!" };
+const R_FR = { space: "Bienvenue chez les chiots sauveteurs ! Touche un chiot, ou lance une mission !", helmet: "Tu as gagné le casque de sauveteur pour Titou !" };
+function rItem(id) { const t = C.THEMES["pups-gear"]; return t ? t.items.find(function (x) { return x.id === id; }) : null; }
+function rGear() { const t = C.THEMES["pups-gear"]; const b = band(); return t ? t.items.filter(function (x) { return (x.t || 4) <= b; }) : []; }
+IMPL.mission = {
+  start: function (s) { s.total = 5; s.n = band() <= 4 ? 2 : (band() <= 5 ? 3 : 4); s.left = []; },
+  next: function (s) {
+    const gear = rGear(); const ok = {}; gear.forEach(function (x) { ok[x.id] = 1; });
+    const list = MISSIONS.filter(function (m) { return ok[m.need]; });
+    if (!s.left.length) s.left = shuffle(list);
+    const m = s.left.pop(); s.m = m;
+    s.who = band() >= 6 && s.q % 2 === 1;
+    if (s.who) {
+      const others = shuffle(PUPS.filter(function (u) { return u.id !== m.pup; })).slice(0, s.n - 1);
+      s.opts = shuffle([PUP[m.pup]].concat(others)).map(function (u) { return { ok: u.id === m.pup, label: u.name, html: '<div class="pup-vis">' + pupSVG(u.id) + "</div>" }; });
+    } else {
+      const it = rItem(m.need);
+      const others = shuffle(gear.filter(function (x) { return x.id !== m.need; })).slice(0, s.n - 1);
+      s.opts = shuffle([it].concat(others)).map(function (x) { return { ok: x.id === m.need, label: x.en, id: x.id, html: C.visual(x, false) }; });
+    }
+  },
+  ask: function (s, tok, isRepeat) {
+    const m = s.m;
+    if (s.who) return (isRepeat ? Promise.resolve() : sayEn(m.line)).then(function () { if (live(tok)) return sayEn(PUP[m.pup].who); });
+    return sayEn(m.line);
+  },
+  prompt: function (s) { return s.who ? PUP[s.m.pup].who : s.m.line; },
+  html: function (s) {
+    const m = s.m;
+    let h = '<div class="r-scene' + (s.done ? " r-ok" : "") + '"><span class="r-alert" aria-hidden="true">🚨</span>' +
+      '<div class="r-scene-titou">' + pupSVG("titou") + "</div>" +
+      '<div class="r-scene-em">' + m.scene + "</div>" +
+      '<div class="r-scene-pup">' + (s.who && !s.done ? '<span class="r-q">❓</span>' : pupSVG(m.pup)) + "</div></div>";
+    h += '<div class="grid ' + gridCls(s.opts.length) + ' g-grid r-opts">';
+    s.opts.forEach(function (o, i) { h += '<button class="choice" data-act="g:rpick" data-id="' + i + '"' + okAttr(o.ok) + ' aria-label="' + esc(o.label) + '">' + o.html + "</button>"; });
+    return h + "</div>";
+  },
+  tap: function (s, a, id, el) {
+    if (a !== "rpick" || s.locked) return;
+    const o = s.opts[Number(id)]; if (!o) return;
+    if (!o.ok) { bad(el); return; }
+    if (!s.who) C.markCorrect([s.m.need]); else C.markCorrect(["rp-" + ({ pepper: "firefighter", biscuit: "police", cloud: "pilot", splash: "diver", momo: "doctor" })[s.m.pup]]);
+    const sc = document.querySelector(".r-scene");
+    good(el, function (tok) {
+      s.done = true;
+      if (sc) { sc.classList.add("r-ok"); const pp = sc.querySelector(".r-scene-pup"); if (pp) { pp.innerHTML = pupSVG(s.m.pup); pp.classList.add("r-run"); } }
+      return sayEn(PUP[s.m.pup].go).then(function () { if (live(tok)) return sayEn(R_EN.team); });
+    });
+  },
+  done: function (s, st) {
+    const res = record("mission", st);
+    const p = ensure(prof());
+    let helmet = false;
+    if (p.acc.indexOf("rescuehelmet") < 0) { p.acc.push("rescuehelmet"); p.wear.head = "rescuehelmet"; res.rewards.push(ACC_BY.rescuehelmet); helmet = true; }
+    C.touch(p); C.save();
+    celebrate(st, res, "g:replay", "g:space");
+    if (helmet) setTimeout(function () { if (C.screen() === "game") sayFr(R_FR.helmet); }, 2600);
+  }
+};
+const R_NEXT = IMPL.mission.next;
+IMPL.mission.next = function (s) { s.done = false; R_NEXT(s); };
+
+function renderSpace() {
+  const p = ensure(prof());
+  if (!p) return "";
+  const st = p.games.mission || 0;
+  let h = '<div class="screen" data-screen="rescue">' + C.topbar({ back: "home", progress: true, settings: true }) + '<div class="scroll r-scroll">';
+  h += '<div class="r-head">' + pupSVG("titou", "r-head-titou") + '<div class="r-head-txt"><h1>Les chiots sauveteurs</h1><p>Rescue pups</p></div></div>';
+  h += '<button class="tile r-mission" data-act="g:open" data-id="mission"><span class="em" aria-hidden="true">🚨</span>' +
+    '<div class="lbl">Mission !<span class="en">Titou appelle l\'équipe · Rescue mission</span>' + starRow(st) + "</div></button>";
+  h += '<h3 class="g-band">L\'équipe · The team</h3><div class="r-team">';
+  h += '<button class="tile r-pup" data-act="g:pup" data-id="titou">' + pupSVG("titou") + '<div class="lbl">Titou<span class="en">⭐ team leader</span></div></button>';
+  PUPS.forEach(function (u) {
+    h += '<button class="tile r-pup" data-act="g:pup" data-id="' + u.id + '">' + pupSVG(u.id) + '<div class="lbl">' + esc(u.name) + '<span class="en">' + u.em + " " + esc(u.job) + "</span></div></button>";
+  });
+  h += '</div><h3 class="g-band">Les mots · Words</h3><div class="grid themes r-themes">';
+  C.visibleThemes("chiots").forEach(function (tid) {
+    const t = C.THEMES[tid];
+    h += '<button class="tile theme" data-act="theme" data-id="' + tid + '"><div class="em">' + t.emoji + '</div><div class="lbl">' + esc(t.fr) + '<span class="en">' + esc(t.en) + "</span></div></button>";
+  });
+  h += "</div></div>" + C.accountMenu() + "</div>";
+  return h;
+}
+function spaceBanner() {
+  return '<button class="tile r-home" data-act="g:space"><span class="r-new">Nouveau</span><div class="r-lineup" aria-hidden="true">' +
+    pupSVG("titou") + pupSVG("pepper") + pupSVG("biscuit") + pupSVG("cloud") + "</div>" +
+    '<div class="lbl">🚨 Les chiots sauveteurs<span class="en">Rescue pups · Missions avec Titou</span></div></button>';
+}
+function pupHello(id, el) {
+  C.stop();
+  if (el) { el.classList.remove("r-hop"); void el.offsetWidth; el.classList.add("r-hop"); }
+  C.sfx("star");
+  if (id === "titou") { sayEn("Hi! I'm Titou. I'm the team leader!"); return; }
+  const u = PUP[id]; if (u) sayEn(u.hello);
+}
+function rescueAudio(en, fr) {
+  fr(MISSION_GAME.intro); fr(R_FR.space); fr(R_FR.helmet);
+  en(R_EN.team); en(R_EN.title); en("Hi! I'm Titou. I'm the team leader!");
+  MISSIONS.forEach(function (m) { en(m.line); });
+  PUPS.forEach(function (u) { en(u.hello); en(u.go); en(u.who); });
+}
+const R_CSS = `
+.r-home{flex-direction:row;justify-content:flex-start;gap:16px;padding:12px 18px;min-height:118px;width:100%;margin:0 0 14px;text-align:left;overflow:hidden;
+  background:linear-gradient(120deg,rgba(255,159,10,.22),rgba(54,211,190,.14) 70%),var(--surface);box-shadow:0 0 0 2px rgba(255,159,10,.55),var(--shadow)}
+.r-home .lbl{font-weight:750;font-size:19px;display:flex;flex-direction:column;gap:3px;letter-spacing:-.01em}
+.r-home .lbl .en{font-size:13px;color:var(--text2);font-weight:500}
+.r-new{position:absolute;top:10px;right:12px;font-size:12px;font-weight:700;background:var(--gold);color:#080a12;border-radius:999px;padding:3px 10px}
+.r-lineup{display:flex;align-items:flex-end;flex:none}
+.r-lineup svg{width:70px;height:70px;margin-left:-12px;flex:none}
+.r-lineup .r-titou-vis{width:76px;height:auto;margin-left:0}
+@media (max-width:640px){.r-lineup svg{width:54px;height:54px;margin-left:-14px}.r-lineup .r-titou-vis{width:60px}.r-lineup svg:nth-child(4){display:none}.r-home{gap:10px;padding:12px 14px}.r-home .lbl{font-size:17px;padding-right:44px}}
+.r-scroll{padding-bottom:24px}
+.r-head{display:flex;align-items:center;justify-content:center;gap:14px;margin:2px 0 12px}
+.r-head .r-head-titou{width:96px;height:auto;flex:none}
+.r-head h1{margin:0;font-size:clamp(22px,5vw,28px);letter-spacing:-.02em}
+.r-head p{margin:2px 0 0;color:var(--text2);font-weight:500}
+.r-mission{flex-direction:row;gap:18px;justify-content:center;width:100%;min-height:108px;margin:0 0 4px;color:#fff;border:none;
+  background:linear-gradient(135deg,#ff9f0a,#ff6b4a);box-shadow:0 10px 28px rgba(255,120,40,.32)}
+.r-mission .em{font-size:50px;animation:r-siren 1.6s ease-in-out infinite}
+.r-mission .lbl{font-size:26px;font-weight:800;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left}
+.r-mission .lbl .en{font-size:14px;font-weight:600;opacity:.95;color:#fff}
+.r-mission .g-stars{margin-top:4px}
+.r-mission .g-st{color:rgba(255,255,255,.4)}.r-mission .g-st.on{color:#fff}
+.r-team{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.r-team{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.r-pup{min-height:0;padding:10px 6px 12px;gap:4px}
+.r-pup svg{width:min(100%,112px);height:auto;aspect-ratio:1/1}
+.r-pup .r-titou-vis{aspect-ratio:auto;width:min(100%,112px);margin-top:-6px}
+.r-pup .lbl{font-weight:700;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.r-pup .lbl .en{font-size:12px;color:var(--text2);font-weight:500}
+.r-pup.r-hop svg{animation:r-hop .6s var(--ease)}
+@keyframes r-hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-14px) rotate(-4deg)}}
+@keyframes r-siren{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg) scale(1.08)}}
+@keyframes r-run{0%{transform:translateX(-30px) scale(.8);opacity:.3}100%{transform:none;opacity:1}}
+.pup-vis{display:grid;place-items:center;width:100%;height:100%;min-height:0}
+.pup-vis svg{width:88%;height:88%;max-width:100%;max-height:100%}
+.big-card .pup-vis svg{width:min(78%,300px);height:auto}
+.g-mission{gap:12px}
+.r-scene{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:clamp(8px,3vw,22px);background:var(--surface);border-radius:28px;box-shadow:var(--shadow);border:.5px solid var(--line);padding:10px 16px;position:relative;width:100%;max-width:720px;margin:0 auto}
+.r-scene-em{font-size:clamp(44px,10vw,80px);line-height:1;letter-spacing:-.05em}
+.r-scene-titou svg{width:clamp(56px,11vw,92px);height:auto;display:block}
+.r-scene-pup{width:clamp(60px,12vw,100px);display:grid;place-items:center}
+.r-scene-pup svg{width:100%;height:auto;display:block}
+.r-scene-pup.r-run svg{animation:r-run .5s var(--ease)}
+.r-q{font-size:clamp(40px,9vw,64px)}
+.r-alert{position:absolute;top:8px;left:12px;font-size:24px;animation:r-siren 1.2s ease-in-out infinite}
+.g-acc-svg{width:1.5em;height:1em;display:inline-block;vertical-align:middle}
+@media (max-width:640px){.g-mission .r-opts.choices-3,.g-mission .r-opts.choices-4{grid-template-columns:repeat(2,minmax(0,1fr))}.g-mission .r-opts>.choice{max-height:26dvh}.r-scene-em{font-size:58px}}
+.r-scene.r-ok::after{content:"✅";position:absolute;top:8px;right:12px;font-size:26px}
+`;
+
 /* ---------- Public API (used by index.html) ---------- */
 G.init = function (core) { C = core; injectCSS(); };
-G.handles = function (s) { return s === "games" || s === "game"; };
-G.render = function (s) { return s === "games" ? renderHub() : renderGame(); };
+G.handles = function (s) { return s === "games" || s === "game" || s === "rescue"; };
+G.render = function (s) { return s === "rescue" ? renderSpace() : s === "games" ? renderHub() : renderGame(); };
 G.afterRender = function (s) {
   if (s === "game" && cur) { const b = document.querySelector(".g-body"); if (b) bindDrag(b); }
 };
-G.announce = function (name) { if (name === "games") { sayFr(FR.hub); return true; } return name === "game"; };
+G.announce = function (name) {
+  if (name === "games") { sayFr(FR.hub); return true; }
+  if (name === "rescue") { if (frOn()) sayFr(R_FR.space); else sayEn(R_EN.title); return true; }
+  return name === "game";
+};
 G.act = function (act, id, el) {
   if (act === "games") { if (cur) cur.tok = -1; cur = null; clearHint(); C.stop(); C.setReturn(null); C.go("games"); return; }
   tapAct(act.slice(2), id, el, false);
 };
 G.homeBanner = homeBanner;
 G.titou = titou;
+G.pupSVG = function (id) { return pupSVG(id); };
+G.PUPS = PUPS; G.MISSIONS = MISSIONS;
 G.overlayHTML = function (o) { return o && o.type === "g-wardrobe" ? wardrobeHTML() : ""; };
 G.onCorrect = onCorrect;
 G.finishCore = finish;
