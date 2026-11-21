@@ -55,18 +55,20 @@ function isUnlocked(p, g) {
   ensure(p);
   if (p.gamesAll) return true;
   const gb = group(band());
-  if (g.band < gb) return true;
+  if (g.band > gb) return false;
   if (g.open) return true;
-  const list = GAMES.filter(function (x) { return x.band === g.band; });
+  /* Visible games in list order, minus the two starters. First locked game
+     opens after 2 stars on any already-open game; then the chain continues. */
+  const list = GAMES.filter(function (x) { return x.band <= gb; });
   const locked = list.filter(function (x) { return !x.open; });
   const i = locked.indexOf(g);
   if (i < 0) return true;
-  /* First locked game in the band opens after 2 stars on any game in that band. */
   if (i === 0) return list.some(function (x) { return (p.games[x.id] || 0) >= 2; });
   return (p.games[locked[i - 1].id] || 0) >= 2;
 }
 function prevGame(g) {
-  const list = GAMES.filter(function (x) { return x.band === g.band; });
+  const gb = group(band());
+  const list = GAMES.filter(function (x) { return x.band <= gb; });
   const locked = list.filter(function (x) { return !x.open; });
   const i = locked.indexOf(g);
   if (i > 0) return locked[i - 1];
