@@ -1,8 +1,8 @@
 # Hello Titou
 
-> Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.
+> Hello Titou est un jeu éducatif en ligne qui aide les enfants de 4 à 8 ans à entendre et apprendre l'anglais en s'amusant, avec la mascotte Titou. L'enfant n'a rien à lire ni à taper : on écoute, on touche une image, on répète. Un accès anticipé gratuit est proposé aux bêta testeurs, sur demande et après validation. Pour jouer, un compte parent validé est nécessaire. Deux formules d'abonnement sont prévues (19 € par mois sans engagement, ou 399 € à vie), mais les paiements ne sont pas encore ouverts.
 
-Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. Free early access is offered to beta testers on request, subject to approval. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.
+Hello Titou is a web game that helps children aged 4 to 8 hear and learn English through play, with a mascot named Titou. Nothing to read or type: the child listens, taps a picture, and can repeat. Play requires an approved parent account. Free early access is offered to beta testers on request, subject to approval. Planned plans (payments not yet open): €19/month with no commitment, or €399 lifetime.
 
 ## Pages
 
