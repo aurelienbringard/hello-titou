@@ -380,7 +380,7 @@ def head_tags(seo: dict, *, title: str, description: str, canonical: str,
   <meta name="twitter:image" content="{img}" />
   <meta name="twitter:image:alt" content="{alt}" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="{escape(seo['ogImage'].rsplit('/',1)[0] + '/apple-touch-icon.png', quote=True)}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{escape(seo['ogImage'].rsplit('/',1)[0] + '/apple-touch-icon.png', quote=True)}" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="preconnect" href="https://hyfvwxfgsmuyekfxucot.supabase.co" crossorigin />
   <link rel="dns-prefetch" href="https://hyfvwxfgsmuyekfxucot.supabase.co" />
@@ -396,9 +396,13 @@ COMMON_HEAD_START = """<!DOCTYPE html>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#080a12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Hello Titou" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="application-name" content="Hello Titou" />
   <link rel="stylesheet" href="/assets/site.css" />
+  <script src="/assets/pwa.js" defer></script>
 """
 
 THEME_JS = """<script>
@@ -527,6 +531,12 @@ def faq_html(seo: dict, open_first: bool = True) -> str:
     return html
 
 
+def home_install_html() -> str:
+    return (
+"<section class=\"home-section home-install\" id=\"installer\" aria-labelledby=\"install-title\">\n<h2 id=\"install-title\">Installez Hello Titou sur votre téléphone</h2>\n<p class=\"home-lead\">Ajoutez une icône sur l'écran d'accueil, comme une application. Ce n'est pas une application à télécharger dans une boutique : c'est un raccourci, à créer depuis Chrome en quelques appuis.</p>\n<p class=\"install-chrome-label\">Sur un téléphone Android, avec Chrome&nbsp;:</p>\n<ol class=\"install-steps\">\n<li>\n<div class=\"install-art\" aria-hidden=\"true\"><svg class=\"install-svg\" viewBox=\"0 0 80 80\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><rect x=\"22\" y=\"6\" width=\"36\" height=\"68\" rx=\"7\" fill=\"var(--surface2)\" stroke=\"var(--line)\" stroke-width=\"1.75\"/><rect x=\"33\" y=\"9.5\" width=\"14\" height=\"3\" rx=\"1.5\" fill=\"var(--line)\"/><rect x=\"25\" y=\"16\" width=\"30\" height=\"48\" rx=\"2.5\" fill=\"var(--bg0)\"/><rect x=\"27\" y=\"18\" width=\"26\" height=\"7\" rx=\"3.5\" fill=\"var(--surface)\"/><circle cx=\"30.5\" cy=\"21.5\" r=\"1.6\" fill=\"#ea6753\"/><rect x=\"33\" y=\"19.6\" width=\"17\" height=\"3.6\" rx=\"1.8\" fill=\"var(--bg1)\"/><g transform=\"translate(40 44) scale(0.28) translate(-32 -36)\"><path d=\"M16 28C14 11 28 8 31 22\" fill=\"#F4A56C\"/><path d=\"M48 28C50 11 36 8 33 22\" fill=\"#F4A56C\"/><path d=\"M19 24C18.5 15 27 14.5 29 22\" fill=\"#36d3be\"/><path d=\"M45 24C45.5 15 37 14.5 35 22\" fill=\"#36d3be\"/><circle cx=\"32\" cy=\"36\" r=\"20\" fill=\"#F4A56C\"/><circle cx=\"32\" cy=\"41\" r=\"12\" fill=\"#FFE9D2\"/><circle cx=\"25\" cy=\"33\" r=\"3.2\" fill=\"#1d1d1f\"/><circle cx=\"39\" cy=\"33\" r=\"3.2\" fill=\"#1d1d1f\"/><circle cx=\"26.2\" cy=\"31.8\" r=\"1.1\" fill=\"#fff\"/><circle cx=\"40.2\" cy=\"31.8\" r=\"1.1\" fill=\"#fff\"/><ellipse cx=\"32\" cy=\"38.5\" rx=\"2.3\" ry=\"1.6\" fill=\"#36d3be\"/><path d=\"M26 44q6 5.5 12 0\" fill=\"none\" stroke=\"#1d1d1f\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></g><circle cx=\"40\" cy=\"68.5\" r=\"2.3\" fill=\"var(--line)\"/></svg></div>\n<div class=\"install-body\"><span class=\"install-num\" aria-hidden=\"true\">1</span><p>Ouvrez <strong>hellotitou.fr</strong> dans <strong>Chrome</strong>, sur le téléphone.</p></div>\n</li>\n<li>\n<div class=\"install-art\" aria-hidden=\"true\"><svg class=\"install-svg\" viewBox=\"0 0 80 80\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><rect x=\"22\" y=\"6\" width=\"36\" height=\"68\" rx=\"7\" fill=\"var(--surface2)\" stroke=\"var(--line)\" stroke-width=\"1.75\"/><rect x=\"33\" y=\"9.5\" width=\"14\" height=\"3\" rx=\"1.5\" fill=\"var(--line)\"/><rect x=\"25\" y=\"16\" width=\"30\" height=\"48\" rx=\"2.5\" fill=\"var(--bg0)\"/><rect x=\"27\" y=\"18\" width=\"18\" height=\"7\" rx=\"3.5\" fill=\"var(--surface)\"/><rect x=\"46.5\" y=\"17.5\" width=\"8.5\" height=\"11\" rx=\"2.2\" fill=\"var(--accent)\"/><circle cx=\"50.75\" cy=\"20.4\" r=\"1.05\" fill=\"var(--on-accent)\"/><circle cx=\"50.75\" cy=\"23\" r=\"1.05\" fill=\"var(--on-accent)\"/><circle cx=\"50.75\" cy=\"25.6\" r=\"1.05\" fill=\"var(--on-accent)\"/><circle cx=\"50.75\" cy=\"23\" r=\"11\" fill=\"none\" stroke=\"var(--accent)\" stroke-width=\"1.6\" opacity=\"0.75\"/><circle cx=\"40\" cy=\"68.5\" r=\"2.3\" fill=\"var(--line)\"/></svg></div>\n<div class=\"install-body\"><span class=\"install-num\" aria-hidden=\"true\">2</span><p>Appuyez sur le bouton des <strong>trois points</strong>&nbsp;<span class=install-kebab aria-hidden=true></span> en haut à droite.</p></div>\n</li>\n<li>\n<div class=\"install-art\" aria-hidden=\"true\"><svg class=\"install-svg install-svg-menu\" viewBox=\"0 0 200 118\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><rect x=\"6\" y=\"6\" width=\"188\" height=\"106\" rx=\"14\" fill=\"var(--surface2)\" stroke=\"var(--line)\" stroke-width=\"1.5\"/><g fill=\"var(--text)\"><circle cx=\"176\" cy=\"22\" r=\"2.2\"/><circle cx=\"176\" cy=\"30\" r=\"2.2\"/><circle cx=\"176\" cy=\"38\" r=\"2.2\"/></g><rect x=\"16\" y=\"16\" width=\"146\" height=\"42\" rx=\"10\" fill=\"var(--accent-soft)\" stroke=\"var(--accent)\" stroke-width=\"1.4\"/><text x=\"26\" y=\"34\" font-size=\"11\" font-weight=\"700\" fill=\"var(--text)\" font-family=\"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif\">Installer et créer un raccourci</text><text x=\"26\" y=\"49\" font-size=\"11\" font-weight=\"700\" fill=\"var(--accent)\" font-family=\"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif\">Installer</text><text x=\"26\" y=\"74\" font-size=\"10.5\" font-weight=\"600\" fill=\"var(--text2)\" font-family=\"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif\">Ajouter à l&#8217;écran d&#8217;accueil</text><text x=\"26\" y=\"92\" font-size=\"10.5\" font-weight=\"600\" fill=\"var(--text2)\" font-family=\"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif\">Installer l&#8217;application</text></svg></div>\n<div class=\"install-body\"><span class=\"install-num\" aria-hidden=\"true\">3</span><p>Choisissez «&nbsp;Installer et créer un raccourci&nbsp;», puis «&nbsp;Installer&nbsp;». Sur certains téléphones, le menu dit «&nbsp;Ajouter à l'écran d'accueil&nbsp;» ou «&nbsp;Installer l'application&nbsp;».</p></div>\n</li>\n<li>\n<div class=\"install-art\" aria-hidden=\"true\"><svg class=\"install-svg\" viewBox=\"0 0 80 80\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><rect x=\"22\" y=\"6\" width=\"36\" height=\"68\" rx=\"7\" fill=\"var(--surface2)\" stroke=\"var(--line)\" stroke-width=\"1.75\"/><rect x=\"33\" y=\"9.5\" width=\"14\" height=\"3\" rx=\"1.5\" fill=\"var(--line)\"/><rect x=\"25\" y=\"16\" width=\"30\" height=\"48\" rx=\"2.5\" fill=\"var(--bg0)\"/><rect x=\"28\" y=\"20\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"37.25\" y=\"20\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"46.5\" y=\"20\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"28\" y=\"30\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"36.2\" y=\"29.2\" width=\"16.6\" height=\"16.6\" rx=\"4\" fill=\"#080a12\"/><g transform=\"translate(44.5 37.5) scale(0.2) translate(-32 -36)\"><path d=\"M16 28C14 11 28 8 31 22\" fill=\"#F4A56C\"/><path d=\"M48 28C50 11 36 8 33 22\" fill=\"#F4A56C\"/><path d=\"M19 24C18.5 15 27 14.5 29 22\" fill=\"#36d3be\"/><path d=\"M45 24C45.5 15 37 14.5 35 22\" fill=\"#36d3be\"/><circle cx=\"32\" cy=\"36\" r=\"20\" fill=\"#F4A56C\"/><circle cx=\"32\" cy=\"41\" r=\"12\" fill=\"#FFE9D2\"/><circle cx=\"25\" cy=\"33\" r=\"3.2\" fill=\"#1d1d1f\"/><circle cx=\"39\" cy=\"33\" r=\"3.2\" fill=\"#1d1d1f\"/><circle cx=\"26.2\" cy=\"31.8\" r=\"1.1\" fill=\"#fff\"/><circle cx=\"40.2\" cy=\"31.8\" r=\"1.1\" fill=\"#fff\"/><ellipse cx=\"32\" cy=\"38.5\" rx=\"2.3\" ry=\"1.6\" fill=\"#36d3be\"/><path d=\"M26 44q6 5.5 12 0\" fill=\"none\" stroke=\"#1d1d1f\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></g><rect x=\"46.5\" y=\"40\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"28\" y=\"50\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"37.25\" y=\"50\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><rect x=\"46.5\" y=\"50\" width=\"7.5\" height=\"7.5\" rx=\"2\" fill=\"var(--surface)\"/><circle cx=\"40\" cy=\"68.5\" r=\"2.3\" fill=\"var(--line)\"/></svg></div>\n<div class=\"install-body\"><span class=\"install-num\" aria-hidden=\"true\">4</span><p>Confirmez. L'icône de Titou apparaît sur l'écran d'accueil, comme une application.</p></div>\n</li>\n</ol>\n<p class=\"install-ios\"><strong>Sur iPhone :</strong> ouvrez le site dans Safari, appuyez sur <strong>Partager</strong>, puis sur «&nbsp;Sur l'écran d'accueil&nbsp;». Dans Chrome, appuyez sur <strong>Partager</strong>, puis sur «&nbsp;Ajouter à l'écran d'accueil&nbsp;».</p>\n<p class=\"install-actions\"><button type=\"button\" class=\"pill ok\" id=\"ht-install-btn\" hidden>Installer</button></p>\n</section>"
+    )
+
+
 def home_explainer_html(seo: dict) -> str:
     html = (
         '<section class="home-section home-about" aria-labelledby="about-title">'
@@ -543,6 +553,7 @@ def home_explainer_html(seo: dict) -> str:
     for it in seo["howItems"]:
         html += f"<li><h3>{escape(it['title'])}</h3><p>{escape(it['text'])}</p></li>"
     html += "</ol></section>"
+    html += home_install_html()
     html += (
         '<section class="home-section" aria-labelledby="ages-title">'
         f'<h2 id="ages-title">{escape(seo["agesTitle"])}</h2>'
@@ -1082,8 +1093,10 @@ def manifest(seo: dict) -> str:
         "theme_color": "#080a12",
         "icons": [
             {"src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any"},
-            {"src": icon_base + "/icon-192.png", "type": "image/png", "sizes": "192x192"},
-            {"src": icon_base + "/icon-512.png", "type": "image/png", "sizes": "512x512"},
+            {"src": icon_base + "/icon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any"},
+            {"src": icon_base + "/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any"},
+            {"src": icon_base + "/icon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "maskable"},
+            {"src": icon_base + "/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable"},
         ],
     }
     return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
