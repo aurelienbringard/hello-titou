@@ -230,6 +230,7 @@ function ensure(p) {
 function visibleGames() { const gb = group(band()); return GAMES.filter(function (g) { return g.band <= gb; }); }
 function isUnlocked(p, g) {
   ensure(p);
+  if (g.id === "balloon" && balloonPool(p).length < 2) return false;
   if (p.gamesAll) return true;
   const gb = group(band());
   if (g.band > gb) return false;
@@ -314,6 +315,22 @@ function itemIndex() {
   C.THEME_ORDER.forEach(function (tid) { (C.THEMES[tid].items || []).forEach(function (it) { if (!ITEM_IX[it.id]) ITEM_IX[it.id] = { item: it, theme: C.THEMES[tid] }; }); });
   return ITEM_IX;
 }
+// Targets AND distractors must have actually been encountered by this child.
+// Stars or an unlocked theme alone do not prove that a particular picture was seen.
+function balloonPool(p) {
+  const ix = itemIndex(); const usedWords = new Set(); const usedPictures = new Set();
+  return Object.keys((p && p.words) || {}).map(function (id) {
+    const progress = p.words[id];
+    if (!progress || !(progress.seen > 0 || progress.correct > 0) || !ix[id]) return null;
+    return ix[id].item;
+  }).filter(function (it) {
+    if (!it || !it.en || !it.emoji) return false;
+    const word = it.en.trim().toLowerCase();
+    const picture = it.pup ? "pup:" + it.pup : it.color ? "color:" + it.color : it.count ? "count:" + it.count + ":" + it.emoji : "emoji:" + it.emoji;
+    if (usedWords.has(word) || usedPictures.has(picture)) return false;
+    usedWords.add(word); usedPictures.add(picture); return true;
+  });
+}
 function onCorrect(ids) {
   const p = ensure(prof()); if (!p) return;
   const now = Date.now();
@@ -351,7 +368,7 @@ function showHint() {
   const ok = document.querySelector('.g-body [data-ok="1"]');
   if (!ok) return;
   ok.classList.add("g-glow");
-  if (ok.classList.contains("g-balloon")) return;
+  if (ok.classList.contains("g-balloon-choice")) return;
   const r = ok.getBoundingClientRect();
   const h = document.createElement("div");
   h.className = "g-hand"; h.textContent = "👆";
@@ -438,6 +455,10 @@ function pickTheme() {
 function lockedTap(g, el) {
   C.sfx("no");
   if (el) { el.classList.remove("g-wrong"); void el.offsetWidth; el.classList.add("g-wrong"); }
+  if (g.id === "balloon" && balloonPool(prof()).length < 2) {
+    toast("Découvre d'abord au moins <b>deux images différentes</b> dans Découvrir, Trouve ou Mémoire, puis reviens jouer avec les ballons !");
+    sayFr(FR.hub); return;
+  }
   const list = GAMES.filter(function (x) { return x.band === g.band; });
   const locked = list.filter(function (x) { return !x.open; });
   const i = locked.indexOf(g);
@@ -549,7 +570,8 @@ function renderHub() {
       const open = isUnlocked(p, g); const st = p.games[g.id] || 0;
       h += '<button class="tile g-tile' + (open ? "" : " locked") + '" data-act="g:open" data-id="' + g.id + '">' +
         '<span class="g-num">' + g.n + "</span>" + (open ? "" : '<span class="g-lock">🔒</span>') +
-        '<div class="em">' + g.emoji + '</div><div class="lbl">' + esc(g.fr) + '<span class="en">' + esc(g.en) + "</span></div>" + starRow(st) + "</button>";
+        '<div class="em">' + g.emoji + '</div><div class="lbl">' + esc(g.fr) + '<span class="en">' + esc(g.en) + "</span>" +
+        (g.id === "balloon" && !open ? '<span class="g-lock-note">Découvre au moins 2 images</span>' : "") + "</div>" + starRow(st) + "</button>";
     });
     h += "</div>";
   });
@@ -693,30 +715,36 @@ let rot = { paint: rnd(6), story: rnd(STORIES.length) };
 
 /* ===== 2. Le ballon de Titou ===== */
 IMPL.balloon = {
-  start: function (s) { s.total = 5; s.n = band() <= 5 ? 3 : 4; s.last = null; },
+  start: function (s) {
+    s.total = 5;
+    s.words = balloonPool(prof());
+    s.n = Math.min(band() <= 5 ? 3 : 4, s.words.length);
+    s.remaining = shuffle(s.words);
+  },
   next: function (s) {
-    const t = pick(BALLOON_WORDS.filter(function (w) { return w[0] !== s.last; })); s.last = t[0]; s.target = t;
-    const others = shuffle(BALLOON_WORDS.filter(function (w) { return w !== t; })).slice(0, s.n - 1);
+    if (!s.remaining.length) s.remaining = shuffle(s.words.filter(function (it) { return it !== s.target; }));
+    const t = s.remaining.pop(); s.target = t;
+    const others = shuffle(s.words.filter(function (w) { return w !== t; })).slice(0, s.n - 1);
     const cols = shuffle(Object.keys(PAINT).filter(function (c) { return c !== "brown"; }));
-    const dur = band() <= 4 ? 15 : (band() <= 5 ? 13 : 11);
     s.balloons = shuffle([t].concat(others)).map(function (w, i) {
-      return { w: w, ok: w === t, color: PAINT[cols[i % cols.length]], left: (100 / s.n) * i + 2 + rnd(3), dur: dur + rnd(3), delay: -((i + 0.6) * dur / s.n) - Math.random() };
+      return { w: w, ok: w === t, color: PAINT[cols[i % cols.length]], delay: -(i * 0.7) };
     });
   },
-  prompt: function (s) { return "Pop the " + s.target[0] + "!"; },
+  // Reuse the exact English recording the child heard with this vocabulary card.
+  prompt: function (s) { return s.target.en; },
   html: function (s) {
-    let h = '<div class="g-sky" style="--n:' + s.n + '">';
+    let h = '<p class="g-sub">Écoute, puis éclate le bon ballon !</p><div class="g-sky g-sky-' + s.n + '" style="--n:' + s.n + '" role="group" aria-label="Les ballons de Titou">';
     s.balloons.forEach(function (b, i) {
-      h += '<button class="g-balloon" data-act="g:pop" data-id="' + i + '"' + okAttr(b.ok) + ' style="left:' + b.left + "%;--c:" + b.color +
-        ";animation-duration:" + b.dur + "s;animation-delay:" + b.delay.toFixed(2) + 's" aria-label="' + esc(b.w[0]) + '">' +
-        '<span class="g-bal-body"><span class="g-bal-em">' + b.w[1] + '</span></span><span class="g-bal-str"></span></button>';
+      h += '<button type="button" class="g-balloon-choice" data-act="g:pop" data-id="' + i + '"' + okAttr(b.ok) + ' style="--c:' + b.color +
+        ";animation-delay:" + b.delay + 's" aria-label="' + esc(b.w.en) + '">' +
+        '<span class="g-bal-body" aria-hidden="true"><span class="g-bal-em">' + C.visual(b.w, false) + '</span></span><span class="g-bal-str" aria-hidden="true"></span></button>';
     });
     return h + "</div>";
   },
   tap: function (s, a, id, el) {
     if (a !== "pop" || s.locked) return;
     const b = s.balloons[Number(id)]; if (!b) return;
-    if (b.ok) { el.classList.add("g-popped"); good(null, function (tok) { return sayEn(EN.pop).then(function () { if (live(tok)) return sayEn(praise()); }); }); }
+    if (b.ok) { C.markCorrect([s.target.id]); el.classList.add("g-popped"); good(null, function (tok) { return sayEn(EN.pop).then(function () { if (live(tok)) return sayEn(praise()); }); }); }
     else bad(el);
   }
 };
@@ -1849,6 +1877,7 @@ const CSS = `
 .g-speaker{width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:28px;display:grid;place-items:center;box-shadow:0 8px 20px rgba(54,211,190,.3);transition:transform .2s var(--ease)}
 .g-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;position:relative}
 .g-sub{text-align:center;margin:0;color:var(--text2);font-weight:600}
+.g-lock-note{display:block;font-size:14px;font-weight:500;color:var(--text2);margin-top:4px}
 .g-correct{box-shadow:0 0 0 4px var(--ok),var(--shadow)!important;animation:bounce .5s var(--ease)}
 .g-wrong{animation:shake .4s ease;box-shadow:0 0 0 4px var(--warn),var(--shadow)!important}
 .g-glow{animation:g-glow 1s ease-in-out 3}
@@ -1863,17 +1892,26 @@ const CSS = `
 .g-dragging{opacity:.35}
 .g-drop-on{outline:3px dashed var(--accent);outline-offset:4px}
 /* balloon */
-.g-sky{flex:1;position:relative;overflow:hidden;border-radius:26px;min-height:280px;background:linear-gradient(180deg,rgba(56,203,220,.20),rgba(54,211,190,.04));border:.5px solid var(--line)}
-.g-balloon{position:absolute;top:105%;width:calc(100% / var(--n,3) - 5%);max-width:170px;display:flex;flex-direction:column;align-items:center;padding:0;animation-name:g-rise;animation-timing-function:linear;animation-iteration-count:infinite}
-.g-bal-body{width:100%;aspect-ratio:.84;border-radius:50% 50% 47% 47%/56% 56% 44% 44%;background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.55),transparent 30%),var(--c);display:grid;place-items:center;box-shadow:inset -8px -12px 0 rgba(0,0,0,.13);animation:g-sway 2.6s ease-in-out infinite alternate;transition:transform .25s,opacity .25s}
+.g-body.g-balloon{overflow:auto;padding-bottom:4px}
+.g-sky{flex:1;position:relative;display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));align-items:center;justify-items:center;gap:16px;padding:28px 16px;border-radius:26px;min-height:240px;background:linear-gradient(180deg,rgba(56,203,220,.20),rgba(54,211,190,.04));border:.5px solid var(--line)}
+/* Keep the stage (.g-balloon) distinct from its buttons: all choices stay in view. */
+.g-balloon-choice{position:relative;width:100%;max-width:170px;display:flex;flex-direction:column;align-items:center;padding:0;border-radius:50%;animation:g-balloon-float 3.6s ease-in-out infinite;touch-action:manipulation}
+.g-balloon-choice:hover,.g-balloon-choice:focus-visible{animation-play-state:paused}
+.g-balloon-choice:focus-visible{outline:3px solid var(--accent);outline-offset:6px}
+.g-bal-body{position:relative;width:100%;aspect-ratio:.84;border-radius:50% 50% 47% 47%/56% 56% 44% 44%;background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.55),transparent 30%),var(--c);display:grid;place-items:center;box-shadow:inset -8px -12px 0 rgba(0,0,0,.13)}
+.g-bal-body::after{content:"";position:absolute;top:calc(100% - 1px);left:calc(50% - 5px);border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid var(--c)}
 .g-bal-em{font-size:clamp(30px,8vw,58px);background:rgba(255,255,255,.88);border-radius:50%;width:66%;aspect-ratio:1;display:grid;place-items:center;line-height:1}
-.g-bal-str{width:2px;height:38px;background:var(--text2);opacity:.5}
-.g-balloon.g-popped{pointer-events:none}
-.g-balloon.g-popped .g-bal-body{transform:scale(1.5);opacity:0}
-.g-balloon.g-popped .g-bal-str{opacity:0}
-.g-balloon.g-wrong{animation-name:g-rise;box-shadow:none!important}
-.g-balloon.g-wrong .g-bal-body{animation:shake .4s ease}
-.g-balloon.g-glow .g-bal-body{box-shadow:0 0 0 5px var(--gold),0 0 26px var(--gold)}
+.g-bal-em .em{font-size:inherit;line-height:1}.g-bal-em .multi{display:flex;flex-wrap:wrap;justify-content:center;gap:1px}.g-bal-em .multi .em{font-size:9px}.g-bal-em .num-big{font-size:clamp(22px,5vw,40px)!important}.g-bal-em .pup-vis{color:#080a12}
+.g-bal-str{width:2px;height:32px;background:var(--text2);opacity:.5;margin-top:7px}
+.g-balloon-choice.g-popped{pointer-events:none;animation-play-state:paused}
+.g-balloon-choice.g-popped .g-bal-body{animation:g-balloon-pop .32s ease-out forwards}
+.g-balloon-choice.g-popped .g-bal-str{opacity:0}
+.g-balloon-choice.g-wrong{animation-play-state:paused;box-shadow:none!important}
+.g-balloon-choice.g-wrong .g-bal-body{animation:shake .4s ease}
+.g-balloon-choice.g-glow{box-shadow:none}
+.g-balloon-choice.g-glow .g-bal-body{box-shadow:0 0 0 5px var(--gold),0 0 26px var(--gold)}
+@media (max-width:560px){.g-sky{gap:16px 10px;padding:24px 12px}.g-sky-4{grid-template-columns:repeat(2,minmax(0,1fr))}.g-balloon-choice{max-width:118px}.g-sky-4 .g-balloon-choice{max-width:min(118px,18dvh)}}
+@media (max-height:500px){.g-sky{min-height:190px;padding:16px;gap:12px;grid-template-columns:repeat(var(--n,3),minmax(0,1fr))!important}.g-balloon-choice{max-width:100px}.g-bal-str{height:20px}}
 /* paint */
 .g-paint-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
 .g-drawing{height:100%;max-height:50dvh;width:100%;max-width:520px}
@@ -2007,15 +2045,15 @@ const CSS = `
 @media (hover:hover) and (pointer:fine){
   .g-pot:hover,.g-food:hover,.g-wtile:hover,.g-shelf-item:hover,.g-panel:hover,.g-acc:hover,.g-thumb:hover,.g-mic:hover,.g-speaker:hover,.g-parent:hover{transform:translateY(-3px)}
 }
-@keyframes g-rise{from{top:105%}to{top:-62%}}
-@keyframes g-sway{from{transform:translateX(-6px) rotate(-3deg)}to{transform:translateX(6px) rotate(3deg)}}
+@keyframes g-balloon-float{0%,100%{transform:translateY(5px) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes g-balloon-pop{0%{transform:scale(1);opacity:1}65%{transform:scale(1.2);opacity:.8}100%{transform:scale(1.45);opacity:0}}
 @keyframes g-glow{0%,100%{box-shadow:0 0 0 0 rgba(250,183,66,0),var(--shadow)}50%{box-shadow:0 0 0 6px rgba(250,183,66,.85),var(--shadow)}}
 @keyframes g-hot{0%,100%{box-shadow:0 0 0 2px var(--gold),var(--shadow)}50%{box-shadow:0 0 0 4px var(--gold),0 0 24px rgba(250,183,66,.45)}}
 @keyframes g-tap{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(10px) scale(.88)}}
 @keyframes g-blink{0%,100%{opacity:1}50%{opacity:.45}}
 @keyframes g-dance{from{transform:rotate(-10deg) translateY(0)}to{transform:rotate(10deg) translateY(-14px)}}
 @keyframes g-rec{0%,100%{box-shadow:0 0 0 0 rgba(234,103,83,.6)}50%{box-shadow:0 0 0 16px rgba(234,103,83,0)}}
-@media (prefers-reduced-motion:reduce){.g-balloon{animation-duration:40s!important}}
+@media (prefers-reduced-motion:reduce){.g-balloon-choice,.g-balloon-choice .g-bal-body{animation:none!important}.g-balloon-choice.g-popped .g-bal-body{opacity:0}}
 `;
 function injectCSS() {
   if (document.getElementById("g-style")) return;
