@@ -28,6 +28,8 @@ Chaque jeu se débloque avec **2 étoiles sur 3** au jeu d’avant (les jeux des
 
 Dans chaque thème, les mots vont du plus facile au plus difficile : l’âge de l’enfant (et son niveau) débloque les mots suivants.
 
+**Le ballon de Titou** fait réviser uniquement les images déjà rencontrées par le profil enfant dans Découvrir, Trouve ou Mémoire : le mot anglais reprend l'enregistrement de la carte, et l'enfant éclate le ballon correspondant. Le jeu reste verrouillé tant que deux images distinctes n'ont pas été parcourues, y compris si un parent a activé « tout débloquer ». Il propose ensuite 2 à 4 ballons selon l'âge et le vocabulaire disponible, en cinq manches, sans introduire d'image inconnue parmi les choix.
+
 La voix est en **anglais américain**. Une consigne en français peut précéder les questions. Le jeu est **réservé aux comptes parents validés**. Les progrès (étoiles, mots appris) sont synchronisés entre les appareils du compte ; d’éventuels progrès déjà enregistrés en local sont conservés et peuvent être repris après connexion.
 
 ## Jouer

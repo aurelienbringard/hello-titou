@@ -11,6 +11,10 @@ function pickTheme() {
 function lockedTap(g, el) {
   C.sfx("no");
   if (el) { el.classList.remove("g-wrong"); void el.offsetWidth; el.classList.add("g-wrong"); }
+  if (g.id === "balloon" && balloonPool(prof()).length < 2) {
+    toast("Découvre d'abord au moins <b>deux images différentes</b> dans Découvrir, Trouve ou Mémoire, puis reviens jouer avec les ballons !");
+    sayFr(FR.hub); return;
+  }
   const list = GAMES.filter(function (x) { return x.band === g.band; });
   const locked = list.filter(function (x) { return !x.open; });
   const i = locked.indexOf(g);
@@ -122,7 +126,8 @@ function renderHub() {
       const open = isUnlocked(p, g); const st = p.games[g.id] || 0;
       h += '<button class="tile g-tile' + (open ? "" : " locked") + '" data-act="g:open" data-id="' + g.id + '">' +
         '<span class="g-num">' + g.n + "</span>" + (open ? "" : '<span class="g-lock">🔒</span>') +
-        '<div class="em">' + g.emoji + '</div><div class="lbl">' + esc(g.fr) + '<span class="en">' + esc(g.en) + "</span></div>" + starRow(st) + "</button>";
+        '<div class="em">' + g.emoji + '</div><div class="lbl">' + esc(g.fr) + '<span class="en">' + esc(g.en) + "</span>" +
+        (g.id === "balloon" && !open ? '<span class="g-lock-note">Découvre au moins 2 images</span>' : "") + "</div>" + starRow(st) + "</button>";
     });
     h += "</div>";
   });
