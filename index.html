@@ -1680,7 +1680,7 @@ a.pill { text-decoration: none; display: inline-flex; align-items: center; justi
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.1/dist/umd/supabase.js"></script>
   <script src="content.js?v=202611211930"></script>
   <script src="discover-fr.js?v=202611211930"></script>
-  <script src="games.js?v=202611211930"></script>
+  <script src="games.js?v=20261123-balloons"></script>
   <script src="blog-posts.js?v=202611211050"></script>
   <script src="seo-content.js?v=202611211200"></script>
   <script>
@@ -2813,7 +2813,8 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
     setTimeout(playQuestion, 350);
   }
   function playQuestion() {
-    if (!quiz) return;
+    if (!quiz || screen !== "quiz") return;
+    quiz.q.wordIds.forEach(markSeen);
     const fr = store.frenchPrompts;
     const chain = fr ? speak("Écoute !", "fr-FR") : Promise.resolve();
     chain.then(function () { return speak(quiz.q.speak, quiz.q.lang || "en-US"); });
@@ -4658,7 +4659,7 @@ const THEME_LIST = (window.HT_CONTENT && window.HT_CONTENT.themes) || [];
       const card = memory.cards[Number(id)];
       if (!card || card.flipped || card.matched) return;
       if (memory.open.length >= 2) return;
-      card.flipped = true; memory.open.push(card); sfx("flip"); render();
+      card.flipped = true; memory.open.push(card); markSeen(card.id); sfx("flip"); render();
       if (memory.open.length === 2) {
         memory.locked = true;
         const a = memory.open[0], b = memory.open[1];

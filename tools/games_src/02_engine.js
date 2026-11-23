@@ -53,6 +53,7 @@ function ensure(p) {
 function visibleGames() { const gb = group(band()); return GAMES.filter(function (g) { return g.band <= gb; }); }
 function isUnlocked(p, g) {
   ensure(p);
+  if (g.id === "balloon" && balloonPool(p).length < 2) return false;
   if (p.gamesAll) return true;
   const gb = group(band());
   if (g.band > gb) return false;
@@ -137,6 +138,22 @@ function itemIndex() {
   C.THEME_ORDER.forEach(function (tid) { (C.THEMES[tid].items || []).forEach(function (it) { if (!ITEM_IX[it.id]) ITEM_IX[it.id] = { item: it, theme: C.THEMES[tid] }; }); });
   return ITEM_IX;
 }
+// Targets AND distractors must have actually been encountered by this child.
+// Stars or an unlocked theme alone do not prove that a particular picture was seen.
+function balloonPool(p) {
+  const ix = itemIndex(); const usedWords = new Set(); const usedPictures = new Set();
+  return Object.keys((p && p.words) || {}).map(function (id) {
+    const progress = p.words[id];
+    if (!progress || !(progress.seen > 0 || progress.correct > 0) || !ix[id]) return null;
+    return ix[id].item;
+  }).filter(function (it) {
+    if (!it || !it.en || !it.emoji) return false;
+    const word = it.en.trim().toLowerCase();
+    const picture = it.pup ? "pup:" + it.pup : it.color ? "color:" + it.color : it.count ? "count:" + it.count + ":" + it.emoji : "emoji:" + it.emoji;
+    if (usedWords.has(word) || usedPictures.has(picture)) return false;
+    usedWords.add(word); usedPictures.add(picture); return true;
+  });
+}
 function onCorrect(ids) {
   const p = ensure(prof()); if (!p) return;
   const now = Date.now();
@@ -174,7 +191,7 @@ function showHint() {
   const ok = document.querySelector('.g-body [data-ok="1"]');
   if (!ok) return;
   ok.classList.add("g-glow");
-  if (ok.classList.contains("g-balloon")) return;
+  if (ok.classList.contains("g-balloon-choice")) return;
   const r = ok.getBoundingClientRect();
   const h = document.createElement("div");
   h.className = "g-hand"; h.textContent = "👆";

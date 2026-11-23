@@ -54,3 +54,11 @@ Status:
 - Starters kept: Écoute et touche (listen) and Le ballon de Titou (balloon) — the two simplest listening games, suitable for 4–5. Removed open flags from paint, repeat, memory, dress, simon, where, story, speak.
 - Lower age-bands are no longer auto-unlocked for older children. Progression: 2 stars on any open Titou game unlocks the next locked game in list order (paint, then feed, …). Accessory rewards unchanged.
 - tests retaken: ALL OK. 4/6/8 all start with listen+balloon only in the hub (plus the 3 theme modes). screenshots/unlock-* updated.
+
+## 2026-11-23 — Balloon game repair and familiar vocabulary
+- Fixed a CSS class collision: `.g-balloon` also named the game container, so absolute positioning moved the entire game off screen. Balloon buttons now use `.g-balloon-choice`.
+- All choices remain visible with gentle movement; the correct balloon pops, incorrect choices remain available, and the existing five-round scoring/replay flow is preserved.
+- Targets and distractors come exclusively from the current child's recorded `words` (`seen > 0` or legacy `correct > 0`). Use the exact vocabulary item, visual renderer and English word recording. No generic fallback vocabulary or inference from theme stars.
+- Require at least two distinct familiar pictures/words, including when parents enable all games. Show a lock and explanation otherwise; adapt to 2–4 available choices. Track quiz prompts and revealed memory cards as seen, alongside the existing Discover tracking.
+- Regression command: `node tools/test_balloon.mjs`. Covers new profiles, parent override, unavailable IDs, duplicated pictures, ages 4/6/8, two-word and larger pools, unfamiliar distractor exclusion, exact artwork/audio, retries, scoring, double taps, replay and leaving during feedback.
+- Visual checks use the actual game module and site styles with disposable local profiles (desktop, mobile portrait, small mobile and landscape). No production child profile is altered by these checks.
